@@ -15,5 +15,5 @@
 Степан Иконников - Back-End  
 Алмас Шакирзянов - Database Senior  
 # База данных
-СУБД - PostgreSQL
+СУБД - PostgreSQL  
 БД - придумает алмас
