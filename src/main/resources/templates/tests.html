@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>АУE</title>
@@ -7,8 +7,8 @@
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="Автоматизированный учебный курс">
 
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -19,7 +19,7 @@
     </style>
     <![endif]-->
 
-    <link rel="shortcut icon" href="../assets/favicon.png">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
 
 </head>
 <body>
@@ -27,12 +27,12 @@
         <header class="header">
             <div class="container">
                 <div class="header__title">
-                    <a href="profile.html">Автоматизированный учебный курс</a>
+                    <a href="/index">Автоматизированный учебный курс</a>
                 </div>
                 <nav class="header__nav">
-                    <a href="profile.html">Личный кабинет</a>
+                    <a href="/profile">Личный кабинет</a>
                     <a href="" class="selected">Тесты</a>
-                    <a href="statistics.html">Статистика</a>
+                    <a href="/statistics">Статистика</a>
                 </nav>
             </div>
         </header>
