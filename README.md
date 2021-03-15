@@ -11,6 +11,6 @@
 4. Thymeleaf
 5. Lombok
 # Роли
-Искандер Хисамов - Front-End
-Степан Иконников - Back-End
-Алмас Шакирзянов - Database Senior
+Искандер Хисамов - Front-End  
+Степан Иконников - Back-End  
+Алмас Шакирзянов - Database Senior  
