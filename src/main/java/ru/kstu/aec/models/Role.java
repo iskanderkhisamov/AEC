@@ -14,6 +14,15 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    public Role() {
+
+    }
+
+    public Role(String name) {
+        super();
+        this.name = name;
+    }
+
     @Column(name = "name")
     private String name;
 
