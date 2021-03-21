@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+
+    <!-- error message -->
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Invalid username or
+            password.</div>
+    </div>
+
+    <!-- logout message -->
+    <div th:if="${param.logout}">
+        <div class="alert alert-info">You have been logged out.</div>
+    </div>
+
+    <div class = "form-group">
+        <label for ="username"> Username </label> :
+        <input type="text" class = "form-control" id ="username" name = "username"
+               placeholder="Enter Email ID" autofocus="autofocus">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>: <input type="password"
+                                                       id="password" name="password" class="form-control"
+                                                       placeholder="Enter Password" />
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <input type="submit" name="login-submit" id="login-submit"
+                       class="form-control btn btn-primary" value="Log In" />
+            </div>
+        </div>
+    </div>
+</form>
+<a href="/registration">Регистрация</a>
+</body>
+</html>

@@ -11,6 +11,11 @@ html, body {
     color: white;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 .wrapper {
     display: flex;
     flex-flow: column nowrap;
@@ -95,4 +100,14 @@ a:hover {
 
 .main__title {
     margin-bottom: 5px;
+}
+
+.main__button {
+    margin-top: 10px;
+    padding: 5px 5px;
+    background-color: #1B2021;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid white;
+    transition: background 0.15s ease;
 }
