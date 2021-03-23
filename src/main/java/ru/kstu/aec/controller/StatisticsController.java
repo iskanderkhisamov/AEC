@@ -8,6 +8,6 @@ public class StatisticsController {
 
     @GetMapping("/statistics")
     public String statistics() {
-        return "statistics";
+        return "index";
     }
 }

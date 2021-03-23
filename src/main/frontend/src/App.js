@@ -1,22 +1,27 @@
-import './App.css';
+import './main.css';
+import './normalize.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="wrapper">
+        <header className="header">
+          <div className="container">
+            <div className="header__title">
+              <a href="/">Автоматизированный учебный курс</a>
+            </div>
+            <nav className="header__nav">
+              <a href="/profile">Личный кабинет</a>
+              <a href="/tests">Тесты</a>
+              <a href="" className="selected">Статистика</a>
+            </nav>
+          </div>
+        </header>
+        <main className="main">
+          <div className="container">
+
+          </div>
+        </main>
+      </div>
   );
 }
 
