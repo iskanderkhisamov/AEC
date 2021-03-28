@@ -11,8 +11,4 @@ public class IndexController {
         return "main";
     }
 
-    @GetMapping("/react")
-    public String react() {
-        return "index";
-    }
 }
