@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="aec [clean,package,spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+  <configuration default="false" name="aec [spring-boot:run,-DskipTests...]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -10,9 +10,9 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
-              <option value="package" />
               <option value="spring-boot:run" />
+              <option value="-DskipTests" />
+              <option value="-Dskip.installnodenpm" />
             </list>
           </option>
           <option name="pomFileName" />
