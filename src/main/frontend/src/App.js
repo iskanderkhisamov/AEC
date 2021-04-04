@@ -1,9 +1,9 @@
 import './main.css';
 import './normalize.css';
-import Service from "./Service";
 import React from 'react';
 import Chart from "react-apexcharts";
 import ReactFlow from 'react-flow-renderer';
+import axios from "axios";
 
 class ApexChart extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class ApexChart extends React.Component {
                     }
                 },
                 title: {
-                    text: 'Хисамов Искандер Равилевич',
+                    text: this.props.name,
                     align: 'center',
                     style: {
                         color: 'white'
@@ -84,10 +84,15 @@ class ApexChart extends React.Component {
 }
 
 class RGraph extends React.Component{
+    constructor(props) {
+        super(props);
+    }
     render() {
         const elements = [
-            { id: "1", style: {background: "#000000", width: 500, height: 250, border: 'none'}, data: { label: <ApexChart /> }, position: { x: 500, y: 150 } },
-            { id: "2", style: {background: "#000000", width: 500, height: 250, border: 'transparent'}, data: { label: <ApexChart /> }, position: { x: 400, y: 250 } },
+            { id: "1", style: {background: "rgba(0,0,0,0)", width: 500, height: 250, border: 'none'}, data: {
+                label: <ApexChart name={this.props.name}/> }, position: { x: 500, y: 150 } },
+            { id: "2", style: {background: "rgba(0,0,0,0)", width: 500, height: 250, border: 'transparent'}, data: {
+                label: <ApexChart name={this.props.name}/> }, position: { x: 400, y: 250 } },
             { id: "e1-2", source: "1", target: "2", animated: true }
         ];
 
@@ -99,30 +104,50 @@ class RGraph extends React.Component{
     }
 }
 
-function App() {
-    return (
-        <div className="wrapper">
-            <header className="header">
-                <div className="container">
-                    <div className="header__title">
-                        <a href="http://localhost:8080/">Автоматизированный учебный курс</a>
+class App extends React.Component {
+    state = {
+        name: "b"
+    }
+
+    getUsers = () => {
+        axios
+            .get("http://localhost:8080/statistics/tupak")
+            .then(data => this.setState({ name: data.data.name }))
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
+    };
+
+    componentDidMount() {
+        this.getUsers();
+    }
+
+    render() {
+        return (
+            <div className="wrapper">
+                <header className="header">
+                    <div className="container">
+                        <div className="header__title">
+                            <a href="http://localhost:8080/">Автоматизированный учебный курс</a>
+                        </div>
+                        <nav className="header__nav">
+                            <a href="http://localhost:8080/profile">Личный кабинет</a>
+                            <a href="http://localhost:8080/tests">Тесты</a>
+                            <a href="" className="selected">Статистика</a>
+                        </nav>
                     </div>
-                    <nav className="header__nav">
-                        <a href="http://localhost:8080/profile">Личный кабинет</a>
-                        <a href="http://localhost:8080/tests">Тесты</a>
-                        <a href="" className="selected">Статистика</a>
-                    </nav>
-                </div>
-            </header>
-            <main className="main">
-                <div className="container">
-                    {Service.retrieveScholar()}
-                    {console.log("aha")}
-                    <RGraph />
-                </div>
-            </main>
-        </div>
-    );
+                </header>
+                <main className="main">
+                    <div className="container">
+                        {console.log(this.state.name)}
+                        {this.state.name.length === 1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}/>)}
+                        {console.log(this.state.name)}
+                    </div>
+                </main>
+            </div>
+        );
+    }
 }
 
 export default App;
