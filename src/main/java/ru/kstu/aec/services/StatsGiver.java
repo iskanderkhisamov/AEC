@@ -11,7 +11,7 @@ public class StatsGiver {
     private static List<Scholar> scholarList = new ArrayList<>();
 
     static {
-        scholarList.add(new Scholar(1L, "tupak", "52", "51", "85"));
+        scholarList.add(new Scholar(1L, "tupak", 5, 3, 7));
     }
     public Scholar findByName(String name) {
         System.out.println(name);
