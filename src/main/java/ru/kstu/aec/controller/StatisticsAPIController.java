@@ -1,7 +1,6 @@
 package ru.kstu.aec.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.Scholar;
 import ru.kstu.aec.services.StatsGiver;

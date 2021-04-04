@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Scholar {
     private Long id;
     private String name;
-    private String stat1;
-    private String stat2;
-    private String stat3;
+    private int stat;
+    private int sta;
+    private int st;
 }

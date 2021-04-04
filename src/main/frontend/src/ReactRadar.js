@@ -1,8 +1,22 @@
 import Radar from "react-d3-radar";
 import React from "react";
-
+import axios from "axios";
 
 export default class ReactRadar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {person: "well"};
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/statistics/tupak').then(res => {
+                const person = res.data.name;
+                console.log(person);
+                this.setState({ person });
+                console.log(this.state.person);
+            })
+    }
+
     render() {
         return (
             <Radar
@@ -20,7 +34,7 @@ export default class ReactRadar extends React.Component {
                 }}
                 data={{
                     variables: [
-                        {key: 'resilience', label: 'Resilience'},
+                        {key: 'stats', label: this.state.person},
                         {key: 'strength', label: 'Strength'},
                         {key: 'adaptability', label: 'Adaptability'},
                         {key: 'creativity', label: 'Creativity'},
@@ -32,7 +46,7 @@ export default class ReactRadar extends React.Component {
                             key: 'me',
                             label: 'My Scores',
                             values: {
-                                resilience: 4,
+                                stats: 5,
                                 strength: 6,
                                 adaptability: 7,
                                 creativity: 2,
