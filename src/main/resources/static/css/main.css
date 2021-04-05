@@ -7,7 +7,7 @@ html, body {
     font-family: Roboto, sans-serif;
     height: 100%;
     width: 100%;
-    background-color: #30343F;
+    background-color: #474B4F;
     color: white;
 }
 
@@ -30,12 +30,13 @@ a {
 
 .header {
     display: flex;
-    background-color: #1B2021;
+    background-color: #222629;
     height: 60px;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;
 }
 
 .header a {
@@ -55,11 +56,19 @@ a {
 }
 
 a:hover {
-    color: gray;
+    color: #6B6E70;
 }
 
 .selected {
     color: black;
+}
+
+.header__title a {
+    color: #86C232;
+}
+
+.header__title a:hover {
+    color: #86C232;
 }
 
 .main {
@@ -70,9 +79,12 @@ a:hover {
     padding: 20px;
     flex: 1 1 auto;
     margin: 25px;
-    background-color: #1B2021;
+    background-color: #222629;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
+    font-size: 18px;
+    line-height: 32px;
+    font-weight: 400;
 }
 
 .main .container {
@@ -110,4 +122,18 @@ a:hover {
     color: white;
     border: 1px solid white;
     transition: background 0.15s ease;
+}
+
+.gray {
+    background-color: #474B4F;
+    border: 1px solid #222629;
+    padding: 10px;
+}
+
+.main .noflex {
+    flex: 0 1 auto;
+}
+
+.noflex p {
+    padding-bottom: 10px;
 }

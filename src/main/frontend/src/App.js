@@ -89,16 +89,34 @@ class RGraph extends React.Component{
     }
     render() {
         const elements = [
-            { id: "1", style: {background: "rgba(0,0,0,0)", width: 500, height: 250, border: 'none'}, data: {
-                label: <ApexChart name={this.props.name}/> }, position: { x: 500, y: 150 } },
-            { id: "2", style: {background: "rgba(0,0,0,0)", width: 500, height: 250, border: 'transparent'}, data: {
-                label: <ApexChart name={this.props.name}/> }, position: { x: 400, y: 250 } },
-            { id: "e1-2", source: "1", target: "2", animated: true }
+            { id: "1",
+                style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
+                data: {
+                    label: <ApexChart name={'Хисамов Искандер Равилевич'}/>
+                },
+                position: { x: 250, y: 100 }
+            },
+            { id: "2",
+                style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
+                data: {
+                    label: <ApexChart name={this.props.name}/>
+                },
+                position: { x: 100, y: 550 }
+            },
+            { id: "3",
+                style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
+                data: {
+                    label: <ApexChart name={'Философия'}/>
+                },
+                position: { x: 400, y: 550 }
+            },
+            { id: "e1-2", source: "1", target: "2", animated: true },
+            { id: "e1-3", source: "1", target: "3", animated: true }
         ];
 
-        const graphStyles = { width: "100%", height: "1080px", backgroundColor: "black"};
+        const graphStyles = { width: "100%", height: "1080px", backgroundColor: "#474B4F"};
 
-        const BasicGraph = () => <ReactFlow elements={elements} style={graphStyles} />;
+        const BasicGraph = () => <ReactFlow elements={elements} style={graphStyles} nodesConnectable={false}/>;
 
         return <BasicGraph />;
     }
@@ -138,12 +156,8 @@ class App extends React.Component {
                         </nav>
                     </div>
                 </header>
-                <main className="main">
-                    <div className="container">
-                        {console.log(this.state.name)}
+                <main className="main gray">
                         {this.state.name.length === 1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}/>)}
-                        {console.log(this.state.name)}
-                    </div>
                 </main>
             </div>
         );
