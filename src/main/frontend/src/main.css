@@ -1,4 +1,3 @@
-@import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css);
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +7,13 @@ html, body {
     font-family: Roboto, sans-serif;
     height: 100%;
     width: 100%;
-    background-color: #30343F;
+    background-color: #474B4F;
     color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
 
 .wrapper {
@@ -26,12 +30,13 @@ html, body {
 
 .header {
     display: flex;
-    background-color: #1B2021;
+    background-color: #222629;
     height: 60px;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;
 }
 
 .header a {
@@ -51,11 +56,19 @@ html, body {
 }
 
 a:hover {
-    color: gray;
+    color: #6B6E70;
 }
 
 .selected {
     color: black;
+}
+
+.header__title a {
+    color: #86C232;
+}
+
+.header__title a:hover {
+    color: #86C232;
 }
 
 .main {
@@ -66,9 +79,12 @@ a:hover {
     padding: 20px;
     flex: 1 1 auto;
     margin: 25px;
-    background-color: #1B2021;
+    background-color: #222629;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
+    font-size: 18px;
+    line-height: 32px;
+    font-weight: 400;
 }
 
 .main .container {
@@ -98,34 +114,22 @@ a:hover {
     margin-bottom: 5px;
 }
 
-/* Ноды */
-
-.node circle {
-    fill: rgb(247, 106, 214);
-    stroke: rgb(184, 37, 81);
-    stroke-width: 1.5px;
+.main__button {
+    margin-top: 10px;
+    padding: 5px 5px;
+    background-color: #1B2021;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid white;
+    transition: background 0.15s ease;
 }
 
-.node text {
-    font-size: 11px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: white;
-    fill: white;
+.gray {
+    background-color: #474B4F;
+    border: 1px solid #222629;
+    padding: 10px;
 }
 
-.node {
-    cursor: pointer;
-}
-
-path.link {
-    fill: none;
-    stroke: #2593B8;
-    stroke-width: 1.5px;
-}
-
-span {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #F4F4F4;
-    text-shadow: 0 1px 4px black;
-    float: right;
+.main .noflex {
+    flex: 0 1 auto;
 }
