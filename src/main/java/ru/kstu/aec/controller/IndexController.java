@@ -13,10 +13,16 @@ public class IndexController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("auth", true);
+        boolean isAuthed = true;
+        try {
+            String username = ((User)getAuthentication().getPrincipal()).getEmail();
+        }
+        catch (Exception e) {
+            isAuthed = false;
+        }
+        System.out.println(isAuthed);
+        model.addAttribute("auth", isAuthed);
         System.out.println(getAuthentication());
-        System.out.println(getAuthentication().getAuthorities().toArray()[0]);
-        System.out.println(getAuthentication().getAuthorities().toArray()[0].equals("true"));
         return "index";
     }
 
