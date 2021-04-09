@@ -15,10 +15,10 @@ public class StatisticsAPIController {
     public StatisticsAPIController(StatsGiver statsGiver) {
         this.statsGiver = statsGiver;
     }
-
+/*
     @GetMapping("/statistics/{name}")
     public Scholar statistics(@PathVariable String name) {
         return statsGiver.findByName(name);
     }
-
+*/
 }
