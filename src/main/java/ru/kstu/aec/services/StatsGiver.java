@@ -14,7 +14,6 @@ public class StatsGiver {
         scholarList.add(new Scholar(1L, "tupak", 5, 3, 7));
     }
     public Scholar findByName(String name) {
-        System.out.println(name);
         for(int i = 0; i < scholarList.size(); i++) {
             if(scholarList.get(i).getName().equals(name)) {
                 return scholarList.get(i);
