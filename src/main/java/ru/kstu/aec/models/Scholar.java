@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class Scholar {
     private Long id;
-    private String name;
-    private int stat;
-    private int sta;
-    private int st;
+    private Long userId;
+    private Long courseId;
+    private Long questionId;
+    private int type;
+    private int value;
 }
