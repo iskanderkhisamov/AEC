@@ -2,10 +2,10 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>АУE</title>
+    <title>Авторизация</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Автоматизированный учебный курс">
-    <meta name="author" content="Автоматизированный учебный курс">
+    <meta name="author" content="khisamov.studio">
 
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -23,32 +23,57 @@
 
 </head>
 <body>
-<div class="wrapper">
-    <header class="header">
-        <div class="container">
-            <div class="header__title">
-                <a href="/">Автоматизированный учебный курс</a>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="header__title">
+                    <a href="/">Автоматизированный учебный курс</a>
+                </div>
+                <nav class="header__nav">
+                    <a href="/login">Личный кабинет</a>
+                </nav>
             </div>
-            <nav class="header__nav">
-                <a href="" class="selected">Личный кабинет</a>
-                <a href="/tests">Тесты</a>
-                <a href="/statistics">Статистика</a>
-            </nav>
-        </div>
-    </header>
-    <main class="main">
-        <div class="container">
-            <form role="form" th:action="@{/login}" th:method="POST">
-                <lable>Username</lable>
-                <input type="text" id="username" name="username">
+        </header>
+        <main class="main">
+            <div class="container">
+                <div class="noflex">
+                    <form th:action="@{/login}" method="post">
 
-                <lable>Password</lable>
-                <input type="password" id="password" name="password">
+                        <!-- error message -->
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">Неправильный логин, либо пароль.</div>
+                        </div>
 
-                <input type="submit">
-            </form>
-        </div>
-    </main>
-</div>
+                        <!-- logout message -->
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">Вы деавторизованы.</div>
+                        </div>
+
+                        <div class = "form-group">
+                            <label for ="username">Электронная почта</label>
+                            <input type="text" class = "form-control" id ="username" name = "username"
+                                   placeholder="Enter Email ID" autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Enter Password" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <input type="submit" name="login-submit" id="login-submit"
+                                           class="form-control btn btn-primary" value="Авторизоваться" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="/registration">Регистрация</a>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
