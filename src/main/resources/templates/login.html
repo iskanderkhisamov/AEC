@@ -33,47 +33,24 @@
                     <a href="/login">Личный кабинет</a>
                 </nav>
             </div>
-        </header>
-        <main class="main">
-            <div class="container">
-                <div class="noflex">
-                    <form th:action="@{/login}" method="post">
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <div class="noflex">
+              <form role="form" th:action="@{/login}" th:method="POST">
+                  <lable>Username</lable>
+                  <input type="text" id="username" name="username">
 
-                        <!-- error message -->
-                        <div th:if="${param.error}">
-                            <div class="alert alert-danger">Неправильный логин, либо пароль.</div>
-                        </div>
+                  <lable>Password</lable>
+                  <input type="password" id="password" name="password">
 
-                        <!-- logout message -->
-                        <div th:if="${param.logout}">
-                            <div class="alert alert-info">Вы деавторизованы.</div>
-                        </div>
+                  <input type="submit">
+              </form>
+          </div>
+        </div>
+    </main>
+  </div>
 
-                        <div class = "form-group">
-                            <label for ="username">Электронная почта</label>
-                            <input type="text" class = "form-control" id ="username" name = "username"
-                                   placeholder="Enter Email ID" autofocus="autofocus">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Пароль</label>
-                            <input type="password" id="password" name="password" class="form-control"
-                                   placeholder="Enter Password" />
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <input type="submit" name="login-submit" id="login-submit"
-                                           class="form-control btn btn-primary" value="Авторизоваться" />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <a href="/registration">Регистрация</a>
-                </div>
-            </div>
-        </main>
-    </div>
 </body>
 </html>
