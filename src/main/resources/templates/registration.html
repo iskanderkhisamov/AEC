@@ -33,24 +33,25 @@
                     <a href="/login">Личный кабинет</a>
                 </nav>
             </div>
-        </div>
       </header>
       <main class="main">
         <div class="container">
           <div class="noflex">
-            <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
-                <label>Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}">
-                        <div class="form-group">
-                            <label class="control-label" for="password">Пароль</label> <input
-                                id="password" class="form-control" type="password"
-                                th:field="*{password}" required autofocus="autofocus" />
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">Зарегистрироваться</button>
-                            <span>Уже зарегистрированы? <a href="/" th:href="@{/login}">Авторизуйтесь здесь</a></span>
-                        </div>
-            </form>
+              <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
+                  <label>Name</label>
+                  <input type="text" id="name" name="name" th:field="*{name}">
+
+                  <label>Surname</label>
+                  <input type="text" id="surname" name="surname" th:field="*{surname}">
+
+                  <label>Email</label>
+                  <input type="text" id="email" name="email" th:field="*{email}">
+
+                  <label>Password</label>
+                  <input type="password" id="password" name="password" th:field="*{password}">
+
+                  <input type="submit">
+              </form>
           </div>
         </div>
       </main>

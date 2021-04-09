@@ -7,15 +7,15 @@
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
 
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" href="/css/normalize.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if !IE 7]>
     <style type="text/css">
-        #wrap {display:table;height:100%}
+        #wrapper {display:table;height:100%}
     </style>
     <![endif]-->
 
@@ -33,24 +33,22 @@
                     <a href="/login">Личный кабинет</a>
                 </nav>
             </div>
-        </div>
-    </header>
-    <main class="main">
-        <div class="container">
-            <div class="noflex">
-              <form role="form" th:action="@{/login}" th:method="POST">
-                  <lable>Username</lable>
-                  <input type="text" id="username" name="username">
+        </header>
+        <main class="main">
+            <div class="container">
+                <div class="noflex">
+                  <form role="form" th:action="@{/login}" th:method="POST">
+                      <label for="username">E-mail</label>
+                      <input type="text" id="username" name="username">
 
-                  <lable>Password</lable>
-                  <input type="password" id="password" name="password">
+                      <label for="password">Пароль</label>
+                      <input type="password" id="password" name="password">
 
-                  <input type="submit">
-              </form>
-          </div>
-        </div>
-    </main>
-  </div>
-
+                      <input type="submit">
+                  </form>
+              </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
