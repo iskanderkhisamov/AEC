@@ -27,6 +27,10 @@ public class User implements UserDetails {
 
     private String surname;
 
+    private String gruppa;
+
+    private boolean teacher;
+
     private String email;
 
     private String password;

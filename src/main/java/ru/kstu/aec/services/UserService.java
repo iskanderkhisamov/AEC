@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kstu.aec.models.User;
+import ru.kstu.aec.models.UserRole;
 
 import java.text.MessageFormat;
 import java.util.Optional;
@@ -40,6 +41,10 @@ public class UserService implements UserDetailsService {
 
         user.setPassword(encryptedPassword);
 
+        if(user.isTeacher()) {
+            user.setUserRole(UserRole.TEACHER);
+            user.setGruppa("Нет");
+        }
         final User createdUser = userRepository.save(user);
 
     }

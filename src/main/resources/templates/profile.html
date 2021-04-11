@@ -31,17 +31,20 @@
                 </div>
                 <nav class="header__nav">
                     <a href="" class="selected">Личный кабинет</a>
-                    <a href="/tests">Тесты</a>
-                    <a href="/statistics">Статистика</a>
+                    <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
+                       th:text="${auth == 1 ? 'Тесты' : (auth == 2 ? 'Создать курс' : '')}">Тесты</a>
+                    <a th:href="${auth == 1 ? '/statistics' : (auth == 2 ? '/courses' : '#')}"
+                       th:text="${auth == 1 ? 'Статистика' : (auth == 2 ? 'Курсы' : '')}">Статистика</a>
                 </nav>
             </div>
         </header>
         <main class="main">
             <div class="container">
                 <div class="main__name">
-                    <p class="main__first-name">Ринат</p>
-                    <p class="main__second-name">Шакиров</p>
-                    <p class="main__group">7281-11</p>
+                    <p class="main__first-name" th:text="${name}">Ринат</p>
+                    <p class="main__second-name" th:text="${surname}">Шакиров</p>
+                    <p class="main__group" th:text="${group == 'Нет' ? 'Преподаватель' :  group}">7281-11</p>
+                    <a href="/logout">Выйти из аккаунта</a>
                 </div>
                 <div class="main__info">
                     <p class="main__title"><b>Курсы</b></p>

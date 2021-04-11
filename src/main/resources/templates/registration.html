@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,17 +38,26 @@
       <main class="main">
         <div class="container">
           <div class="noflex">
+
               <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
-                  <label>Name</label>
+                  <label>Имя</label>
                   <input type="text" id="name" name="name" th:field="*{name}">
 
-                  <label>Surname</label>
+                  <label>Фамилия</label>
                   <input type="text" id="surname" name="surname" th:field="*{surname}">
 
                   <label>Email</label>
-                  <input type="text" id="email" name="email" th:field="*{email}">
+                  <input type="email" id="email" name="email" th:field="*{email}">
 
-                  <label>Password</label>
+                  <label>Преподаватель?</label>
+                  <input type="checkbox" id="teacher" name="teacher">
+
+                  <div class="group">
+                      <label>Группа</label>
+                      <input type="text" id="group" name="group" th:field="*{gruppa}">
+                  </div>
+
+                  <label>Пароль</label>
                   <input type="password" id="password" name="password" th:field="*{password}">
 
                   <input type="submit">

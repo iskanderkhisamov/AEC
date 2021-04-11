@@ -31,7 +31,11 @@
                     <a href="/">Автоматизированный учебный курс</a>
                 </div>
                 <nav class="header__nav">
-                    <a th:href="${auth ? '/profile' : '/login'}">Личный кабинет</a>
+                    <a th:href="${auth > 0 ? '/profile' : '/login'}">Личный кабинет</a>
+                    <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
+                       th:text="${auth == 1 ? 'Тесты' : (auth == 2 ? 'Создать курс' : '')}">Тесты</a>
+                    <a th:href="${auth == 1 ? '/statistics' : (auth == 2 ? '/courses' : '#')}"
+                       th:text="${auth == 1 ? 'Статистика' : (auth == 2 ? 'Курсы' : '')}">Статистика</a>
                 </nav>
             </div>
         </header>
