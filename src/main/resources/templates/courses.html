@@ -38,13 +38,16 @@
     </header>
     <main class="main">
         <div class="container">
-            <form role="form" th:action="@{/create}" th:method="POST" th:object="${course}">
-
-                <label>Название</label>
-                <input type="text" id="name" name="name" th:field="*{name}">
-
-                <input type="submit">
-            </form>
+            <table border="1" style="width:300px">
+                <tr>
+                    <td>Курсы</td>
+                </tr>
+                <th:block th:each="course : ${courses}">
+                    <tr>
+                        <td th:text="${course.name}"></td>
+                    </tr>
+                </th:block>
+            </table>
         </div>
     </main>
 </div>
