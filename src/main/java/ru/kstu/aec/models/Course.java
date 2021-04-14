@@ -22,7 +22,16 @@ public class Course implements Serializable {
 
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    @JsonIgnore // не обращайте внимания
+    @ManyToMany(mappedBy = "courses") // настройка ManyToMany по тому, шо у нас лежит в User
     private List<User> users;
+    /*
+     а тут я расскажу немного о библиотеке lombok
+     она дает нам возможность не тратить время на написание геттеров и сеттеров, конструкторов и прочей херни
+     ты просто пишешь нужную аннотацию сверху класса и кайфуешь
+     */
+    /*
+     а этот класс является entity нашего курса, вам предстоит доделать его, шобы он
+     имел в себе не только список пользователей, присоединенных к нему, но и тесты и учебный материал
+     */
 }

@@ -38,15 +38,20 @@ public class User implements UserDetails, Serializable {
     @Builder.Default
     private UserRole userRole = UserRole.USER;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="users_courses",
             joinColumns=@JoinColumn(name="user_id", referencedColumnName = "id"),
             inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName = "id"))
     private List<Course> courses;
+    /*
+     каскад это типа те действия, которые ты можешь делать с этой таблицей
+     name это название реляционной таблицы в бд
+     joinColumns это типа ссылка на тот id, который ему пренадлежит в реляционной таблице, а
+     inverseJoinColumns это ссылка на id курса
+     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(simpleGrantedAuthority);
     }
@@ -81,4 +86,7 @@ public class User implements UserDetails, Serializable {
         return true;
     }
 
+    /*
+     реализация юзера
+     */
 }

@@ -11,10 +11,12 @@ import ru.kstu.aec.services.CourseService;
 public class CoursesController {
 
     final CourseService courseService;
+    // внедряем сервис для курсов
 
     @GetMapping("/courses")
     public String getCourses(Model model) {
         model.addAttribute("courses", courseService.loadCourses());
         return "courses";
     }
+    // кидаем в модель все курсы из бд при помощи сервиса
 }

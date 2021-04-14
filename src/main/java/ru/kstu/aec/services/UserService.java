@@ -26,11 +26,9 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    // не добавлять в конструктор!!!
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -39,21 +37,23 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);
-
+        // получаем юзера по мылу и в зависимости от того, нашли мы его в бд или нет выводим ошибку или возвращаем юзера
         return optionalUser.orElseThrow(() ->
                 new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email)));
     }
 
     public void signUpUser(User user) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-
+        // кодируем пароль
         user.setPassword(encryptedPassword);
 
         if(user.isTeacher()) {
             user.setUserRole(UserRole.TEACHER);
             user.setGruppa("Нет");
         }
-       saveUser(user);
+        // чекаем является ли учителем наш юзер, меняем группу
+        saveUser(user);
+        // сохраняем пользователя в бд
     }
 
     public void saveUser(User user) {
@@ -65,12 +65,14 @@ public class UserService implements UserDetailsService {
         List<Course> courses = userRepository.findById(user.getId()).orElseThrow(() ->
                 new UsernameNotFoundException(MessageFormat.format("User with id {0} cannot be found.", user.getId()))).getCourses();
         courses.add(course);
+        // получаем курсы текущего пользователя и вставляем курс из параметров в них
         return courses;
     }
 
     public void addCourse(List<Course> courses, User user) {
-        User tuser = user;
-        tuser.setCourses(courses);
-        saveUser(tuser);
+        User user1 = user;
+        user1.setCourses(courses);
+        saveUser(user1);
+        // добавляем курсы в юзера и сохраняем его
     }
 }

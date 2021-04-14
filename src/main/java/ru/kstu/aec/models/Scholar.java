@@ -16,4 +16,5 @@ public class Scholar {
     private Long questionId;
     private int type;
     private int value;
+    // недоделанный класс для студента, является чем-то типа DTO для удобства и передачи инфы в фронт
 }

@@ -16,6 +16,7 @@ public class IndexController {
         System.out.println(getAuthentication());
         return "index";
     }
-
+    // юзаем метод, который у нас в SecurityConfig описан, шобы страничка норм реагировала на разный тип юзеров
+    // и выводим аутентификационный токен
 
 }

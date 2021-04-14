@@ -19,11 +19,14 @@ public class CreateController {
 
     private final CourseService courseService;
     private final UserService userService;
+    // внедряем сервисы
 
     @GetMapping("/create")
     public String getCreate(Course course) {
         return "create";
     }
+    // вы спросите, а нахрена отправлять курс в гетмаппинг? а для того шобы
+    // страничка могла осознавать шо в форме будем передавать
 
     @PostMapping("/create")
     public String postCreate(@ModelAttribute("course") Course course,
@@ -32,5 +35,7 @@ public class CreateController {
         userService.addCourse(userService.getCourses(course, (User)getAuthentication().getPrincipal()), (User)getAuthentication().getPrincipal());
         return "redirect:/courses";
     }
+    // также указываем аттрибут, но уже с аннотацией и BindingResult, который я хз зачем нужен вообще
+    // создаем курс с помощью courseService и потом связываем юзера с курсом при помощи userService
 
 }
