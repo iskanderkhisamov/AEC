@@ -1,8 +1,8 @@
 package ru.kstu.aec.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ru.kstu.aec.models.Scholar;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 import ru.kstu.aec.services.StatsGiver;
 
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })

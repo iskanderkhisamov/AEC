@@ -8,8 +8,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.ui.Model;
+import ru.kstu.aec.models.User;
 import ru.kstu.aec.services.UserService;
 
 @Configuration
@@ -38,8 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/admin","/profile","/statistics","/tests", "/statistics/**", "/statistics/*").hasAuthority("USER")
+                .antMatchers("/admin","/profile","/statistics","/tests", "/statistics/**", "/statistics/*").hasAuthority("ADMIN")
+                .antMatchers("/profile","/statistics","/tests", "/statistics/**", "/statistics/*").hasAuthority("USER")
+                .antMatchers("/profile", "/create", "/courses").hasAuthority("TEACHER")
                 .antMatchers("/", "/css/**","/static/**", "/resources/**","/.*.css").permitAll()
                 .antMatchers("/login","/registration").permitAll()
                 .anyRequest()
@@ -48,7 +52,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/profile", true)
+                .permitAll()
+                .and()
+                .logout()
+                .deleteCookies("remove")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
                 .permitAll();
     }
 
+    public static Authentication getAuthentication() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth;
+    }
+
+    public static void isTeacher(Model model) {
+        int state = 0;
+        try {
+            boolean isTeacher = ((User)getAuthentication().getPrincipal()).isTeacher();
+            if(isTeacher) {
+                state = 2;
+            }
+            else {
+                state = 1;
+            }
+        }
+        catch (Exception e) {
+            state = 0;
+        }
+        model.addAttribute("auth", state);
+    }
 }

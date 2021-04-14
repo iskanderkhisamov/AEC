@@ -6,8 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.io.Serializable;
+import java.util.*;
 
 @Getter
 @Setter
@@ -17,7 +17,7 @@ import java.util.Collections;
 @AllArgsConstructor
 @Entity
 @Table(name="users")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +27,22 @@ public class User implements UserDetails {
 
     private String surname;
 
+    private String gruppa;
+
+    private boolean teacher;
+
     private String email;
 
     private String password;
 
     @Builder.Default
     private UserRole userRole = UserRole.USER;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="users_courses",
+            joinColumns=@JoinColumn(name="user_id", referencedColumnName = "id"),
+            inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName = "id"))
+    private List<Course> courses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

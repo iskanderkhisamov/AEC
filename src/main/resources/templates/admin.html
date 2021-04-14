@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Админ</title>
 </head>
 <body>
+<a th:text="${src}"/>
+<form th:method="POST" th:action="@{/admin}">
+    <input type="submit">
+</form>
 
 </body>
 </html>
