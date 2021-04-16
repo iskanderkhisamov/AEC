@@ -21,4 +21,6 @@ public class StatisticsAPIController {
         return statsGiver.findByName(name);
     }
 */
+    // крч раскомментируете, когда закончите всё остальное
+    // это restcontrooler для того шобы реактовский фронт получал инфу о школярах
 }

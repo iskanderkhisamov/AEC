@@ -10,4 +10,6 @@ public class StatisticsController {
     public String handleGet() {
         return "redir";
     }
+    // тут мы перенаправляем юзера на реактовский фронт
+
 }

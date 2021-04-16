@@ -12,7 +12,6 @@ import java.util.Optional;
 interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
-
-    Optional<List<Course>> getCoursesById(Long id);
+    // кастомный метод для получения юзера по id
 
 }

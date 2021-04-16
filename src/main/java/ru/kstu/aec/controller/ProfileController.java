@@ -19,4 +19,6 @@ public class ProfileController {
         model.addAttribute("group", ((User) getAuthentication().getPrincipal()).getGruppa());
         return "profile";
     }
+    // делаем тож самое шо в индексе и добавляем инфу о пользователе
+    // надо будет вам сделать так шобы ещё инфа о курсах и резах тестов отображалась
 }

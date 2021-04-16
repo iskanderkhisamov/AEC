@@ -6,5 +6,6 @@ import ru.kstu.aec.models.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-
+    // эта штука сама создает методы для связи с бд, но вы можете
+    // добавить кастомные, как в CourseRepository, если есть доп вопросы, спрашивайте
 }

@@ -25,4 +25,5 @@ public class StatsGiver {
         return scholarList;
     }
     */
+    // раскомментить, когда придёт время
 }

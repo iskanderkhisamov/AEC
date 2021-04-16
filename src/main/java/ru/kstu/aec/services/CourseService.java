@@ -15,9 +15,11 @@ public class CourseService {
     public List<Course> loadCourses() {
         return (List<Course>) courseRepository.findAll();
     }
+    // метод для получения списка всех курсов
 
     @Transactional
     public void createCourse(Course course) {
         courseRepository.save(course);
     }
+    // метод для создания курсов
 }
