@@ -55,12 +55,8 @@ a {
     padding-left: 20px;
 }
 
-a:hover {
+.header a:hover {
     color: #6B6E70;
-}
-
-.selected {
-    color: black;
 }
 
 .header__title a {
@@ -68,7 +64,7 @@ a:hover {
 }
 
 .header__title a:hover {
-    color: #86C232;
+    color: #6B6E70;
 }
 
 .main {
@@ -94,6 +90,21 @@ a:hover {
 .main__name {
     flex: 1 1 auto;
     border-right: 1px solid white;
+}
+
+.main__name__flex {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.main__fullname, .main__bottom {
+    flex: 0 1 auto;
+}
+
+.main__bottom {
+    margin-bottom: 10px;
+    margin-right: 0px;
 }
 
 .main__info {
@@ -136,4 +147,45 @@ a:hover {
 
 .noflex p {
     padding-bottom: 10px;
+}
+
+.button {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 10px;
+    border: 1px solid #86C232;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.button:hover {
+    background-color: #86C232;
+}
+
+.form__field {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    color: white;
+}
+
+.form__field {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #86C232;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+}
+
+.form__field:hover {
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.selected {
+    color: red;
 }

@@ -142,6 +142,7 @@ class App extends React.Component {
     }
 
     render() {
+        let styleConfig = { color: "#86C232"}
         return (
             <div className="wrapper">
                 <header className="header">
@@ -152,7 +153,7 @@ class App extends React.Component {
                         <nav className="header__nav">
                             <a href="http://localhost:8080/profile">Личный кабинет</a>
                             <a href="http://localhost:8080/tests">Тесты</a>
-                            <a href="" className="selected">Статистика</a>
+                            <a href="" style={styleConfig}>Статистика</a>
                         </nav>
                     </div>
                 </header>

@@ -21,6 +21,9 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -33,9 +36,7 @@
                 <nav class="header__nav">
                     <a th:href="${auth > 0 ? '/profile' : '/login'}">Личный кабинет</a>
                     <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
-                       th:text="${auth == 1 ? 'Тесты' : (auth == 2 ? 'Создать курс' : '')}">Тесты</a>
-                    <a th:href="${auth == 1 ? '/statistics' : (auth == 2 ? '/courses' : '#')}"
-                       th:text="${auth == 1 ? 'Статистика' : (auth == 2 ? 'Курсы' : '')}">Статистика</a>
+                       th:text="${auth == 1 ? 'Курсы' : (auth == 2 ? 'Создать курс' : '')}">Курсы</a>
                 </nav>
             </div>
         </header>

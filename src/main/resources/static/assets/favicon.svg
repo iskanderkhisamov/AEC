@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="60px" viewBox="0 0 61 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Proc</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-315.000000, -211.000000)">
+            <g id="Proc" transform="translate(316.000000, 212.000000)">
+                <rect id="Rectangle-102" fill="#325AA6" x="5.00625316" y="5" width="48" height="48" rx="4"></rect>
+                <path d="M54.0062532,13 L58.0062532,13" id="Line" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M0.00625316407,13 L4.00625316,13" id="Line-Copy-117" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M54.0062532,21 L58.0062532,21" id="Line-Copy-113" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M0.00625316407,21 L4.00625316,21" id="Line-Copy-118" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M54.0062532,29 L58.0062532,29" id="Line-Copy-114" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M0.00625316407,29 L4.00625316,29" id="Line-Copy-119" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M54.0062532,37 L58.0062532,37" id="Line-Copy-115" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M0.00625316407,37 L4.00625316,37" id="Line-Copy-120" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M54.0062532,45 L58.0062532,45" id="Line-Copy-116" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M0.00625316407,45 L4.00625316,45" id="Line-Copy-121" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M13.0062532,4 L13.0062532,0" id="Line" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M21.0062532,4 L21.0062532,0" id="Line-Copy-104" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M29.0062532,4 L29.0062532,0" id="Line-Copy-105" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M37.0062532,4 L37.0062532,0" id="Line-Copy-106" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M45.0062532,4 L45.0062532,0" id="Line-Copy-107" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M13.0062532,58 L13.0062532,54" id="Line-Copy-112" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M21.0062532,58 L21.0062532,54" id="Line-Copy-111" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M29.0062532,58 L29.0062532,54" id="Line-Copy-110" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M37.0062532,58 L37.0062532,54" id="Line-Copy-109" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M45.0062532,58 L45.0062532,54" id="Line-Copy-108" stroke="#80D25B" stroke-width="2" stroke-linecap="square"></path>
+                <circle id="Oval-52" fill="#5B68C0" cx="11.0062532" cy="11" r="2"></circle>
+                <circle id="Oval-52-Copy-2" fill="#5B68C0" cx="11.0062532" cy="47" r="2"></circle>
+                <circle id="Oval-52-Copy" fill="#5B68C0" cx="47.0062532" cy="11" r="2"></circle>
+                <circle id="Oval-52-Copy-3" fill="#5B68C0" cx="47.0062532" cy="47" r="2"></circle>
+                <path d="M33.5107179,32.529591 C36.2721417,32.529591 38.5107179,30.1876959 38.5107179,27.2988218 C38.5107179,24.4099477 33.5107179,15.529591 33.5107179,15.529591 C33.5107179,15.529591 28.5107179,24.4099477 28.5107179,27.2988218 C28.5107179,30.1876959 30.7492942,32.529591 33.5107179,32.529591 Z" id="Oval" fill="#80D25B" transform="translate(33.510718, 24.029591) rotate(-285.000000) translate(-33.510718, -24.029591) "></path>
+                <path d="M30.0062532,25 C23.3788362,25 18.0062532,30.372583 18.0062532,37" id="Oval-2" stroke="#22BA8E" stroke-width="2" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

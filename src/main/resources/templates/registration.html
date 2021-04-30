@@ -41,26 +41,26 @@
 
               <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
                   <label>Имя</label>
-                  <input type="text" id="name" name="name" th:field="*{name}">
+                  <input type="text" id="name" name="name" th:field="*{name}" class="form__field">
 
                   <label>Фамилия</label>
-                  <input type="text" id="surname" name="surname" th:field="*{surname}">
+                  <input type="text" id="surname" name="surname" th:field="*{surname}" class="form__field">
 
                   <label>Email</label>
-                  <input type="email" id="email" name="email" th:field="*{email}">
+                  <input type="email" id="email" name="email" th:field="*{email}" class="form__field">
 
                   <label>Преподаватель?</label>
-                  <input type="checkbox" id="teacher" name="teacher">
+                  <input type="checkbox" id="teacher" name="teacher" class="form__field">
 
                   <div class="group">
                       <label>Группа</label>
-                      <input type="text" id="group" name="group" th:field="*{gruppa}">
+                      <input type="text" id="group" name="group" th:field="*{gruppa}" class="form__field">
                   </div>
 
                   <label>Пароль</label>
-                  <input type="password" id="password" name="password" th:field="*{password}">
+                  <input type="password" id="password" name="password" th:field="*{password}" class="form__field">
 
-                  <input type="submit">
+                  <input type="submit" class="button">
               </form>
           </div>
         </div>
