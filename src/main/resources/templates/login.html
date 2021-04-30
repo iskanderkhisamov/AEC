@@ -40,12 +40,11 @@
                 <div class="noflex">
                   <form role="form" th:action="@{/login}" th:method="POST">
                       <label for="username">E-mail</label>
-                      <input type="email" id="username" name="username">
-
+                      <input type="email" id="username" name="username" class="form__field">
                       <label for="password">Пароль</label>
-                      <input type="password" id="password" name="password">
-
-                      <input type="submit">
+                      <input type="password" id="password" name="password" class="form__field">
+                      <input type="submit" class="button">
+                      <p><a href="/registration">Регистрация</a></p>
                   </form>
               </div>
             </div>
