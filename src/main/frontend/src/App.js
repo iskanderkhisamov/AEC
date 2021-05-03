@@ -84,9 +84,6 @@ class ApexChart extends React.Component {
 }
 
 class RGraph extends React.Component{
-    constructor(props) {
-        super(props);
-    }
     render() {
         const elements = [
             { id: "1",
