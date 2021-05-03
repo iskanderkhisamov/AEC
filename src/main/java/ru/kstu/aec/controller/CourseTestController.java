@@ -17,6 +17,6 @@ public class CourseTestController {
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("group", ((User) getAuthentication().getPrincipal()).getGruppa());
-        return "course-test";
+        return "test";
     }
 }

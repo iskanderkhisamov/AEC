@@ -19,6 +19,7 @@
     </style>
     <![endif]-->
 
+    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
     <link rel="icon" th:href="@{../static/assets/favicon.svg}">
     <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
     <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
@@ -32,9 +33,8 @@
                     <a href="/">Автоматизированный учебный курс</a>
                 </div>
                 <nav class="header__nav">
-                    <a th:href="${auth > 0 ? '/profile' : '/login'}" style="color: #86C232">Личный кабинет</a>
-                    <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
-                       th:text="${auth == 1 ? 'Курсы' : (auth == 2 ? 'Создать курс' : '')}">Курсы</a>
+                    <a th:href="${auth == 1 ? '/profile' : '/creator'}" style="color: #86C232">Личный кабинет</a>
+                    <a th:href="${auth > 0 ? '/courses' : '/login'}">Курсы</a>
                 </nav>
             </div>
         </header>
@@ -42,8 +42,8 @@
             <div class="container">
                 <div class="main__name main__name__flex">
                     <div class="main__fullname">
-                        <p class="main__first-name" th:text="${name}">Ринат</p>
-                        <p class="main__second-name" th:text="${surname}">Шакиров</p>
+                        <p class="main__first-name" th:text="${name}">Имя</p>
+                        <p class="main__second-name" th:text="${surname}">Фамилия</p>
                     </div>
                     <div class="main__bottom">
                         <a class="button bottom" href="/logout">Выйти</a>

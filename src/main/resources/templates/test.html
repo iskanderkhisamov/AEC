@@ -20,6 +20,9 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -30,20 +33,16 @@
                 <a href="/">Автоматизированный учебный курс</a>
             </div>
             <nav class="header__nav">
-                <a th:href="${auth > 0 ? '/profile' : '/login'}">Личный кабинет</a>
-                <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
-                   th:text="${auth == 1 ? 'Тесты' : (auth == 2 ? 'Создать курс' : '')}" style="color: #86C232">Тесты</a>
-                <a th:href="${auth == 1 ? '/statistics' : (auth == 2 ? '/courses' : '#')}"
-                   th:text="${auth == 1 ? 'Статистика' : (auth == 2 ? 'Курсы' : '')}">Статистика</a>
+                <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
+                <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
             </nav>
         </div>
     </header>
     <main class="main">
         <div class="container">
             <div class="main__name">
-                <p class="main__first-name" th:text="${name}">Ринат</p>
-                <p class="main__second-name" th:text="${surname}">Шакиров</p>
-                <p class="main__group" th:text="${group == 'Нет' ? 'Преподаватель' :  group}">7281-11</p>
+                <p class="main__first-name" th:text="${name}">Имя</p>
+                <p class="main__second-name" th:text="${surname}">Фамилия</p>
             </div>
             <div class="main__test">
                 <p class="main__title"><b>Вопрос 1</b></p>

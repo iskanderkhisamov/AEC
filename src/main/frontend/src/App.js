@@ -152,8 +152,7 @@ class App extends React.Component {
                         </div>
                         <nav className="header__nav">
                             <a href="http://localhost:8080/profile">Личный кабинет</a>
-                            <a href="http://localhost:8080/tests">Тесты</a>
-                            <a href="" style={styleConfig}>Статистика</a>
+                            <a href="http://localhost:8080/courses">Курсы</a>
                         </nav>
                     </div>
                 </header>

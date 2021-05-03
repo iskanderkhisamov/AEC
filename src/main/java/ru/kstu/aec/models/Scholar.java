@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class Scholar {
     private Long id;
-    private Long userId;
-    private Long courseId;
-    private Long questionId;
+    private String name;
     private int type;
     private int value;
+    private int third;
     // недоделанный класс для студента, является чем-то типа DTO для удобства и передачи инфы в фронт
 }

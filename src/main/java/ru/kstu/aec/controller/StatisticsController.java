@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class StatisticsController {
 
-    @GetMapping("/statistics")
+    @GetMapping("/result")
     public String handleGet() {
-        return "redir";
+        return "result";
     }
     // тут мы перенаправляем юзера на реактовский фронт
 
