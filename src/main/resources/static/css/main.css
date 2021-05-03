@@ -3,7 +3,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     font-family: Roboto, sans-serif;
     height: 100%;
     width: 100%;
@@ -98,7 +99,8 @@ a {
     justify-content: space-between;
 }
 
-.main__fullname, .main__bottom {
+.main__fullname,
+.main__bottom {
     flex: 0 1 auto;
 }
 
@@ -178,14 +180,10 @@ a {
     background-color: transparent;
     border: 0;
     border-bottom: 1px solid #86C232;
-    box-shadow: 0 0 4px rgba(0,0,0,0.3);
-    transition: .3s box-shadow;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    transition: 0.3s box-shadow;
 }
 
 .form__field:hover {
-    box-shadow: 0 0 4px rgba(0,0,0,0.5);
-}
-
-.selected {
-    color: red;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }

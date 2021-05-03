@@ -18,4 +18,29 @@ public class CoursesController {
         return "courses";
     }
     // кидаем в модель все курсы из бд при помощи сервиса
+
+    @GetMapping("/course")
+    public String getCourse(Model model) {
+        return "course";
+    }
+
+    @GetMapping("/chapters")
+    public String getChapters(Model model) {
+        return "chapters";
+    }
+
+    @GetMapping("/chapter")
+    public String getChapter(Model model) {
+        return "chapter";
+    }
+
+    @GetMapping("/tests")
+    public String getTests(Model model) {
+        return "tests";
+    }
+
+    @GetMapping("/test")
+    public String getTest(Model model) {
+        return "test";
+    }
 }
