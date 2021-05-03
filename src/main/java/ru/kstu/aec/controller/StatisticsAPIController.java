@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kstu.aec.models.Scholar;
 import ru.kstu.aec.services.StatsGiver;
 
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8080" })
 @RestController
 public class StatisticsAPIController {
 
