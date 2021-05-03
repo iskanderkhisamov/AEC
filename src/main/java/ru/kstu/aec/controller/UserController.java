@@ -39,9 +39,4 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
-
 }
