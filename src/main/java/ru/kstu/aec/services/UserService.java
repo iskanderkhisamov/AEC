@@ -47,10 +47,6 @@ public class UserService implements UserDetailsService {
         // кодируем пароль
         user.setPassword(encryptedPassword);
 
-        if(user.isTeacher()) {
-            user.setUserRole(UserRole.TEACHER);
-            user.setGruppa("Нет");
-        }
         // чекаем является ли учителем наш юзер, меняем группу
         saveUser(user);
         // сохраняем пользователя в бд
@@ -59,7 +55,7 @@ public class UserService implements UserDetailsService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
-
+/*
     @Transactional
     public List<Course> getCourses(Course course, User user) {
         List<Course> courses = userRepository.findById(user.getId()).orElseThrow(() ->
@@ -69,10 +65,14 @@ public class UserService implements UserDetailsService {
         return courses;
     }
 
+ */
+/*
     public void addCourse(List<Course> courses, User user) {
         User user1 = user;
         user1.setCourses(courses);
         saveUser(user1);
         // добавляем курсы в юзера и сохраняем его
     }
+
+ */
 }

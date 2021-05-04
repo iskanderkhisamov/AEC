@@ -27,7 +27,7 @@ public class CreateController {
     }
     // вы спросите, а нахрена отправлять курс в гетмаппинг? а для того шобы
     // страничка могла осознавать шо в форме будем передавать
-
+/*
     @PostMapping("/create")
     public String postCreate(@ModelAttribute("course") Course course,
                              BindingResult result) {
@@ -38,4 +38,6 @@ public class CreateController {
     // также указываем аттрибут, но уже с аннотацией и BindingResult, который я хз зачем нужен вообще
     // создаем курс с помощью courseService и потом связываем юзера с курсом при помощи userService
 
+
+ */
 }

@@ -14,9 +14,8 @@ public class ProfileController {
     @GetMapping("/profile")
     public String profile(Model model) {
         isTeacher(model);
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
+        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
-        model.addAttribute("group", ((User) getAuthentication().getPrincipal()).getGruppa());
         return "profile";
     }
     // делаем тож самое шо в индексе и добавляем инфу о пользователе

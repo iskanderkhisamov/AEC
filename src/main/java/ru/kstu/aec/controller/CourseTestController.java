@@ -14,9 +14,8 @@ public class CourseTestController {
     @GetMapping("/course-test")
     public String courseTest(Model model) {
         isTeacher(model);
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
+        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
-        model.addAttribute("group", ((User) getAuthentication().getPrincipal()).getGruppa());
         return "test";
     }
 }

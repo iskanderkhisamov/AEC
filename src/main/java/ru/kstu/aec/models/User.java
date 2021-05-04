@@ -23,13 +23,9 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String firstname;
 
     private String surname;
-
-    private String gruppa;
-
-    private boolean teacher;
 
     private String email;
 
@@ -37,18 +33,6 @@ public class User implements UserDetails, Serializable {
 
     @Builder.Default
     private UserRole userRole = UserRole.USER;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="users_courses",
-            joinColumns=@JoinColumn(name="user_id", referencedColumnName = "id"),
-            inverseJoinColumns=@JoinColumn(name="course_id", referencedColumnName = "id"))
-    private List<Course> courses;
-    /*
-     каскад это типа те действия, которые ты можешь делать с этой таблицей
-     name это название реляционной таблицы в бд
-     joinColumns это типа ссылка на тот id, который ему пренадлежит в реляционной таблице, а
-     inverseJoinColumns это ссылка на id курса
-     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
