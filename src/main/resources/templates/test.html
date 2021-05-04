@@ -40,55 +40,27 @@
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__name">
-                <p class="main__first-name" th:text="${name}">Имя</p>
-                <p class="main__second-name" th:text="${surname}">Фамилия</p>
+            <div class="main__header">
+                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
+                <div class="main__title">Философия</div>
+                <div class="main__buttons">
+                    <a href="/result">Закончить тест</a>
+                    <a href="/test">Следующий вопрос</a>
+                </div>
             </div>
-            <div class="main__test">
-                <p class="main__title"><b>Вопрос 1</b></p>
-                <p>Кто такой макалей калкин этот?</p>
-                <p><input type="checkbox" checked> Основатель Петербурга</p>
-                <p><input type="checkbox"> Знаменитый клоун</p>
-                <p><input type="checkbox"> Президент России</p>
-                <p><input type="checkbox"> Школьник</p>
-                <br>
-                <p class="main__title"><b>Вопрос 2</b></p>
-                <p>Кто такой этот ваш Обама?</p>
-                <p><input type="checkbox" checked> Президент США</p>
-                <p><input type="checkbox"> Клоун</p>
-                <p><input type="checkbox"> Псевдоним Руслана Хисамова</p>
-                <p><input type="checkbox"> Олигарх</p>
-                <br>
-                <p class="main__title"><b>Вопрос 3</b></p>
-                <p>Что такое аниме?</p>
-                <p><input type="checkbox" checked> Кино</p>
-                <p><input type="checkbox"> Игра</p>
-                <p><input type="checkbox"> Нос</p>
-                <p><input type="checkbox"> Мультфильм</p>
-                <br>
-                <p class="main__title"><b>Вопрос 4</b></p>
-                <p>Что такое шахматы?</p>
-                <p><input type="checkbox" checked> Кино</p>
-                <p><input type="checkbox"> Игра</p>
-                <p><input type="checkbox"> Нос</p>
-                <p><input type="checkbox"> Мультфильм</p>
-                <br>
-                <p class="main__title"><b>Вопрос 5</b></p>
-                <p>Что такое РДР2?</p>
-                <p><input type="checkbox" checked> Кино</p>
-                <p><input type="checkbox"> Игра</p>
-                <p><input type="checkbox"> Нос</p>
-                <p><input type="checkbox"> Мультфильм</p>
-                <br>
-                <p class="main__title"><b>Вопрос 6</b></p>
-                <p>Что такое nose?</p>
-                <p><input type="checkbox" checked> Кино</p>
-                <p><input type="checkbox"> Игра</p>
-                <p><input type="checkbox"> Нос</p>
-                <p><input type="checkbox"> Мультфильм</p>
-                <form action="#" th:action="@{/done}" method="post">
-                    <button type="submit" class="main__button">Закончить тест</button>
-                </form>
+            <div class="main__content">
+                <div class="main__sidebar">
+                    <p><a href="/tests" class="selected">Вопрос 1</a></p>
+                    <p><a href="/tests">Вопрос 2</a></p>
+                    <p><a href="/tests">Вопрос 3</a></p>
+                </div>
+                <div class="main__general">
+                    <p>Как умер Сократ?</p>
+                    <label for="id1">В реке</label><input type="checkbox" id="id1">
+                    <label for="id2">В тюрьме</label><input type="checkbox" id="id2">
+                    <label for="id3">В море</label><input type="checkbox" id="id3">
+                    <label for="id4">От яда</label><input type="checkbox" id="id4">
+                </div>
             </div>
         </div>
     </main>

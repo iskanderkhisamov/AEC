@@ -40,16 +40,20 @@
         </header>
         <main class="main">
             <div class="container">
-                <div class="main__name main__name__flex">
-                    <div class="main__bottom">
-                        <a class="button bottom" href="/logout">Сохранить</a>
+                <div class="main__header">
+                    <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a></div>
+                    <div class="main__title">Курсы</div>
+                    <div class="main__buttons">
+                        <a href="/courses">Выйти</a>
                     </div>
                 </div>
-                <div class="main__info">
-                    <p class="main__title"><b>Курс</b></p>
-                    <div>
-                        <label id="course-name">Название курса</label>
-                        <input>
+                <div class="main__content">
+                    <div class="main__general">
+                        <label for="course-name">
+                            Название курса
+                        </label>
+                        <input type="text" id="course-name">
+                        <input type="button" value="Сохранить">
                     </div>
                 </div>
             </div>

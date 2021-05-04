@@ -17,6 +17,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #6B6E70;
+}
+
 .wrapper {
     display: flex;
     flex-flow: column nowrap;
@@ -86,45 +90,53 @@ a {
 
 .main .container {
     display: flex;
+    flex-direction: column;
+}
+
+.main__header, .main__content {
+    padding: 5px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.main__name, .main__title, .main__buttons, .main__sidebar, .main__general {
+    padding: 5px;
+    flex: 1 1 auto;
+}
+
+.main__header {
+    align-content: space-between;
+    border-bottom: 2px solid #86C232;
 }
 
 .main__name {
-    flex: 1 1 auto;
-    border-right: 1px solid white;
-}
-
-.main__name__flex {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-}
-
-.main__fullname,
-.main__bottom {
-    flex: 0 1 auto;
-}
-
-.main__bottom {
-    margin-bottom: 10px;
-    margin-right: 0px;
-}
-
-.main__info {
-    flex: 9 1 auto;
-    padding: 0 25px;
-}
-
-.main__test {
-    flex: 9 1 auto;
-    padding: 0 25px;
-}
-
-.main__name p {
-    margin-bottom: 5px;
+    text-align: left;
 }
 
 .main__title {
-    margin-bottom: 5px;
+    flex: 8 1 auto;
+    align-self: stretch;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.main__buttons {
+    text-align: right;
+}
+
+.main__sidebar {
+    width: auto;
+    max-width: 150px;
+    border-right: 2px solid #86C232;;
+}
+
+.main__general {
+    padding-left: 10px;
+    flex: 9 1 auto;
+    align-self: stretch;
 }
 
 .main__button {
@@ -186,4 +198,8 @@ a {
 
 .form__field:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.selected {
+    color: #86C232;
 }

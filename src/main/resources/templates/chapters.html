@@ -40,14 +40,27 @@
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__name main__name__flex">
-                <div class="main__bottom">
-                    <a class="button bottom" href="/logout">Вернуться к курсу</a>
+            <div class="main__header">
+                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
+                <div class="main__title">Философия</div>
+                <div class="main__buttons">
+                    <a href="/chapters">Следующий раздел</a>
                 </div>
             </div>
-            <div class="main__info">
-                <p class="main__title"><b>Тут должно быть название курса</b></p>
-                <div>Тут должны быть разделы</div>
+            <div class="main__content">
+                <div class="main__sidebar">
+                    <p><a href="/chapters" class="selected">Раздел 1</a></p>
+                    <p><a href="/chapters">Раздел 2</a></p>
+                    <p><a href="/chapters">Раздел 3</a></p>
+                </div>
+                <div class="main__general">
+                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    <p>adipisicing elit. In tenetur</p>
+                    <p>et quae cum eaque id quam</p>
+                    <p>aliquam perferendis optio expedita</p>
+                    <p>eligendi odio voluptas, nisi veritatis.</p>
+                    <p>Vel repellat ipsam perferendis enim?</p>
+                </div>
             </div>
         </div>
     </main>
