@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void isTeacher(Model model) {
         int state = 0;
         try {
-            boolean isTeacher = ((User)getAuthentication().getPrincipal()).isTeacher();
+            boolean isTeacher = false;
             if(isTeacher) {
                 state = 2;
             }

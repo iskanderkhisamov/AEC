@@ -14,7 +14,7 @@ public class ProfileController {
     @GetMapping("/profile")
     public String getProfile(Model model) {
         isTeacher(model);
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
+        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         return "profile";
     }

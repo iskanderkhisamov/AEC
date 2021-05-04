@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="courses")
+@Table(name="course")
 public class Course implements Serializable {
 
     @Id
@@ -21,7 +21,7 @@ public class Course implements Serializable {
     private Long id;
 
     private String name;
-
+/*
     @JsonIgnore // не обращайте внимания
     @ManyToMany(mappedBy = "courses") // настройка ManyToMany по тому, шо у нас лежит в User
     private List<User> users;
