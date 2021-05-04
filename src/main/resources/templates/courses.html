@@ -40,9 +40,23 @@
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__info">
-                <p class="main__title"><b>Курсы</b></p>
-                <div>Тут должны быть курсы, но это в разработке.</div>
+            <div class="main__header">
+                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
+                <div class="main__title">Философия</div>
+                <div class="main__buttons">
+                    <a href="/courses">Следующий курс</a>
+                </div>
+            </div>
+            <div class="main__content">
+                <div class="main__sidebar">
+                    <p><a href="/courses" class="selected">Математика</a></p>
+                    <p><a href="/courses">Русский язык</a></p>
+                    <p><a href="/courses">Испанский язык</a></p>
+                </div>
+                <div class="main__general">
+                    <p><a href="/chapters">Учебный материал</a></p>
+                    <p><a href="/tests">Тест</a></p>
+                </div>
             </div>
         </div>
     </main>

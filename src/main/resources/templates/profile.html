@@ -40,20 +40,20 @@
         </header>
         <main class="main">
             <div class="container">
-                <div class="main__name main__name__flex">
-                    <div class="main__fullname">
-                        <p class="main__first-name" th:text="${name}">Имя</p>
-                        <p class="main__second-name" th:text="${surname}">Фамилия</p>
-                    </div>
-                    <div class="main__bottom">
-                        <a class="button bottom" href="/logout">Выйти</a>
+                <div class="main__header">
+                    <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a></div>
+                    <div class="main__title">Личный кабинет</div>
+                    <div class="main__buttons">
+                        <a href="/logout">Выйти</a>
                     </div>
                 </div>
-                <div class="main__info">
-                    <p class="main__title"><b>Курсы</b></p>
-                    <p>Вычислительная математика</p>
-                    <p>Дискретная математика</p>
-                    <p>Математический анализ</p>
+                <div class="main__content">
+                    <div class="main__general">
+                        <p>Курсы</p>
+                        <p><a href="/courses">Математика</a></p>
+                        <p><a href="/courses">Русский язык</a></p>
+                        <p><a href="/courses">Испанский язык</a></p>
+                    </div>
                 </div>
             </div>
         </main>
