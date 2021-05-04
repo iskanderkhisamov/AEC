@@ -38,9 +38,4 @@ public class CoursesController {
     public String getTests(Model model) {
         return "tests";
     }
-
-    @GetMapping("/test")
-    public String getTest(Model model) {
-        return "test";
-    }
 }

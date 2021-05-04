@@ -35,28 +35,35 @@
             <nav class="header__nav">
                 <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
                 <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
+                <a href="/about">О нас</a>
             </nav>
         </div>
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__header">
-                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
-                <div class="main__title">Философия</div>
-                <div class="main__buttons">
-                    <a href="/result">Закончить тест</a>
-                    <a href="/test">Следующий вопрос</a>
-                </div>
+            <div class="main__sidebar">
+                <ul>
+                    <th:block th:each="question, state: ${questions}">
+                        <li><a th:utext="Вопрос + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
+                        <li><a th:utext="Вопрос + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
+                    </th:block>
+                </ul>
             </div>
             <div class="main__content">
-                <div class="main__sidebar">
-                    <p><a href="/tests" class="selected">Вопрос 1</a></p>
-                    <p><a href="/tests">Вопрос 2</a></p>
-                    <p><a href="/tests">Вопрос 3</a></p>
-                </div>
-                <div class="main__general">
-
-                </div>
+                <form role="form" th:action="@{/test}" th:method="POST">
+                    <p th:utext="${question}">Вопрос</p>
+                    <ul>
+                        <th:block th:each="answer: ${answers1}">
+                            <input type="checkbox"><label th:utext="' '+ ${answer}">Ответы</label><br>
+                        </th:block>
+                    </ul>
+                    <th:block th:if="${id} != 0">
+                        <button class="main__button">Предыдущий вопрос</button>
+                    </th:block>
+                    <th:block th:if="${id} != ${last}">
+                        <button class="main__button">Следующий вопрос</button>
+                    </th:block>
+                </form>
             </div>
         </div>
     </main>

@@ -21,6 +21,10 @@ a:hover {
     color: #6B6E70;
 }
 
+li {
+    list-style-type: none;
+}
+
 .wrapper {
     display: flex;
     flex-flow: column nowrap;
@@ -90,53 +94,22 @@ a:hover {
 
 .main .container {
     display: flex;
-    flex-direction: column;
-}
-
-.main__header, .main__content {
-    padding: 5px;
-    flex: 1 1 auto;
-    display: flex;
     flex-direction: row;
 }
 
-.main__name, .main__title, .main__buttons, .main__sidebar, .main__general {
+.main__sidebar, .main__content {
     padding: 5px;
-    flex: 1 1 auto;
-}
-
-.main__header {
-    align-content: space-between;
-    border-bottom: 2px solid #86C232;
-}
-
-.main__name {
-    text-align: left;
-}
-
-.main__title {
-    flex: 8 1 auto;
-    align-self: stretch;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-
-}
-
-.main__buttons {
-    text-align: right;
 }
 
 .main__sidebar {
-    width: auto;
+    width: 90px;
     max-width: 150px;
-    border-right: 2px solid #86C232;;
+    border-right: 2px solid #86C232;
 }
 
-.main__general {
-    padding-left: 10px;
-    flex: 9 1 auto;
-    align-self: stretch;
+.main__content {
+    padding-left: 15px;
+    flex: 1 1 auto;
 }
 
 .main__button {
@@ -147,6 +120,10 @@ a:hover {
     color: white;
     border: 1px solid white;
     transition: background 0.15s ease;
+}
+
+.main__button:hover {
+    background-color: #86C232;
 }
 
 .gray {
