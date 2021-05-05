@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Курсы</title>
+    <title>АУК</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
@@ -20,33 +20,44 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
-<div class="wrapper">
-    <header class="header">
-        <div class="container">
-            <div class="header__title">
-                <a href="/">Автоматизированный учебный курс</a>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="header__title">
+                    <a href="/">Автоматизированный учебный курс</a>
+                </div>
+                <nav class="header__nav">
+                    <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
+                    <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
+                </nav>
             </div>
-            <nav class="header__nav">
-                <a href="/profile">Личный кабинет</a>
-                <a href="/create">Создать курс</a>
-                <a href="/courses">Курсы</a>
-            </nav>
-        </div>
-    </header>
-    <main class="main">
-        <div class="container">
-            <form role="form" th:action="@{/create}" th:method="POST" th:object="${course}">
-
-                <label>Название</label>
-                <input type="text" id="name" name="name" th:field="*{name}">
-
-                <input type="submit">
-            </form>
-        </div>
-    </main>
-</div>
+        </header>
+        <main class="main">
+            <div class="container">
+                <div class="main__header">
+                    <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a></div>
+                    <div class="main__title">Курсы</div>
+                    <div class="main__buttons">
+                        <a href="/courses">Выйти</a>
+                    </div>
+                </div>
+                <div class="main__content">
+                    <div class="main__general">
+                        <label for="course-name">
+                            Название курса
+                        </label>
+                        <input type="text" id="course-name">
+                        <input type="button" value="Сохранить">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>

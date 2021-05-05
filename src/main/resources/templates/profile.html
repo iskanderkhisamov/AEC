@@ -20,6 +20,9 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -30,32 +33,27 @@
                     <a href="/">Автоматизированный учебный курс</a>
                 </div>
                 <nav class="header__nav">
-                    <a href="" class="selected">Личный кабинет</a>
-                    <a th:href="${auth == 1 ? '/tests' : (auth == 2 ? '/create' : '#')}"
-                       th:text="${auth == 1 ? 'Тесты' : (auth == 2 ? 'Создать курс' : '')}">Тесты</a>
-                    <a th:href="${auth == 1 ? '/statistics' : (auth == 2 ? '/courses' : '#')}"
-                       th:text="${auth == 1 ? 'Статистика' : (auth == 2 ? 'Курсы' : '')}">Статистика</a>
+                    <a th:href="${auth == 1 ? '/profile' : '/creator'}" style="color: #86C232">Личный кабинет</a>
+                    <a th:href="${auth > 0 ? '/courses' : '/login'}">Курсы</a>
                 </nav>
             </div>
         </header>
         <main class="main">
             <div class="container">
-                <div class="main__name">
-                    <p class="main__first-name" th:text="${name}">Ринат</p>
-                    <p class="main__second-name" th:text="${surname}">Шакиров</p>
-                    <p class="main__group" th:text="${group == 'Нет' ? 'Преподаватель' :  group}">7281-11</p>
-                    <a href="/logout">Выйти из аккаунта</a>
+                <div class="main__header">
+                    <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a></div>
+                    <div class="main__title">Личный кабинет</div>
+                    <div class="main__buttons">
+                        <a href="/logout">Выйти</a>
+                    </div>
                 </div>
-                <div class="main__info">
-                    <p class="main__title"><b>Курсы</b></p>
-                    <p>Вычислительная математика</p>
-                    <p>Дискретная математика</p>
-                    <p>Математический анализ</p>
-                    <br>
-                    <p class="main__title"><b>Результаты</b></p>
-                    <p>Тест 1 - 50%</p>
-                    <p>Тест 2 - 24%</p>
-                    <p>Тест 3 - 0%</p>
+                <div class="main__content">
+                    <div class="main__sidebar">
+
+                    </div>
+                    <div class="main__general">
+
+                    </div>
                 </div>
             </div>
         </main>

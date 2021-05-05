@@ -2,14 +2,13 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация</title>
+    <title>АУК</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
 
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/registration.css}">
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,6 +20,9 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -38,29 +40,20 @@
       <main class="main">
         <div class="container">
           <div class="noflex">
-
               <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
                   <label>Имя</label>
-                  <input type="text" id="name" name="name" th:field="*{name}">
+                  <input type="text" id="firstname" name="firstname" th:field="*{firstname}" class="form__field">
 
                   <label>Фамилия</label>
-                  <input type="text" id="surname" name="surname" th:field="*{surname}">
+                  <input type="text" id="surname" name="surname" th:field="*{surname}" class="form__field">
 
                   <label>Email</label>
-                  <input type="email" id="email" name="email" th:field="*{email}">
-
-                  <label>Преподаватель?</label>
-                  <input type="checkbox" id="teacher" name="teacher">
-
-                  <div class="group">
-                      <label>Группа</label>
-                      <input type="text" id="group" name="group" th:field="*{gruppa}">
-                  </div>
+                  <input type="email" id="email" name="email" th:field="*{email}" class="form__field">
 
                   <label>Пароль</label>
-                  <input type="password" id="password" name="password" th:field="*{password}">
+                  <input type="password" id="password" name="password" th:field="*{password}" class="form__field">
 
-                  <input type="submit">
+                  <input type="submit" class="button">
               </form>
           </div>
         </div>

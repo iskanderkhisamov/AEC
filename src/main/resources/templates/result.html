@@ -20,27 +20,12 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__title">
-                    <a href="/">Автоматизированный учебный курс</a>
-                </div>
-                <nav class="header__nav">
-                    <a href="/profile">Личный кабинет</a>
-                    <a href="/tests">Тесты</a>
-                    <a href="" class="selected">Статистика</a>
-                </nav>
-            </div>
-        </header>
-        <main class="main">
-            <div class="container">
-                Результат: депортация.
-            </div>
-        </main>
-    </div>
+    <script>window.open("http://localhost:3000", "_self")</script>
 </body>
 </html>

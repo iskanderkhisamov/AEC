@@ -2,25 +2,27 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Авторизация</title>
+    <title>АУК</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
 
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if !IE 7]>
     <style type="text/css">
-        #wrapper {display:table;height:100%}
+        #wrap {display:table;height:100%}
     </style>
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -40,12 +42,11 @@
                 <div class="noflex">
                   <form role="form" th:action="@{/login}" th:method="POST">
                       <label for="username">E-mail</label>
-                      <input type="email" id="username" name="username">
-
+                      <input type="email" id="username" name="username" class="form__field">
                       <label for="password">Пароль</label>
-                      <input type="password" id="password" name="password">
-
-                      <input type="submit">
+                      <input type="password" id="password" name="password" class="form__field">
+                      <input type="submit" class="button" value="Войти" text="">
+                      <p><a href="/registration">Регистрация</a></p>
                   </form>
               </div>
             </div>

@@ -44,11 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/create", "/courses").hasAuthority("TEACHER")
-                .antMatchers("/statistics","/tests", "/statistics/**", "/statistics/*").hasAuthority("USER")
-                .antMatchers("/profile").access("hasAuthority('USER') or hasAuthority('TEACHER') or hasAuthority('ADMIN')")
-                .antMatchers("/", "/css/**","/static/**", "/resources/**","/.*.css").permitAll()
+                .antMatchers("/admin", "/courses", "/course", "/chapters", "/chapter", "/tests", "/test", "/create", "/result").hasAuthority("ADMIN")
+                .antMatchers("/creator", "/courses", "/course", "/chapters", "/chapter", "/tests", "/test", "/create", "/result").hasAuthority("TEACHER")
+                .antMatchers("/profile", "/courses", "/course", "/chapters", "/chapter", "/tests", "/test", "/create", "/result").hasAuthority("USER")
+                .antMatchers("/", "/css/**","/static/**", "/resources/**","/.*.css","/statistics/*", "/statistics/**").permitAll()
                 .antMatchers("/login","/registration").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -87,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void isTeacher(Model model) {
         int state = 0;
         try {
-            boolean isTeacher = ((User)getAuthentication().getPrincipal()).isTeacher();
+            boolean isTeacher = false;
             if(isTeacher) {
                 state = 2;
             }

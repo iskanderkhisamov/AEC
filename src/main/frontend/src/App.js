@@ -84,9 +84,6 @@ class ApexChart extends React.Component {
 }
 
 class RGraph extends React.Component{
-    constructor(props) {
-        super(props);
-    }
     render() {
         const elements = [
             { id: "1",
@@ -142,6 +139,7 @@ class App extends React.Component {
     }
 
     render() {
+        let styleConfig = { color: "#86C232"}
         return (
             <div className="wrapper">
                 <header className="header">
@@ -151,8 +149,7 @@ class App extends React.Component {
                         </div>
                         <nav className="header__nav">
                             <a href="http://localhost:8080/profile">Личный кабинет</a>
-                            <a href="http://localhost:8080/tests">Тесты</a>
-                            <a href="" className="selected">Статистика</a>
+                            <a href="http://localhost:8080/courses">Курсы</a>
                         </nav>
                     </div>
                 </header>

@@ -3,6 +3,7 @@ package ru.kstu.aec.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.kstu.aec.models.Course;
+import ru.kstu.aec.repositories.CourseRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

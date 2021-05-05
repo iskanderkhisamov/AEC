@@ -15,8 +15,27 @@ public class CoursesController {
 
     @GetMapping("/courses")
     public String getCourses(Model model) {
-        model.addAttribute("courses", courseService.loadCourses());
         return "courses";
     }
     // кидаем в модель все курсы из бд при помощи сервиса
+
+    @GetMapping("/course")
+    public String getCourse(Model model) {
+        return "course";
+    }
+
+    @GetMapping("/chapters")
+    public String getChapters(Model model) {
+        return "chapters";
+    }
+
+    @GetMapping("/chapter")
+    public String getChapter(Model model) {
+        return "chapter";
+    }
+
+    @GetMapping("/tests")
+    public String getTests(Model model) {
+        return "tests";
+    }
 }

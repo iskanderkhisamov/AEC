@@ -20,37 +20,46 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__title">
-                    <a href="/">Автоматизированный учебный курс</a>
-                </div>
-                <nav class="header__nav">
-                    <a href="/profile">Личный кабинет</a>
-                    <a href="" class="selected">Тесты</a>
-                    <a href="/statistics">Статистика</a>
-                </nav>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="header__title">
+                <a href="/">Автоматизированный учебный курс</a>
             </div>
-        </header>
-        <main class="main">
-            <div class="container">
-                <div class="main__name">
-                    <p class="main__first-name">Ринат</p>
-                    <p class="main__second-name">Шакиров</p>
-                    <p class="main__group">7281-11</p>
-                </div>
-                <div class="main__test">
-                    <p class="main__title"><b>Выберите курс</b></p>
-                    <a href="/course-test">Вычислительная математика</a><br>
-                    <a href="/course-test">Дискретная математика</a><br>
-                    <a href="/course-test">Математический анализ</a>
+            <nav class="header__nav">
+                <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
+                <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <div class="main__header">
+                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
+                <div class="main__title">Философия</div>
+                <div class="main__buttons">
+                    <a href="/tests">Следующий тест</a>
                 </div>
             </div>
-        </main>
-    </div>
+            <div class="main__content">
+                <div class="main__sidebar">
+                    <p><a href="/tests" class="selected">Тест 1</a></p>
+                    <p><a href="/tests">Тест 2</a></p>
+                    <p><a href="/tests">Тест 3</a></p>
+                </div>
+                <div class="main__general">
+                    <p>Тест на тему "Сократ и его компания"</p>
+                    <p><button value="Начать тест"></button></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

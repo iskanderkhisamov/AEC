@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>АУК</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Автоматизированный учебный курс">
+    <meta name="author" content="khisamov.studio">
+
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if !IE 7]>
+    <style type="text/css">
+        #wrap {display:table;height:100%}
+    </style>
+    <![endif]-->
+
+    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
+
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="header__title">
+                <a href="/">Автоматизированный учебный курс</a>
+            </div>
+            <nav class="header__nav">
+                <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
+                <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
+                <a href="/about">О нас</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <div class="main__sidebar">
+                <ul>
+                    <th:block th:each="question, state: ${questions}">
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
+                    </th:block>
+                </ul>
+            </div>
+            <div class="main__content">
+                <form role="form" th:action="@{/testcache}" th:method="POST" th:object="${testcache}">
+                    <p th:utext="${question.question_text}">Вопрос</p>
+                    <ul>
+                        <li th:each="answer, state: ${answers}">
+                            <th:block th:if="1 + ${id} == ${answer.question_id}">
+                                <input type="radio" name="answer" th:field="*{radio}" th:value="${answer.answer_text}"/>
+                                <label th:for="${answer.answer_text}" th:text="${answer.answer_text}"></label>
+                            </th:block>
+                        </li>
+                    </ul>
+                    <th:block th:if="${id} == 0">
+                        <button class="main__button disabled" disabled>Предыдущий вопрос</button>
+                    </th:block>
+                    <th:block th:if="${id} != 0">
+                        <button class="main__button">Предыдущий вопрос</button>
+                    </th:block>
+                    <th:block th:if="1 + ${id} != ${#arrays.length(questions)}">
+                        <button class="main__button">Следующий вопрос</button>
+                    </th:block>
+                    <th:block th:if="1 + ${id} == ${#arrays.length(questions)}">
+                        <button class="main__button" type="submit" name="submit">Закончить тест</button>
+                    </th:block>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

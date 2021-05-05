@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Курсы</title>
+    <title>АУК</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
@@ -20,6 +20,9 @@
     <![endif]-->
 
     <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
 
 </head>
 <body>
@@ -30,24 +33,31 @@
                 <a href="/">Автоматизированный учебный курс</a>
             </div>
             <nav class="header__nav">
-                <a href="/profile">Личный кабинет</a>
-                <a href="/create">Создать курс</a>
-                <a href="/courses">Курсы</a>
+                <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
+                <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
             </nav>
         </div>
     </header>
     <main class="main">
         <div class="container">
-            <table border="1" style="width:300px">
-                <tr>
-                    <td>Курсы</td>
-                </tr>
-                <th:block th:each="course : ${courses}">
-                    <tr>
-                        <td th:text="${course.name}"></td>
-                    </tr>
-                </th:block>
-            </table>
+            <div class="main__header">
+                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
+                <div class="main__title">Философия</div>
+                <div class="main__buttons">
+                    <a href="/courses">Следующий курс</a>
+                </div>
+            </div>
+            <div class="main__content">
+                <div class="main__sidebar">
+                    <p><a href="/courses" class="selected">Математика</a></p>
+                    <p><a href="/courses">Русский язык</a></p>
+                    <p><a href="/courses">Испанский язык</a></p>
+                </div>
+                <div class="main__general">
+                    <p><a href="/chapters">Учебный материал</a></p>
+                    <p><a href="/tests">Тест</a></p>
+                </div>
+            </div>
         </div>
     </main>
 </div>
