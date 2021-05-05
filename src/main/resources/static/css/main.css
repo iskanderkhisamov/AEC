@@ -180,3 +180,13 @@ li {
 .selected {
     color: #86C232;
 }
+
+.disabled {
+    color: black;
+    background-color: #222629;
+}
+
+.disabled:hover {
+    color: black;
+    background-color: #222629;
+}
