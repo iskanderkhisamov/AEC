@@ -20,20 +20,4 @@ public class ProfileController {
     }
     // делаем тож самое шо в индексе и добавляем инфу о пользователе
     // надо будет вам сделать так шобы ещё инфа о курсах и резах тестов отображалась
-
-    @GetMapping("/creator")
-    public String getCreator(Model model) {
-        isTeacher(model);
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
-        model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
-        return "creator";
-    }
-
-    @GetMapping("/admin")
-    public String getAdmin(Model model) {
-        isTeacher(model);
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getName());
-        model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
-        return "admin";
-    }
 }

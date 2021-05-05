@@ -44,24 +44,33 @@
             <div class="main__sidebar">
                 <ul>
                     <th:block th:each="question, state: ${questions}">
-                        <li><a th:utext="Вопрос + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
-                        <li><a th:utext="Вопрос + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
                     </th:block>
                 </ul>
             </div>
             <div class="main__content">
-                <form role="form" th:action="@{/test}" th:method="POST">
-                    <p th:utext="${question}">Вопрос</p>
+                <form role="form" th:action="@{/testcache}" th:method="POST" th:object="${testcache}">
+                    <p th:utext="${question.question_text}">Вопрос</p>
                     <ul>
-                        <th:block th:each="answer: ${answers1}">
-                            <input type="checkbox"><label th:utext="' '+ ${answer}">Ответы</label><br>
-                        </th:block>
+                        <li th:each="answer, state: ${answers}">
+                            <th:block th:if="1 + ${id} == ${answer.question_id}">
+                                <input type="radio" name="answer" th:field="*{radio}" th:value="${answer.answer_text}"/>
+                                <label th:for="${answer.answer_text}" th:text="${answer.answer_text}"></label>
+                            </th:block>
+                        </li>
                     </ul>
+                    <th:block th:if="${id} == 0">
+                        <button class="main__button disabled" disabled>Предыдущий вопрос</button>
+                    </th:block>
                     <th:block th:if="${id} != 0">
                         <button class="main__button">Предыдущий вопрос</button>
                     </th:block>
-                    <th:block th:if="${id} != ${last}">
+                    <th:block th:if="1 + ${id} != ${#arrays.length(questions)}">
                         <button class="main__button">Следующий вопрос</button>
+                    </th:block>
+                    <th:block th:if="1 + ${id} == ${#arrays.length(questions)}">
+                        <button class="main__button" type="submit" name="submit">Закончить тест</button>
                     </th:block>
                 </form>
             </div>

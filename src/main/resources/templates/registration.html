@@ -40,7 +40,6 @@
       <main class="main">
         <div class="container">
           <div class="noflex">
-
               <form role="form" th:action="@{/registration}" th:method="POST" th:object="${user}">
                   <label>Имя</label>
                   <input type="text" id="firstname" name="firstname" th:field="*{firstname}" class="form__field">
