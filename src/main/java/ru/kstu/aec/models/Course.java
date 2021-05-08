@@ -17,17 +17,17 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
 
-    private int teacherId;
+    private Long teacherId;
 
     private String description;
 
     private int level;
 
-    private int specializationId;
+    private Long specializationId;
 
     private double max_pol_score;
 
