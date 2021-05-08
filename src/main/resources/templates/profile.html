@@ -56,7 +56,9 @@
                             <a href="/profile/changeinfo">Изменить информацию</a>
                         </div>
                         <div class="main__button center__text">
-                            <a href="/profile/tocreator" th:text="${user_role} == 1 ? 'Вы преподаватель' : 'Стать преподавателем'">Статус</a>
+                            <a href="/profile/tocreator"
+                               th:text="${user_role} == 1 ? 'Вы преподаватель' : 'Создать курс'">
+                                Изменить роль / Создать курс</a>
                         </div>
                         <div class="main__button center__text">
                             <a href="/profile/courses">Ваши курсы</a>
