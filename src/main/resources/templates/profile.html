@@ -33,26 +33,40 @@
                     <a href="/">Автоматизированный учебный курс</a>
                 </div>
                 <nav class="header__nav">
-                    <a th:href="${auth == 1 ? '/profile' : '/creator'}" style="color: #86C232">Личный кабинет</a>
-                    <a th:href="${auth > 0 ? '/courses' : '/login'}">Курсы</a>
+                    <a href="/profile" style="color: #86C232">Личный кабинет</a>
+                    <a href="/courses">Курсы</a>
+                    <a href="/about">О нас</a>
                 </nav>
             </div>
         </header>
         <main class="main">
             <div class="container">
-                <div class="main__header">
-                    <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a></div>
-                    <div class="main__title">Личный кабинет</div>
-                    <div class="main__buttons">
-                        <a href="/logout">Выйти</a>
+                <div class="main__content profile">
+                    <div class="profile__info">
+                        <div class="form__info">
+                            <h2 th:text="${name}">Имя</h2>
+                        </div>
+                        <div class="form__info" >
+                            <h2 th:text="${surname}">Фамилия</h2>
+                        </div>
+                        <div class="form__info" th:text="${email}">
+                            Email
+                        </div>
+                        <div class="main__button center__text">
+                            <a href="/profile/changeinfo">Изменить информацию</a>
+                        </div>
+                        <div class="main__button center__text">
+                            <a href="/profile/tocreator" th:text="${user_role} == 1 ? 'Вы преподаватель' : 'Стать преподавателем'">Статус</a>
+                        </div>
+                        <div class="main__button center__text">
+                            <a href="/profile/courses">Ваши курсы</a>
+                        </div>
+                        <div class="main__button center__text">
+                            <a href="/logout">Выйти</a>
+                        </div>
                     </div>
-                </div>
-                <div class="main__content">
-                    <div class="main__sidebar">
-
-                    </div>
-                    <div class="main__general">
-
+                    <div class="profile__avatar">
+                        <img class="profile__image" th:src="@{/assets/avatar2.jpg}" alt="Аватар" src="../static/assets/avatar.png">
                     </div>
                 </div>
             </div>

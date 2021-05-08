@@ -41,25 +41,12 @@
       </header>
       <main class="main">
           <div class="container">
-              <div class="main__header">
-                  <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a>Искандер Хисамов</div>
-                  <div class="main__title">Личный кабинет</div>
-                  <div class="main__buttons">
-                      <a href="/courses">Создать курс</a>
-                      <a href="/courses">Выйти</a>
-                  </div>
-              </div>
-              <div class="main__content">
-                  <div class="main__sidebar">
-                      <p><a href="/creator" class="selected">Математика</a></p>
-                      <p><a href="/courses">Русский язык</a></p>
-                      <p><a href="/courses">Испанский язык</a></p>
-                  </div>
-                  <div class="main__general">
-                      <h1>Редактор курса "Математика"</h1>
-                      <p><a href="/chapters">Учебный материал</a></p>
-                      <p><a href="/chapters">Тест</a></p>
-                  </div>
+              <div class="main__content center__text">
+                  <form role="form" th:action="@{/profile/tocreator}" th:method="POST" th:object="${document}">
+                      <label for="token">Введите токен</label>
+                      <input type="text" id="token" name="docCode" th:field="*{docCode}" class="form__field">
+                      <input type="submit" class="main__button" value="Проверить">
+                  </form>
               </div>
           </div>
       </main>

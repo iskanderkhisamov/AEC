@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.Answer;
 import ru.kstu.aec.models.Question;
+import ru.kstu.aec.models.TestCache;
 import ru.kstu.aec.services.AnswerService;
 import ru.kstu.aec.services.QuestionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,6 +37,7 @@ public class TestController {
         model.addAttribute("question", questions.get(Integer.parseInt(id)));
         model.addAttribute("id", Integer.parseInt(id));
         model.addAttribute("answers", answers);
+        model.addAttribute("testcache", new TestCache());
 
         return "test";
     }
@@ -52,13 +53,15 @@ public class TestController {
         model.addAttribute("question", questions.get(Integer.parseInt(id)));
         model.addAttribute("id", Integer.parseInt(id));
         model.addAttribute("answers", answers);
+        model.addAttribute("testcache", new TestCache());
 
         return "test";
     }
 
-    @PostMapping("/testcache")
-    public String postTest(Model model) {
-        return "test";
+    @PostMapping("/test")
+    public String postTest(@ModelAttribute("testcache") TestCache testCache, BindingResult result) {
+
+        return "redirect:/test";
     }
 
     @GetMapping("/crud_questions")

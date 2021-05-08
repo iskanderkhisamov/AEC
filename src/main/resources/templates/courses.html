@@ -33,30 +33,22 @@
                 <a href="/">Автоматизированный учебный курс</a>
             </div>
             <nav class="header__nav">
-                <a th:href="${auth == 1 ? '/profile' : '/creator'}">Личный кабинет</a>
-                <a th:href="${auth > 0 ? '/courses' : '/login'}" style="color: #86C232">Курсы</a>
+                <a href="/profile">Личный кабинет</a>
+                <a href="/courses" style="color: #86C232">Курсы</a>
+                <a href="/about">О нас</a>
             </nav>
         </div>
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__header">
-                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
-                <div class="main__title">Философия</div>
-                <div class="main__buttons">
-                    <a href="/courses">Следующий курс</a>
-                </div>
-            </div>
             <div class="main__content">
-                <div class="main__sidebar">
-                    <p><a href="/courses" class="selected">Математика</a></p>
-                    <p><a href="/courses">Русский язык</a></p>
-                    <p><a href="/courses">Испанский язык</a></p>
-                </div>
-                <div class="main__general">
-                    <p><a href="/chapters">Учебный материал</a></p>
-                    <p><a href="/tests">Тест</a></p>
-                </div>
+                <th:block th:each="course : ${courses}">
+                    <a th:href="@{/course/{id}(id=${course.id})}"><div class="course">
+                        <h2 th:text="${course.getName()}">Название курса</h2>
+                        <h3>Специализация</h3>
+                        <h3>Преподаватель</h3>
+                    </div></a>
+                </th:block>
             </div>
         </div>
     </main>

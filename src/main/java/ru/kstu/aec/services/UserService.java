@@ -46,6 +46,27 @@ public class UserService implements UserDetailsService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
+
+    public void changeUserPassword(User user, String password) {
+        final String encryptedPassword = bCryptPasswordEncoder.encode(password);
+        user.setPassword(encryptedPassword);
+        saveUser(user);
+    }
+
+    public void changeUserFirstName(User user, String firstName) {
+        user.setFirstname(firstName);
+        saveUser(user);
+    }
+
+    public void changeUserSecondName(User user, String secondName) {
+        user.setSurname(secondName);
+        saveUser(user);
+    }
+
+    public void changeUserEmail(User user, String email) {
+        user.setEmail(email);
+        saveUser(user);
+    }
 /*
     @Transactional
     public List<Course> getCourses(Course course, User user) {

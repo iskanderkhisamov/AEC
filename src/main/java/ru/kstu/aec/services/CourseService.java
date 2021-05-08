@@ -18,6 +18,8 @@ public class CourseService {
     }
     // метод для получения списка всех курсов
 
+
+
     @Transactional
     public void createCourse(Course course) {
         courseRepository.save(course);
