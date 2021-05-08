@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,9 +17,25 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String name;
+
+    private int teacherId;
+
+    private String description;
+
+    private int level;
+
+    private int specializationId;
+
+    private double max_pol_score;
+
+    private double max_chl_score;
+
+    private double max_upr_score;
+
+    private double max_global_score;
 /*
     @JsonIgnore // не обращайте внимания
     @ManyToMany(mappedBy = "courses") // настройка ManyToMany по тому, шо у нас лежит в User

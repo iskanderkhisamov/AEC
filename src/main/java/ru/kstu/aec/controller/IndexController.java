@@ -19,4 +19,8 @@ public class IndexController {
     // юзаем метод, который у нас в SecurityConfig описан, шобы страничка норм реагировала на разный тип юзеров
     // и выводим аутентификационный токен
 
+    @GetMapping("/about")
+    public String about(Model model) {
+        return "about";
+    }
 }

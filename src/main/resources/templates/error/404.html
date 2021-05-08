@@ -33,32 +33,19 @@
                   <a href="/">Автоматизированный учебный курс</a>
               </div>
               <nav class="header__nav">
-                  <a href="/profile" style="color: #86C232">Личный кабинет</a>
-                  <a href="/courses">Курсы</a>
+                  <a href="/profile">Личный кабинет</a>
+                  <a href="/courses" style="color: #86C232">Курсы</a>
                   <a href="/about">О нас</a>
               </nav>
           </div>
       </header>
       <main class="main">
           <div class="container">
-              <div class="main__header">
-                  <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}" th:text="${name} + ' ' + ${surname}"></a>Искандер Хисамов</div>
-                  <div class="main__title">Личный кабинет</div>
-                  <div class="main__buttons">
-                      <a href="/courses">Создать курс</a>
-                      <a href="/courses">Выйти</a>
-                  </div>
-              </div>
               <div class="main__content">
-                  <div class="main__sidebar">
-                      <p><a href="/creator" class="selected">Математика</a></p>
-                      <p><a href="/courses">Русский язык</a></p>
-                      <p><a href="/courses">Испанский язык</a></p>
-                  </div>
-                  <div class="main__general">
-                      <h1>Редактор курса "Математика"</h1>
-                      <p><a href="/chapters">Учебный материал</a></p>
-                      <p><a href="/chapters">Тест</a></p>
+                  <h1>404 - Not Found</h1>
+                  <div th:inline="text">
+                      Здравствуйте, '[[${#httpServletRequest.remoteUser}]]',
+                      эта страница не найдена.
                   </div>
               </div>
           </div>

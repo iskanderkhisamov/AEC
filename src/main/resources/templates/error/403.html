@@ -1,18 +1,55 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="fragments/header :: header-css"/>
+  <meta charset="UTF-8">
+  <title>АУК</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Автоматизированный учебный курс">
+  <meta name="author" content="khisamov.studio">
+
+  <link rel="stylesheet" th:href="@{/css/normalize.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!--[if !IE 7]>
+  <style type="text/css">
+    #wrap {display:table;height:100%}
+  </style>
+  <![endif]-->
+
+  <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
+  <link rel="icon" th:href="@{../static/assets/favicon.svg}">
+  <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
+  <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
+
 </head>
 <body>
-<div th:replace="fragments/header :: header"/>
-<div class="container">
-  <div class="starter-template">
-    <h1>403 - Access is denied</h1>
-    <div th:inline="text">Здравствуйте, '[[${#httpServletRequest.remoteUser}]]',
-      у вас нет доступа к этой странице.</div>
-  </div>
+<div class="wrapper">
+  <header class="header">
+    <div class="container">
+      <div class="header__title">
+        <a href="/">Автоматизированный учебный курс</a>
+      </div>
+      <nav class="header__nav">
+        <a href="/profile">Личный кабинет</a>
+        <a href="/courses" style="color: #86C232">Курсы</a>
+        <a href="/about">О нас</a>
+      </nav>
+    </div>
+  </header>
+  <main class="main">
+    <div class="container">
+      <div class="main__content">
+        <h1>403 - Access is denied</h1>
+        <div th:inline="text">
+          Здравствуйте, '[[${#httpServletRequest.remoteUser}]]',
+          у вас нет доступа к этой странице.
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

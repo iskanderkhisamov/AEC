@@ -33,8 +33,9 @@
                 <a href="/">Автоматизированный учебный курс</a>
             </div>
             <nav class="header__nav">
-                <a style="color: #86C232">Админка</a>
-                <a th:href="${auth > 0 ? '/courses' : '/login'}">Курсы</a>
+                <a href="/profile" style="color: #86C232">Личный кабинет</a>
+                <a href="/courses">Курсы</a>
+                <a href="/about">О нас</a>
             </nav>
         </div>
     </header>
