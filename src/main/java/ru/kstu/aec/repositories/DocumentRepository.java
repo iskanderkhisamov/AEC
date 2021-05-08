@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.kstu.aec.models.Document;
 
 @Repository
-public interface DocumentRepository extends JpaRepository<Document, Integer> {
+public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     @Query(value = "SELECT doc_code FROM document WHERE doc_code = ?1", nativeQuery = true)
     String[] findDocumentsDocCode(String token);

@@ -15,18 +15,18 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String question_text;
 
-    private int type_id;
+    private Long type_id;
 
-    private int category_id;
+    private Long category_id;
 
     private String docs_filenames;
 
     private Double max_score;
 
-    private int test_id;
+    private Long test_id;
 
 }
