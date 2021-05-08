@@ -41,31 +41,18 @@
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__header">
-                <div class="main__name"><a href="/admin"></a>Админ</div>
-                <div class="main__title">Админка</div>
-                <div class="main__buttons">
-                    <a href="/logout">Выйти</a>
-                </div>
-            </div>
-            <div class="main__content">
-                <div class="main__general">
-                    <p>Пользователи</p>
-                    <p>
-                        <label for="id1">Иван Рудков</label>
-                        <input type="checkbox" id="id1">
-                    </p>
-                    <p>
-                        <label for="id2">Денис Стулой</label>
-                        <input type="checkbox" id="id2">
-                    </p>
-                    <p>
-                        <label for="id3">Василий Прежний</label>
-                        <input type="checkbox" id="id3">
-                    </p>
-                    <p>
-                        <input type="button" value="Удалить пользователей" class="button">
-                    </p>
+            <div class="main__content profile">
+                <div class="profile__info">
+                    <form role="form" th:action="@{/profile/admin}" th:method="POST" th:object="${admin}">
+                        <th:block th:each="user : ${users}">
+                            <div class="form__info">
+                                <label th:for="${#ids.next(('users'))}"
+                                       th:text="${user.surname} + ' ' + ${user.firstname}">Фамилия Имя</label>
+                                <input type="checkbox" th:field="*{users}" th:value="${user}" class="form__field">
+                            </div>
+                        </th:block>
+                        <input type="submit" class="main__button" value="Удалить">
+                    </form>
                 </div>
             </div>
         </div>

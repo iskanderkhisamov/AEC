@@ -10,6 +10,7 @@ import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.UserRepository;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,10 +20,13 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    // не добавлять в конструктор!!!
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public List<User> loadUsers() {
+        return userRepository.findAll();
     }
 
     @Override

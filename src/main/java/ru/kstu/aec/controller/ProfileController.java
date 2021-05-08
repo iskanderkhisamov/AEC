@@ -8,10 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kstu.aec.models.Course;
-import ru.kstu.aec.models.Document;
-import ru.kstu.aec.models.Question;
-import ru.kstu.aec.models.User;
+import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.CourseService;
 import ru.kstu.aec.services.DocumentService;
 import ru.kstu.aec.services.UserService;
@@ -92,5 +89,28 @@ public class ProfileController {
         Set<Course> courses = ((User)getAuthentication().getPrincipal()).getCourses();
         model.addAttribute("courses", courses);
         return "profile-courses";
+    }
+
+    @GetMapping("/profile/admin")
+    public String getProfileAdmin(Model model) {
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<User> users = userService.loadUsers();
+        List<Integer> ids = new ArrayList<>();
+
+        for(int i = 0; i < users.size(); i++) {
+            ids.add(users.get(i).getId());
+            //if (user.getId() == users.get(i).getId())
+                //users.remove(user.getId());
+        }
+        AdminForm adminForm = new AdminForm();
+        adminForm.setUsers(users);
+        model.addAttribute("users", userService.loadUsers());
+        model.addAttribute("admin", adminForm);
+        return "admin";
+    }
+
+    @PostMapping("/profile/admin")
+    public String postProfileAdmin(@ModelAttribute("admin") AdminForm adminForm, BindingResult result) {
+        return "redirect:/profile";
     }
 }
