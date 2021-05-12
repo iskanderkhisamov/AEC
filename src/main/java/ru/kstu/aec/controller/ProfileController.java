@@ -1,6 +1,5 @@
 package ru.kstu.aec.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
-import static ru.kstu.aec.configs.SecurityConfig.isTeacher;
 
 @Controller
 public class ProfileController {
@@ -95,7 +93,7 @@ public class ProfileController {
     public String getProfileAdmin(Model model) {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<User> users = userService.loadUsers();
-        List<Integer> ids = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
 
         for(int i = 0; i < users.size(); i++) {
             ids.add(users.get(i).getId());

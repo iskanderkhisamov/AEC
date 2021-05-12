@@ -55,6 +55,9 @@ public class User implements UserDetails, Serializable {
     )
     private Set<Specialization> specializations = new HashSet<>();
 
+    @OneToMany(mappedBy = "users")
+    private Set<Test> tests;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> set = new HashSet<>();
