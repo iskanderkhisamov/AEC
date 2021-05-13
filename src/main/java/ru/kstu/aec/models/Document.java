@@ -15,13 +15,13 @@ public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String docCode;
 
     private boolean isTaken;
 
-    private Long teacherId;
+    private int teacherId;
 
 }
 

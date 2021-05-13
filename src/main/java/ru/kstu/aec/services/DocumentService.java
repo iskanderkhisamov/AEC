@@ -20,8 +20,8 @@ public class DocumentService {
         return documentRepository.findDocumentsIdByDocCode(token);
     }
 
-    public void changeIsTaken(String token, boolean cond, long id) {
-        Document document = documentRepository.getOne(Long.parseLong(documentRepository.findDocumentsIdByDocCode(token)[0]));
+    public void changeIsTaken(String token, boolean cond, int id) {
+        Document document = documentRepository.getOne(Integer.parseInt(documentRepository.findDocumentsIdByDocCode(token)[0]));
         System.out.println("Document ID:" + document.getId());
         System.out.println("Document Code:" + document.getDocCode());
         document.setTeacherId(id);
