@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.kstu.aec.models.Answer;
 
 @Repository
-public interface AnswerRepository extends JpaRepository<Answer, Long> {
+public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
 }

@@ -14,7 +14,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     public List<Question> loadQuestions() {
-        return questionRepository.findAll();
+        return (List<Question>) questionRepository.findAll();
     }
 
     @Transactional
