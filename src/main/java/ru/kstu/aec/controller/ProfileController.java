@@ -15,6 +15,7 @@ import ru.kstu.aec.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 import static ru.kstu.aec.configs.SecurityConfig.isTeacher;
@@ -34,7 +35,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String getProfile(Model model) {
-        model.addAttribute("user_role", ((User) getAuthentication().getPrincipal()).getUserRole());
+        model.addAttribute("user_role", ((User) getAuthentication().getPrincipal()).getRoles());
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
@@ -85,11 +86,8 @@ public class ProfileController {
 
     @GetMapping("/profile/courses")
     public String getProfileCourses(Model model) {
-        List<Course> courses = courseService.loadCourses();
-        for(int i = 0; i < courses.size(); i++) {
-
-        }
-        model.addAttribute("courses", courseService.loadCourses());
+        Set<Course> courses = ((User)getAuthentication().getPrincipal()).getCourses();
+        model.addAttribute("courses", courses);
         return "profile-courses";
     }
 
