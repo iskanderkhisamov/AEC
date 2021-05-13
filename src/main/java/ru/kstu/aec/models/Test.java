@@ -1,13 +1,7 @@
 package ru.kstu.aec.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "test", schema = "public", catalog = "omqkpgej")
 public class Test {
@@ -18,9 +12,6 @@ public class Test {
     private Double maxPolRating;
     private Double maxChlRating;
     private Double maxGlobalRating;
-
-    @OneToMany(mappedBy = "tests")
-    private Set<TestRating> testRatingSet;
 
     @Id
     @Column(name = "id", nullable = false)
