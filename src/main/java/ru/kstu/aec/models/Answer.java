@@ -15,9 +15,9 @@ public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private Long question_id;
+    private int question_id;
 
     private String answer_text;
 

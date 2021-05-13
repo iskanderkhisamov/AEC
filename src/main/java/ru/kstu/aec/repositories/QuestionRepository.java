@@ -6,6 +6,6 @@ import ru.kstu.aec.models.Course;
 import ru.kstu.aec.models.Question;
 
 @Repository
-public interface QuestionRepository extends JpaRepository<Question, Long> {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
 }
