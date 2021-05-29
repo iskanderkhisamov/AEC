@@ -41,9 +41,8 @@ public class UserService implements UserDetailsService {
     }
 
     public void signUpUser(User user) {
-//        final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-//        // кодируем пароль
-//        user.setPassword(encryptedPassword);
+        final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         try {
             loadUserByUsername(user.getEmail());
             // чекаем является ли учителем наш юзер, меняем группу
