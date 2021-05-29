@@ -31,7 +31,7 @@ public class User implements UserDetails, Serializable {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -39,7 +39,7 @@ public class User implements UserDetails, Serializable {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "students_courses",
             joinColumns = @JoinColumn(name = "student_id"),
@@ -47,7 +47,7 @@ public class User implements UserDetails, Serializable {
     )
     private Set<Course> courses = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_specializations",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -55,7 +55,7 @@ public class User implements UserDetails, Serializable {
     )
     private Set<Specialization> specializations = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<TestRating> tests = new ArrayList<>();
 
     @Override

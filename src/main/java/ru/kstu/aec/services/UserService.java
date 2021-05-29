@@ -41,9 +41,14 @@ public class UserService implements UserDetailsService {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         // кодируем пароль
         user.setPassword(encryptedPassword);
-
-        // чекаем является ли учителем наш юзер, меняем группу
-        saveUser(user);
+        try {
+            loadUserByUsername(user.getEmail());
+            // чекаем является ли учителем наш юзер, меняем группу
+            System.out.println("email уже существует");
+        }
+        catch(Exception e) {
+            saveUser(user);
+        }
         // сохраняем пользователя в бд
     }
 
