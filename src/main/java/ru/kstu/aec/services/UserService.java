@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.kstu.aec.models.Role;
 import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.UserRepository;
 
@@ -17,12 +18,14 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleService roleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
     public List<User> loadUsers() {
@@ -30,7 +33,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);
         // получаем юзера по мылу и в зависимости от того, нашли мы его в бд или нет выводим ошибку или возвращаем юзера
         return optionalUser.orElseThrow(() ->
@@ -39,7 +42,6 @@ public class UserService implements UserDetailsService {
 
     public void signUpUser(User user) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        // кодируем пароль
         user.setPassword(encryptedPassword);
         try {
             loadUserByUsername(user.getEmail());
@@ -53,6 +55,14 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
+        userRepository.save(user);
+        Role role = null;
+        try {
+            role = roleService.loadRoleById(1L);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        loadUserByUsername(user.getEmail()).getRoles().add(role);
         userRepository.save(user);
     }
 
