@@ -27,17 +27,17 @@
             </nav>
         </div>
     </header>
-        <main class="main">
-            <div class="main__body responsive-wrapper">
-                <div class="widget widget__center">
-                    <h2 th:text="${surname} + ' ' + ${name}">Фамилия Имя</h2>
-                    <h3 th:text="${email}">Email</h3>
-                    <p><a href="/profile/changeinfo" class="default-a">Изменить информацию</a></p>
-                    <p><a href="/profile/courses" class="default-a">Ваши тесты</a></p>
-                    <p><a href="/logout" class="default-a">Выйти</a></p>
-                </div>
+    <main class="main">
+        <div class="main__body responsive-wrapper">
+            <div class="widget widget__center">
+                <h2 th:text="${surname} + ' ' + ${name}">Фамилия Имя</h2>
+                <h3 th:text="${email}">Email</h3>
+                <p><a href="/profile/changeinfo" class="default-a">Изменить информацию</a></p>
+                <p><a href="/profile/courses" class="default-a">Ваши тесты</a></p>
+                <p><a href="/logout" class="default-a">Выйти</a></p>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>
