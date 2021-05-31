@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kstu.aec.models.Answer;
-import ru.kstu.aec.models.Question;
-import ru.kstu.aec.models.TestCache;
+import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.AnswerService;
 import ru.kstu.aec.services.QuestionService;
 
@@ -37,7 +35,6 @@ public class TestController {
         model.addAttribute("question", questions.get(Integer.parseInt(id)));
         model.addAttribute("id", Integer.parseInt(id));
         model.addAttribute("answers", answers);
-        model.addAttribute("testcache", new TestCache());
 
         return "test";
     }
@@ -53,13 +50,12 @@ public class TestController {
         model.addAttribute("question", questions.get(Integer.parseInt(id)));
         model.addAttribute("id", Integer.parseInt(id));
         model.addAttribute("answers", answers);
-        model.addAttribute("testcache", new TestCache());
 
         return "test";
     }
 
     @PostMapping("/test")
-    public String postTest(@ModelAttribute("testcache") TestCache testCache, BindingResult result) {
+    public String postTest(@ModelAttribute("studentsQuestionsAnswers") StudentsQuestionsAnswers studentsQuestionsAnswers, BindingResult result) {
 
         return "redirect:/test";
     }

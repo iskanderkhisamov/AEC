@@ -58,6 +58,9 @@ public class User implements UserDetails, Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<TestRating> tests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Course> coursesOwner;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> set = new HashSet<>();
@@ -97,4 +100,7 @@ public class User implements UserDetails, Serializable {
         return true;
     }
 
+    public String getFullName() {
+        return firstname + " " + surname;
+    }
 }
