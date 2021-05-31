@@ -4,18 +4,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @EqualsAndHashCode
 @Getter
 @Setter
 @Entity
-@Table(name = "students_questions_answers", schema = "public", catalog = "omqkpgej")
+@Table(name = "students_questions_answers")
 public class StudentsQuestionsAnswers {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     Long id;
     @Column(name="student_id")

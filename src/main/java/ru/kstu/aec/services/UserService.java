@@ -1,12 +1,10 @@
 package ru.kstu.aec.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.kstu.aec.models.Role;
 import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.UserRepository;
 
@@ -18,14 +16,12 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final RoleService roleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, RoleService roleService) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleService = roleService;
     }
 
     public List<User> loadUsers() {
@@ -55,14 +51,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
-        userRepository.save(user);
-        Role role = null;
-        try {
-            role = roleService.loadRoleById(1L);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        loadUserByUsername(user.getEmail()).getRoles().add(role);
         userRepository.save(user);
     }
 

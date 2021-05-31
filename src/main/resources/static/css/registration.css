@@ -1,9 +1,0 @@
-.group {
-    display: block;
-}
-#teacher:checked + .group {
-    display: none;
-}
-input, label {
-    width: 100%;
-}

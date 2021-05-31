@@ -41,22 +41,39 @@
     </header>
     <main class="main">
         <div class="container">
+            <div class="main__sidebar">
+                <ul>
+                    <th:block th:each="question, state: ${questions}">
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
+                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
+                    </th:block>
+                </ul>
+            </div>
             <div class="main__content">
-                <th:block th:each="question : ${questions}">
-                    <form role="form" th:action="@{/test}" th:method="POST" th:object="${studentsQuestionsAnswers}">
-                        <p th:utext="${question.question_text}">Вопрос</p>
-
-                        <ul>
-                            <li th:each="answer, state: ${answers}">
-                                <th:block th:if="1 + ${id} == ${answer.question_id}">
-                                    <input type="radio" name="answer" th:field="*{radio}" th:value="${answer.answer_text}"/>
-                                    <label th:for="${answer.answer_text}" th:text="${answer.answer_text}"></label>
-                                </th:block>
-                            </li>
-                        </ul>
-                    </form>
-                </th:block>
-                <button class="main__button" type="submit" name="submit">Закончить тест</button>
+                <form role="form" th:action="@{/test}" th:method="POST" th:object="${studentsQuestionsAnswers}">
+                    <p th:utext="${question.question_text}">Вопрос</p>
+                    <ul>
+                        <li th:each="answer, state: ${answers}">
+                            <th:block th:if="1 + ${id} == ${answer.question_id}">
+                                <input type="radio" name="answer" th:field="*{answerId}" th:value="${answer.id}"/>
+                                <label th:for="${answer.id}" th:text="${answer.answer_text}"></label>
+                            </th:block>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="question" th:field="*{questionId}" th:value="${id}"/>
+                    <th:block th:if="${id} == 0">
+                        <button class="main__button disabled" disabled>Предыдущий вопрос</button>
+                    </th:block>
+                    <th:block th:if="${id} != 0">
+                        <button class="main__button">Предыдущий вопрос</button>
+                    </th:block>
+                    <th:block th:if="1 + ${id} != ${#arrays.length(questions)}">
+                        <button class="main__button" type="submit" name="submit">Следующий вопрос</button>
+                    </th:block>
+                    <th:block th:if="1 + ${id} == ${#arrays.length(questions)}">
+                        <button class="main__button" type="submit" name="submit">Закончить тест</button>
+                    </th:block>
+                </form>
             </div>
         </div>
     </main>

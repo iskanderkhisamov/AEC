@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>АУК</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
-
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-
+    <link th:href="@{/css/normalize.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,41 +16,34 @@
         #wrap {display:table;height:100%}
     </style>
     <![endif]-->
-
-    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
-    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
-
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__title">
-                    <a href="/">Автоматизированный учебный курс</a>
-                </div>
-                <nav class="header__nav">
-                    <a href="/profile" style="color: #86C232">Личный кабинет</a>
-                    <a href="/courses">Курсы</a>
-                    <a href="/about">О нас</a>
-                </nav>
-            </div>
-        </header>
-        <main class="main">
-            <div class="container">
-                <div class="noflex">
-                  <form role="form" th:action="@{/login}" th:method="POST">
-                      <label for="username">E-mail</label>
-                      <input type="email" id="username" name="username" class="form__field">
-                      <label for="password">Пароль</label>
-                      <input type="password" id="password" name="password" class="form__field">
-                      <input type="submit" class="button" value="Войти" text="">
-                      <p><a href="/registration">Регистрация</a></p>
-                  </form>
-              </div>
-            </div>
-        </main>
-    </div>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__body responsive-wrapper">
+            <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
+            <nav class="header__nav">
+                <a href="/profile">Личный кабинет</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__body responsive-wrapper">
+            <article class="widget">
+                <form role="form" th:action="@{/login}" th:method="POST">
+                    <label for="username">Электронная почта</label>
+                    <input type="email" id="username" name="username" class="widget__input" placeholder="Например, sanya@mail.com">
+                    <br><br>
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" class="widget__input" placeholder="Похожий на это, PvLp5EC6Y8WQ, а не 123">
+                    <br><br>
+                    <button type="submit" class="widget__button">Войти</button>
+                    <br><br>
+                    <p><a href="/registration" class="default-a">Регистрация</a></p>
+                </form>
+            </article>
+        </div>
+    </main>
+</div>
 </body>
 </html>

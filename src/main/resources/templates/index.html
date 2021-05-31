@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>АУК</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
-
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-
+    <link th:href="@{/css/normalize.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,62 +16,26 @@
         #wrap {display:table;height:100%}
     </style>
     <![endif]-->
-
-    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
-    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
-
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__title">
-                    <a href="/">Автоматизированный учебный курс</a>
-                </div>
-                <nav class="header__nav">
-                    <a href="/profile">Личный кабинет</a>
-                    <a href="/courses">Курсы</a>
-                    <a href="/about">О нас</a>
-                </nav>
-            </div>
-        </header>
-        <main class="main">
-            <div class="container">
-                <div class="noflex center__text">
-                    <div class="main__image"><img class="main__image" th:src="@{/assets/indeximage.jpg}" alt="Ребенок учится"></div>
-                    <p>Автоматизированный учебный курс (АУК) -
-                        это программное средство профессиональной подготовки персонала,
-                        реализующее предъявление обучаемому графического и
-                        текстового материала нормативно-технической документации конкретного учебного курса и
-                        обеспечивающее контроль качества подготовки обучаемых.</p>
-                    <p></p>
-                    <p class="selected">Авторизация</p>
-                    <p><a href="/login">Логин</a></p>
-                    <p><a href="/registration">Регистрация</a></p>
-                    <p></p>
-                    <p class="selected">Главная страница</p>
-                    <p><a href="/">Индекс</a></p>
-                    <p></p>
-                    <p class="selected">Пользователи</p>
-                    <p><a href="/profile/admin">Админка</a></p>
-                    <p><a href="/profile/creator">Преподаватель</a></p>
-                    <p><a href="/profile">Пользователь</a></p>
-                    <p></p>
-                    <p class="selected">Курсы</p>
-                    <p><a href="/courses">Курсы</a></p>
-                    <p><a href="/chapters">Разделы</a></p>
-                    <p><a href="/tests">Тесты</a></p>
-                    <p><a href="/test">Тест</a></p>
-                    <p></p>
-                    <p class="selected">Функционал</p>
-                    <p><a href="/create">Редактор курса</a></p>
-                    <p><a href="/result">Результаты</a></p>
-                    <p><a href="/crud_questions">Добавление вопросов и ответов</a></p>
-                </div>
-            </div>
-        </main>
-    </div>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__body responsive-wrapper">
+            <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
+            <nav class="header__nav">
+                <a href="/profile">Личный кабинет</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__body responsive-wrapper">
+            <a href="/test/{id}" class="widget__a"><div class="widget">
+                <h2>Тест</h2>
+                <h3>Автор</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet delectus eius eligendi eveniet fugit harum iure, labore laudantium magnam nam quam quidem reprehenderit tempora veritatis? Minima nesciunt nulla vitae.</p>
+            </div></a>
+        </div>
+    </main>
+</div>
 </body>
 </html>

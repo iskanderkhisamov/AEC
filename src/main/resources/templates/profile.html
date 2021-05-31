@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>АУК</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="description" content="Автоматизированный учебный курс">
     <meta name="author" content="khisamov.studio">
-
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-
+    <link th:href="@{/css/normalize.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,58 +16,25 @@
         #wrap {display:table;height:100%}
     </style>
     <![endif]-->
-
-    <link rel="shortcut icon" th:href="@{/assets/favicon.png}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}">
-    <link rel="icon" th:href="@{../static/assets/favicon.svg}" type="image/svg+xml">
-    <link rel="apple-touch-icon" th:href="@{../static/assets/favicon.svg}">
-
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <div class="header__title">
-                    <a href="/">Автоматизированный учебный курс</a>
-                </div>
-                <nav class="header__nav">
-                    <a href="/profile" style="color: #86C232">Личный кабинет</a>
-                    <a href="/courses">Курсы</a>
-                    <a href="/about">О нас</a>
-                </nav>
-            </div>
-        </header>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__body responsive-wrapper">
+            <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
+            <nav class="header__nav">
+                <a href="/profile">Личный кабинет</a>
+            </nav>
+        </div>
+    </header>
         <main class="main">
-            <div class="container">
-                <div class="main__content profile">
-                    <div class="profile__info">
-                        <div class="form__info">
-                            <h2 th:text="${name}">Имя</h2>
-                        </div>
-                        <div class="form__info" >
-                            <h2 th:text="${surname}">Фамилия</h2>
-                        </div>
-                        <div class="form__info" th:text="${email}">
-                            Email
-                        </div>
-                        <div class="main__button center__text">
-                            <a href="/profile/changeinfo">Изменить информацию</a>
-                        </div>
-                        <div class="main__button center__text">
-                            <a href="/profile/tocreator"
-                               th:text="${user_role} == 1 ? 'Вы преподаватель' : 'Создать курс'">
-                                Изменить роль / Создать курс</a>
-                        </div>
-                        <div class="main__button center__text">
-                            <a href="/profile/courses">Ваши курсы</a>
-                        </div>
-                        <div class="main__button center__text">
-                            <a href="/logout">Выйти</a>
-                        </div>
-                    </div>
-                    <div class="profile__avatar">
-                        <img class="profile__image" th:src="@{/assets/avatar2.jpg}" alt="Аватар" src="../static/assets/avatar.png">
-                    </div>
+            <div class="main__body responsive-wrapper">
+                <div class="widget widget__center">
+                    <h2 th:text="${surname} + ' ' + ${name}">Фамилия Имя</h2>
+                    <h3 th:text="${email}">Email</h3>
+                    <p><a href="/profile/changeinfo" class="default-a">Изменить информацию</a></p>
+                    <p><a href="/profile/courses" class="default-a">Ваши тесты</a></p>
+                    <p><a href="/logout" class="default-a">Выйти</a></p>
                 </div>
             </div>
         </main>

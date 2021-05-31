@@ -1,6 +1,5 @@
 package ru.kstu.aec.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,33 +8,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.*;
-import ru.kstu.aec.services.CourseService;
-import ru.kstu.aec.services.DocumentService;
 import ru.kstu.aec.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
-import static ru.kstu.aec.configs.SecurityConfig.isTeacher;
 
 @Controller
 public class ProfileController {
 
     final UserService userService;
-    final DocumentService documentService;
-    final CourseService courseService;
 
-    public ProfileController(UserService userService, DocumentService documentService, CourseService courseService) {
+    public ProfileController(UserService userService) {
         this.userService = userService;
-        this.documentService = documentService;
-        this.courseService = courseService;
     }
 
     @GetMapping("/profile")
     public String getProfile(Model model) {
-        model.addAttribute("user_role", ((User) getAuthentication().getPrincipal()).getRoles());
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
@@ -64,31 +54,8 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/tocreator")
-    public String getToCreator(Model model, Document document) {
+    public String getToCreator(Model model) {
         return "tocreator";
-    }
-
-    @PostMapping("/profile/tocreator")
-    public String postToCreator(@ModelAttribute("document") Document document, BindingResult result) {
-        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String token = document.getDocCode();
-        String[] documents = documentService.loadDocumentsByToken(token);
-        if (documents.length != 0) {
-            System.out.println("Токен: " + token);
-            System.out.println("Взят? " + true);
-            System.out.println("ID Преподавателя: " + user.getId());
-            documentService.changeIsTaken(token, true, user.getId());
-            return "redirect:/profile";
-        } else {
-            return "redirect:/profile/tocreator";
-        }
-    }
-
-    @GetMapping("/profile/courses")
-    public String getProfileCourses(Model model) {
-        Set<Course> courses = ((User)getAuthentication().getPrincipal()).getCourses();
-        model.addAttribute("courses", courses);
-        return "profile-courses";
     }
 
     @GetMapping("/profile/admin")
@@ -102,15 +69,7 @@ public class ProfileController {
             //if (user.getId() == users.get(i).getId())
                 //users.remove(user.getId());
         }
-        AdminForm adminForm = new AdminForm();
-        adminForm.setUsers(users);
         model.addAttribute("users", userService.loadUsers());
-        model.addAttribute("admin", adminForm);
         return "admin";
-    }
-
-    @PostMapping("/profile/admin")
-    public String postProfileAdmin(@ModelAttribute("admin") AdminForm adminForm, BindingResult result) {
-        return "redirect:/profile";
     }
 }

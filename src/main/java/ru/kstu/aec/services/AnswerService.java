@@ -24,4 +24,8 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
+    public Answer getAnswer(Long id) {
+        return answerRepository.getOne(id);
+    }
+
 }

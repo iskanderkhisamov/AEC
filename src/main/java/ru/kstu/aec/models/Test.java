@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "test", schema = "public", catalog = "omqkpgej")
+@Table(name = "test")
 public class Test {
     @Id
     @Column(name = "id", nullable = false)
@@ -24,7 +24,4 @@ public class Test {
     private Double maxPolRating;
     private Double maxChlRating;
     private Double maxGlobalRating;
-
-    @OneToMany(mappedBy = "test")
-    private List<TestRating> testRatingSet = new ArrayList<>();
 }
