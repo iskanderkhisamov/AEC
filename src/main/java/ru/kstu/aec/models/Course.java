@@ -2,9 +2,11 @@ package ru.kstu.aec.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import ru.kstu.aec.services.SpecializationService;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="course")
+@Table(name="course", schema = "public", catalog = "omqkpgej")
 public class Course implements Serializable {
 
     @Id
@@ -21,13 +23,20 @@ public class Course implements Serializable {
 
     private String name;
 
-    private Long teacherId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teacherId", nullable = false)
+    private User teacher;
 
     private String description;
 
     private int level;
 
-    private Long specializationId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "specializationId", nullable = false)
+    private Specialization specialization;
+
+    @OneToMany(mappedBy = "course")
+    private Set<Theme> themes;
 
     private double max_pol_score;
 
@@ -36,17 +45,6 @@ public class Course implements Serializable {
     private double max_upr_score;
 
     private double max_global_score;
-/*
-    @JsonIgnore // не обращайте внимания
-    @ManyToMany(mappedBy = "courses") // настройка ManyToMany по тому, шо у нас лежит в User
-    private List<User> users;
-    /*
-     а тут я расскажу немного о библиотеке lombok
-     она дает нам возможность не тратить время на написание геттеров и сеттеров, конструкторов и прочей херни
-     ты просто пишешь нужную аннотацию сверху класса и кайфуешь
-     */
-    /*
-     а этот класс является entity нашего курса, вам предстоит доделать его, шобы он
-     имел в себе не только список пользователей, присоединенных к нему, но и тесты и учебный материал
-     */
+
+
 }

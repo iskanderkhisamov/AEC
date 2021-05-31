@@ -41,27 +41,16 @@
     </header>
     <main class="main">
         <div class="container">
-            <div class="main__header">
-                <div class="main__name"><a th:href="${auth == 1 ? '/profile' : '/creator'}"></a>Искандер Хисамов</div>
-                <div class="main__title">Философия</div>
-                <div class="main__buttons">
-                    <a href="/chapters">Следующий раздел</a>
-                </div>
-            </div>
             <div class="main__content">
-                <div class="main__sidebar">
-                    <p><a href="/chapters" class="selected">Раздел 1</a></p>
-                    <p><a href="/chapters">Раздел 2</a></p>
-                    <p><a href="/chapters">Раздел 3</a></p>
-                </div>
-                <div class="main__general">
-                    <p>Lorem ipsum dolor sit amet, consectetur</p>
-                    <p>adipisicing elit. In tenetur</p>
-                    <p>et quae cum eaque id quam</p>
-                    <p>aliquam perferendis optio expedita</p>
-                    <p>eligendi odio voluptas, nisi veritatis.</p>
-                    <p>Vel repellat ipsam perferendis enim?</p>
-                </div>
+                <h1 th:text="${course.getName()}"></h1>
+                <h3 th:text="${course.getSpecialization().getName()}">Специализация</h3>
+                <h3 th:text="${course.getTeacher().getFullName()}">Преподаватель</h3>
+                <span th:text="${course.getDescription()}">Описание</span>
+                <br>
+                <h2>Программа курса</h2>
+                <th:block th:each="theme : ${themes}">
+                    <a th:href="@{/chapter/{id}(id=${theme.id})}" th:text="${theme.getName()}"></a>
+                </th:block>
             </div>
         </div>
     </main>

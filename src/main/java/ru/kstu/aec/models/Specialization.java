@@ -1,12 +1,14 @@
 package ru.kstu.aec.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "specialization", schema = "public", catalog = "omqkpgej")
 public class Specialization {
     private long id;
     private String name;
+    private Set<Course> course;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -47,4 +49,7 @@ public class Specialization {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
+    @OneToMany(mappedBy = "specialization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Course> courses;
 }

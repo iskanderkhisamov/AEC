@@ -1,19 +1,27 @@
 package ru.kstu.aec.models;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "paragraph", schema = "public", catalog = "omqkpgej")
 public class Paragraph {
     private Long id;
     private String description;
     private String name;
-    private Long themeId;
     private String docsFilenames;
     private Double maxPolScore;
     private Double maxChlScore;
     private Double maxUprScore;
     private Double maxGlobalScore;
+    private Theme theme;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -43,16 +51,6 @@ public class Paragraph {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Basic
-    @Column(name = "theme_id", nullable = true)
-    public Long getThemeId() {
-        return themeId;
-    }
-
-    public void setThemeId(Long themeId) {
-        this.themeId = themeId;
     }
 
     @Basic
@@ -115,7 +113,6 @@ public class Paragraph {
         if (id != that.id) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (themeId != null ? !themeId.equals(that.themeId) : that.themeId != null) return false;
         if (docsFilenames != null ? !docsFilenames.equals(that.docsFilenames) : that.docsFilenames != null)
             return false;
         if (maxPolScore != null ? !maxPolScore.equals(that.maxPolScore) : that.maxPolScore != null) return false;
@@ -132,12 +129,17 @@ public class Paragraph {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (themeId != null ? themeId.hashCode() : 0);
         result = 31 * result + (docsFilenames != null ? docsFilenames.hashCode() : 0);
         result = 31 * result + (maxPolScore != null ? maxPolScore.hashCode() : 0);
         result = 31 * result + (maxChlScore != null ? maxChlScore.hashCode() : 0);
         result = 31 * result + (maxUprScore != null ? maxUprScore.hashCode() : 0);
         result = 31 * result + (maxGlobalScore != null ? maxGlobalScore.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne(targetEntity = Theme.class)
+    @JoinColumn(name = "themeId")
+    public Theme getTheme() {
+        return theme;
     }
 }

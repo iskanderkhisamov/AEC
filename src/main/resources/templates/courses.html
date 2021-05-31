@@ -43,10 +43,11 @@
         <div class="container">
             <div class="main__content">
                 <th:block th:each="course : ${courses}">
-                    <a th:href="@{/course/{id}(id=${course.id})}"><div class="course">
+                    <a th:href="@{/courses/{id}(id=${course.id})}"><div class="course">
                         <h2 th:text="${course.getName()}">Название курса</h2>
-                        <h3>Специализация</h3>
-                        <h3>Преподаватель</h3>
+                        <h3 th:text="${course.getSpecialization().getName()}">Специализация</h3>
+                        <h3 th:text="${course.getTeacher().getFullName()}">Преподаватель</h3>
+                        <span th:text="${course.getDescription()}">Описание</span>
                     </div></a>
                 </th:block>
             </div>

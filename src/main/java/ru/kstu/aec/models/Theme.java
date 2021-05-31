@@ -1,19 +1,32 @@
 package ru.kstu.aec.models;
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "theme", schema = "public", catalog = "omqkpgej")
 public class Theme {
+
     private long id;
     private String name;
     private String description;
-    private Long courseId;
     private String docsFilenames;
     private Double maxPolScore;
     private Double maxChlScore;
     private Double maxUprScore;
     private Double maxGlobalScore;
+    private Set<Paragraph> paragraphs;
+    @ManyToOne
+    @JoinColumn(name="course_id", nullable = false)
+    private Course course;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -43,16 +56,6 @@ public class Theme {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Basic
-    @Column(name = "course_id", nullable = true)
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
     }
 
     @Basic
@@ -105,6 +108,19 @@ public class Theme {
         this.maxGlobalScore = maxGlobalScore;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @OneToMany(mappedBy = "theme")
+    public Set<Paragraph> getParagraphs() {
+        return paragraphs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,7 +131,6 @@ public class Theme {
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
         if (docsFilenames != null ? !docsFilenames.equals(that.docsFilenames) : that.docsFilenames != null)
             return false;
         if (maxPolScore != null ? !maxPolScore.equals(that.maxPolScore) : that.maxPolScore != null) return false;
@@ -132,7 +147,6 @@ public class Theme {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
         result = 31 * result + (docsFilenames != null ? docsFilenames.hashCode() : 0);
         result = 31 * result + (maxPolScore != null ? maxPolScore.hashCode() : 0);
         result = 31 * result + (maxChlScore != null ? maxChlScore.hashCode() : 0);

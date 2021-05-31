@@ -98,7 +98,7 @@ public class ProfileController {
         List<Integer> ids = new ArrayList<>();
 
         for(int i = 0; i < users.size(); i++) {
-            ids.add(users.get(i).getId());
+            //ids.add(users.get(i).getId());
             //if (user.getId() == users.get(i).getId())
                 //users.remove(user.getId());
         }
