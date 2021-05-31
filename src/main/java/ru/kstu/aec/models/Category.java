@@ -10,8 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="answers")
-public class Answer {
+@Table(name="category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,5 @@ public class Answer {
 
     private String text;
 
+    private int rating;
 }

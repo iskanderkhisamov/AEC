@@ -33,6 +33,11 @@ public class User implements UserDetails, Serializable {
 
     private boolean admin = false;
 
+    @ManyToMany
+    @JoinTable(name= "users_tests",  joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "test_id"))
+    private Set<Test> tests = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(admin ? "ADMIN" : "USER"));

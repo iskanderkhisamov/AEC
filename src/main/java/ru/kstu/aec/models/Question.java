@@ -3,6 +3,8 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="question")
+@Table(name= "questions")
 public class Question {
 
     @Id
@@ -19,14 +21,20 @@ public class Question {
 
     private String question_text;
 
-    private Long type_id;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    private Long category_id;
+    @ManyToOne
+    @JoinColumn(name = "right_answer_id")
+    private Answer right_answer;
 
-    private String docs_filenames;
+    @ManyToMany(mappedBy = "questions")
+    private Set<User> tests = new HashSet<>();
 
-    private Double max_score;
-
-    private Long test_id;
+    @ManyToMany
+    @JoinTable(name= "questions_answers",  joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "answer_id"))
+    private Set<Answer> answers = new HashSet<>();
 
 }

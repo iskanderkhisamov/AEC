@@ -5,23 +5,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @EqualsAndHashCode
 @Getter
 @Setter
 @Entity
-@Table(name = "test")
+@Table(name = "tests")
 public class Test {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
+
     private String name;
-    private String description;
-    private Long paragraphId;
-    private Double maxPolRating;
-    private Double maxChlRating;
-    private Double maxGlobalRating;
+
+    @ManyToMany(mappedBy = "tests")
+    private Set<User> users = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name= "tests_questions",  joinColumns = @JoinColumn(name = "test_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id"))
+    private Set<Question> questions = new HashSet<>();
 }
