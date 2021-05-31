@@ -31,9 +31,11 @@ public class User implements UserDetails, Serializable {
 
     private String password;
 
+    private boolean admin = false;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(admin ? "ADMIN" : "USER"));
     }
 
     @Override

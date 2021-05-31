@@ -24,31 +24,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
-    // не менять на инициализацию в конструкторе!!!
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    // бин для энкодера пароля
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
-    // тут мы просто задаем юзер сервису энкодер для пароля
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin", "/profile").hasAuthority("ADMIN")
-                .antMatchers("/creator", "/profile").hasAuthority("TEACHER")
-                .antMatchers("/profile").hasAuthority("USER")
+                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers("/profile", "/test", "/result", "/create").hasAuthority("USER")
                 .antMatchers("/", "/css/**","/static/**", "/resources/**","/.*.css","/statistics/*", "/statistics/**").permitAll()
-                .antMatchers("/profile","/login","/registration", "/courses", "/course", "/chapters", "/chapter", "/tests", "/test", "/create", "/result", "/about").permitAll()
+                .antMatchers("/login", "/registration").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -63,41 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .permitAll();
     }
-    /*
-     antMatchers() нужен шобы давать доступ к определенным URL, если хош добавить необходимость в правах,
-     добавляешь hasAuthority("название роли"), если не хош, то просто permitAll()
-     anyRequest() разрешает любые http запросы
-     authenticated() чекает аутентифицирован ли юзер
-     formLogin() это обозначение для начала конфигурации входа
-     loginPage() указывает на URL по которому будет находиться форма входа
-     defaultSuccessUrl() очевидно
-     logout() это обозначение для конфигурации выхода
-     дальше очевидно
-     */
 
     public static Authentication getAuthentication() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         return auth;
     }
-    // статичный метод для получения аутентификационного токена, содержащего всю инфу о текущем пользователе
-    // шобы узнать чо ты можешь получить можешь просто ткнуть точку и IDEA покажет методы
 
-    public static void isTeacher(Model model) {
-        int state = 0;
-        try {
-            boolean isTeacher = false;
-            if(isTeacher) {
-                state = 2;
-            }
-            else {
-                state = 1;
-            }
-        }
-        catch (Exception e) {
-            state = 0;
-        }
-        model.addAttribute("auth", state);
-    }
-    // метод шобы отправлять в модель является ли юзер учителем или админом или школяром
 }

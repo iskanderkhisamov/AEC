@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);
-        // получаем юзера по мылу и в зависимости от того, нашли мы его в бд или нет выводим ошибку или возвращаем юзера
         return optionalUser.orElseThrow(() ->
                 new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email)));
     }
@@ -41,13 +40,11 @@ public class UserService implements UserDetailsService {
         user.setPassword(encryptedPassword);
         try {
             loadUserByUsername(user.getEmail());
-            // чекаем является ли учителем наш юзер, меняем группу
             System.out.println("email уже существует");
         }
         catch(Exception e) {
             saveUser(user);
         }
-        // сохраняем пользователя в бд
     }
 
     public void saveUser(User user) {
@@ -74,24 +71,5 @@ public class UserService implements UserDetailsService {
         user.setEmail(email);
         saveUser(user);
     }
-/*
-    @Transactional
-    public List<Course> getCourses(Course course, User user) {
-        List<Course> courses = userRepository.findById(user.getId()).orElseThrow(() ->
-                new UsernameNotFoundException(MessageFormat.format("User with id {0} cannot be found.", user.getId()))).getCourses();
-        courses.add(course);
-        // получаем курсы текущего пользователя и вставляем курс из параметров в них
-        return courses;
-    }
 
- */
-/*
-    public void addCourse(List<Course> courses, User user) {
-        User user1 = user;
-        user1.setCourses(courses);
-        saveUser(user1);
-        // добавляем курсы в юзера и сохраняем его
-    }
-
- */
 }
