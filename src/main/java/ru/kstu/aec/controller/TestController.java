@@ -19,18 +19,17 @@ public class TestController {
 
     final AnswerService answerService;
     final QuestionService questionService;
-    final StudentsQuestionsAnswersService studentsQuestionsAnswersService;
+
     List<Question> questions;
     List<Answer> answers;
 
-    public TestController(QuestionService questionService, AnswerService answerService, StudentsQuestionsAnswersService studentsQuestionsAnswersService) {
+    public TestController(QuestionService questionService, AnswerService answerService) {
         this.questionService = questionService;
         this.answerService = answerService;
-        this.studentsQuestionsAnswersService = studentsQuestionsAnswersService;
     }
 
     @GetMapping("/test/{id}")
-    public String Test(Model model, @PathVariable String id, StudentsQuestionsAnswers studentsQuestionsAnswers) {
+    public String Test(Model model, @PathVariable String id) {
         questions = questionService.loadQuestions();
         answers = answerService.loadAnswers();
 
@@ -43,13 +42,13 @@ public class TestController {
     }
 
     @GetMapping("/test")
-    public String getTest(Model model, StudentsQuestionsAnswers studentsQuestionsAnswers) {
-        String id = "4";
+    public String getTest(Model model) {
+        String id = "0";
 
         questions = questionService.loadQuestions();
         answers = answerService.loadAnswers();
         for(int i = 0; i < answers.size(); i++) {
-            System.out.println(answers.get(i).getAnswer_text());
+            System.out.println(answers.get(i).getText());
         }
 
         model.addAttribute("questions", questions);
@@ -61,16 +60,9 @@ public class TestController {
     }
 
     @PostMapping("/test")
-    public String postTest(@ModelAttribute("studentsQuestionsAnswers") StudentsQuestionsAnswers studentsQuestionsAnswers, BindingResult result) {
+    public String postTest(BindingResult result) {
         System.out.println("ТУТТТТТТТТТТТТТТТТТТТТТТТТТТТТТ ПОССССССССССССССССССССССССССССССССТ!!!");
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        studentsQuestionsAnswers.setStudentId(user.getId());
-        Long id = studentsQuestionsAnswers.getAnswerId();
-        studentsQuestionsAnswers.setQuestionId(answerService.getAnswer(id).getQuestion_id());
-        System.out.println(studentsQuestionsAnswers.getStudentId());
-        System.out.println(studentsQuestionsAnswers.getQuestionId());
-        System.out.println(studentsQuestionsAnswers.getAnswerId());
-        studentsQuestionsAnswersService.save(studentsQuestionsAnswers);
         return "redirect:/test";
     }
 

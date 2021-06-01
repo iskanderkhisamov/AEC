@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode
@@ -21,7 +23,7 @@ public class Test {
     private String name;
 
     @ManyToMany(mappedBy = "tests")
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name= "tests_questions",  joinColumns = @JoinColumn(name = "test_id"),

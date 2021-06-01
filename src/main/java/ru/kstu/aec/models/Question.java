@@ -3,7 +3,9 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -19,7 +21,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String question_text;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -30,7 +32,7 @@ public class Question {
     private Answer right_answer;
 
     @ManyToMany(mappedBy = "questions")
-    private Set<User> tests = new HashSet<>();
+    private List<Test> tests = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name= "questions_answers",  joinColumns = @JoinColumn(name = "question_id"),

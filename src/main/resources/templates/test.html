@@ -39,12 +39,12 @@
             </div>
             <div class="widget">
                 <form role="form" th:action="@{/test}" th:method="POST" th:object="${studentsQuestionsAnswers}">
-                    <p th:utext="${question.question_text}">Вопрос</p>
+                    <p th:utext="${question.text}">Вопрос</p>
                     <ul>
                         <li th:each="answer, state: ${answers}">
                             <th:block th:if="1 + ${id} == ${answer.question_id}">
                                 <input type="radio" name="answer" th:field="*{answerId}" th:value="${answer.id}"/>
-                                <label th:for="${answer.id}" th:text="${answer.answer_text}"></label>
+                                <label th:for="${answer.id}" th:text="${answer.text}"></label>
                             </th:block>
                         </li>
                     </ul>
