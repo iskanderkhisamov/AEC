@@ -89,24 +89,6 @@ public class TestController {
                 }
             }
         }
-
         return "redirect:/test";
-    }
-
-    @GetMapping("/crud_questions")
-    public String getCrud(Question question, Answer answer) {
-        return "crud_questions";
-    }
-
-    @PostMapping("/crud")
-    public String postCrud(@ModelAttribute("question") Question question, BindingResult result) {
-        questionService.createQuestion(question);
-        return "redirect:/crud_questions";
-    }
-
-    @PostMapping("/crua")
-    public String postCrua(@ModelAttribute("answer") Answer answer, BindingResult result) {
-        answerService.createAnswer(answer);
-        return "redirect:/crud_questions";
     }
 }
