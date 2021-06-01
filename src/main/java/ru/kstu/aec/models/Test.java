@@ -25,8 +25,11 @@ public class Test {
     @ManyToMany(mappedBy = "tests")
     private List<User> users = new ArrayList<>();
 
+    @OneToMany(mappedBy = "test")
+    private Set<Statistic> statistics = new HashSet<>();
+
     @ManyToMany
-    @JoinTable(name= "tests_questions",  joinColumns = @JoinColumn(name = "test_id"),
+    @JoinTable(name = "tests_questions", joinColumns = @JoinColumn(name = "test_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<Question> questions = new HashSet<>();
 }

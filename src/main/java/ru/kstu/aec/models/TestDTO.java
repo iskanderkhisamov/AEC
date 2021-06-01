@@ -13,6 +13,6 @@ public class TestDTO {
 
     private Long id;
 
-    private List<Question> questions = new ArrayList<>();
+    private List<QuestionDTO> questions = new ArrayList<>();
 
 }

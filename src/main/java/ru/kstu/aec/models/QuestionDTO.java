@@ -13,5 +13,5 @@ public class QuestionDTO {
 
     private Long id;
 
-    private Answer answer;
+    private AnswerDTO answer;
 }

@@ -9,23 +9,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.*;
-import ru.kstu.aec.services.AnswerService;
-import ru.kstu.aec.services.QuestionService;
+import ru.kstu.aec.services.*;
 
 import java.util.List;
+
+import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
 @Controller
 public class TestController {
 
     final AnswerService answerService;
+    final UserService userService;
+    final TestService testService;
     final QuestionService questionService;
+    final StatisticService statisticService;
 
     List<Question> questions;
     List<Answer> answers;
 
-    public TestController(QuestionService questionService, AnswerService answerService) {
+    public TestController(QuestionService questionService, AnswerService answerService, UserService userService, TestService testService, StatisticService statisticService) {
         this.questionService = questionService;
         this.answerService = answerService;
+        this.userService = userService;
+        this.testService = testService;
+        this.statisticService = statisticService;
     }
 
     @GetMapping("/test/{id}")
@@ -60,9 +67,32 @@ public class TestController {
     }
 
     @PostMapping("/test")
-    public String postTest(BindingResult result) {
+    public String postTest(@ModelAttribute TestDTO test, BindingResult result) throws Exception {
         System.out.println("ТУТТТТТТТТТТТТТТТТТТТТТТТТТТТТТ ПОССССССССССССССССССССССССССССССССТ!!!");
-        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        Statistic statistic = new Statistic();
+        statistic.setTest(testService.getTest(test.getId()));
+        statistic.setUser(user);
+        for(int i = 0; i < test.getQuestions().size(); i++) {
+            QuestionDTO questionDTO = test.getQuestions().get(i);
+            Question question = questionService.getQuestion(questionDTO.getId());
+            if(question.getCategory().getName().equals("POL")) {
+                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+                    statistic.setPol(statistic.getPol() + question.getCategory().getRating());
+                }
+            }
+            else if(question.getCategory().getName().equals("UPR")) {
+                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+                    statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
+                }
+            }
+            else if(question.getCategory().getName().equals("CHL")) {
+                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+                    statistic.setChl(statistic.getChl() + question.getCategory().getRating());
+                }
+            }
+        }
+
         return "redirect:/test";
     }
 

@@ -38,6 +38,9 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "test_id"))
     private Set<Test> tests = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Statistic> statistics = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(admin ? "ADMIN" : "USER"));
