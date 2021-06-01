@@ -25,6 +25,9 @@ public class Test {
     @ManyToMany(mappedBy = "tests")
     private List<User> users = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "userTests")
+    private List<User> authors = new ArrayList<>();
+
     @OneToMany(mappedBy = "test")
     private Set<Statistic> statistics = new HashSet<>();
 

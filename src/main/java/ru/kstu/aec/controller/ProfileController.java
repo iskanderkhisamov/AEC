@@ -14,6 +14,7 @@ import ru.kstu.aec.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
@@ -57,10 +58,15 @@ public class ProfileController {
 
     @GetMapping("/profile/tests")
     public String getUserTests(Model model) {
-        List<Test> tests = testService.loadTests();
+        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        Set<Test> tests = user.getUserTests();
         model.addAttribute("tests", tests);
-        model.addAttribute("create", 1);
         return "index";
+    }
+
+    @GetMapping("/profile/create")
+    public String getUserCreateTest(Model model) {
+        return "create";
     }
 
     @GetMapping("/profile/admin")

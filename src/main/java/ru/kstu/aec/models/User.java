@@ -41,6 +41,11 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "test_id"))
     private Set<Test> tests = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "authors_tests", joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "test_id"))
+    private Set<Test> userTests = new HashSet<>();
+
     @OneToMany(mappedBy = "user")
     private Set<Statistic> statistics = new HashSet<>();
 

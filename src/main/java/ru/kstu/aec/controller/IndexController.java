@@ -21,7 +21,6 @@ public class IndexController {
     public String index(Model model) {
         List<Test> tests = testService.loadTests();
         model.addAttribute("tests", tests);
-        model.addAttribute("create", 0);
         return "index";
     }
 }
