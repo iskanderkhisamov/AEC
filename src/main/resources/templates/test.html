@@ -38,12 +38,12 @@
                 </ul>
             </div>
             <div class="widget">
-                <form role="form" th:action="@{/test}" th:method="POST" th:object="${studentsQuestionsAnswers}">
+                <form role="form" th:action="@{/test}" th:method="POST" th:object="${test}">
                     <p th:utext="${question.text}">Вопрос</p>
                     <ul>
                         <li th:each="answer, state: ${answers}">
                             <th:block th:if="1 + ${id} == ${answer.question_id}">
-                                <input type="radio" name="answer" th:field="*{answerId}" th:value="${answer.id}"/>
+                                <input type="radio" name="answer" th:field="*{questions.get(id).answer}" th:value="${answer.id}"/>
                                 <label th:for="${answer.id}" th:text="${answer.text}"></label>
                             </th:block>
                         </li>
