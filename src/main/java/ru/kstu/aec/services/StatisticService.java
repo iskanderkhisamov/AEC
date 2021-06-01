@@ -15,9 +15,12 @@ public class StatisticService {
         this.statisticRepository = statisticRepository;
     }
 
-    public Statistic getStatistic(Long id) throws Exception {
-        Optional<Statistic> statistic = statisticRepository.findById(id);
-        return statistic.orElseThrow(() -> new Exception("Такой статистики нет, id = " + id));
+    public Statistic getStatistic() throws Exception {
+        Statistic last = null;
+        for(Statistic st : statisticRepository.findAll()) {
+            last = st;
+        }
+        return last;
     }
 
     public void saveStatistic(Statistic statistic) {

@@ -8,10 +8,11 @@ import axios from "axios";
 class ApexChart extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props.pol, this.props.chl, this.props.upr);
         this.state = {
             series: [{
                 name: 'Series 1',
-                data: [80, 50, 30],
+                data: [this.props.pol, this.props.chl, this.props.upr],
             }],
             options: {
                 chart: {
@@ -35,13 +36,19 @@ class ApexChart extends React.Component {
                     }
                 },
                 stroke: {
-                    width: 2
+                    show: true,
+                    width: 2,
+                    colors: [],
+                    dashArray: 0
                 },
                 fill: {
                     opacity: 0.5
                 },
                 markers: {
-                    size: 0
+                    size: 5,
+                    hover: {
+                        size: 10
+                    }
                 },
                 xaxis: {
                     categories: ['POL', 'CHL', 'UPR'],
@@ -89,26 +96,13 @@ class RGraph extends React.Component{
             { id: "1",
                 style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
                 data: {
-                    label: <ApexChart name={'Хисамов Искандер Равилевич'}/>
-                },
-                position: { x: 250, y: 100 }
-            },
-            { id: "2",
-                style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
-                data: {
-                    label: <ApexChart name={this.props.name}/>
+                    label: <ApexChart name={this.props.name}
+                                      upr={this.props.upr}
+                                      chl={this.props.chl}
+                                      pol={this.props.pol}/>
                 },
                 position: { x: 100, y: 550 }
-            },
-            { id: "3",
-                style: {background: "rgba(0,0,0,0)", width: 480, height: 250, border: 'none'},
-                data: {
-                    label: <ApexChart name={'Философия'}/>
-                },
-                position: { x: 400, y: 550 }
-            },
-            { id: "e1-2", source: "1", target: "2", animated: true },
-            { id: "e1-3", source: "1", target: "3", animated: true }
+            }
         ];
 
         const graphStyles = { width: "100%", height: "1080px", backgroundColor: "#474B4F"};
@@ -121,13 +115,57 @@ class RGraph extends React.Component{
 
 class App extends React.Component {
     state = {
-        name: "b"
+        name: "b",
+        upr: -1,
+        chl: -1,
+        pol: -1,
+        help: -1
     }
 
-    getUsers = () => {
+    getUser = () => {
         axios
-            .get("http://localhost:8080/statistics/tupak")
-            .then(data => this.setState({ name: data.data.name }))
+            .get("http://localhost:8080/statistics/user")
+            .then(data => this.setState({ name: data.data }))
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
+    };
+
+    getUpr = () => {
+        axios
+            .get("http://localhost:8080/statistics/upr")
+            .then(data => this.setState({ upr: data.data }))
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
+    };
+
+    getPol = () => {
+        axios
+            .get("http://localhost:8080/statistics/pol")
+            .then(data => this.setState({ pol: data.data }))
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
+    };
+
+    getChl = () => {
+        axios
+            .get("http://localhost:8080/statistics/chl")
+            .then(data => this.setState({ chl: data.data }))
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
+    };
+
+    help = () => {
+        axios
+            .get("http://localhost:8080/statistics/help")
+            .then(data => this.setState({ help: data.data }))
             .catch(err => {
                 console.log(err);
                 return null;
@@ -135,11 +173,16 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.getUsers();
+        this.getUser();
+        this.getUpr();
+        this.getChl();
+        this.getPol();
+        this.help();
     }
 
     render() {
         let styleConfig = { color: "#86C232"}
+        console.log('pol = ', this.state.pol,' chl = ', this.state.chl,' upr = ', this.state.upr,' help = ', this.state.help);
         return (
             <div className="wrapper">
                 <header className="header">
@@ -154,7 +197,9 @@ class App extends React.Component {
                     </div>
                 </header>
                 <main className="main gray">
-                        {this.state.name.length === 1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}/>)}
+                        {this.state.name.length === 1 && this.state.upr === -1 && this.state.pol === -1
+                        && this.state.chl === -1 && this.state.help === -1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}
+                        upr={this.state.upr} chl={this.state.chl} pol={this.state.pol}/>)}
                 </main>
             </div>
         );

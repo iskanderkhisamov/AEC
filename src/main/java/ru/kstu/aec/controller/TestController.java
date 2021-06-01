@@ -12,6 +12,8 @@ import ru.kstu.aec.services.*;
 
 import java.util.List;
 
+import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
+
 @Controller
 public class TestController {
 
@@ -24,6 +26,8 @@ public class TestController {
     Long qid;
     int lastId;
     Long testId;
+
+    TestDTO testDTO = new TestDTO();
 
     List<Question> questions;
 
@@ -54,6 +58,7 @@ public class TestController {
         count++;
         model.addAttribute("count", count);
         System.out.println("Номер Массива: " + count);
+        testDTO.setId(testId);
         return "test";
     }
 
@@ -62,34 +67,41 @@ public class TestController {
         System.out.println("NEXXXXXXXXXXXXXXXXXXXXXXXXT");
         System.out.println(questionDTO.getAnswer());
         qid = questions.get(count).getId();
+        questionDTO.setId(qid);
+        testDTO.getQuestions().add(questionDTO);
         return "redirect:/test/" + testId + "/" + qid;
     }
 
     @PostMapping("/test/end")
-    public String postTest(@ModelAttribute QuestionDTO test, BindingResult result) throws Exception {
+    public String postTest(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
         System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDD");
-        /**User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        questionDTO.setId(qid);
+        testDTO.getQuestions().add(questionDTO);
         Statistic statistic = new Statistic();
-        statistic.setTest(testService.getTest(test.getId()));
+        statistic.setTest(testService.getTest(testId));
         statistic.setUser(user);
-        for (int i = 0; i < test.getQuestions().length; i++) {
-            QuestionDTO questionDTO = test.getQuestions()[i];
-            Question question = questionService.getQuestion(questionDTO.getId());
+        for (QuestionDTO q : testDTO.getQuestions()) {
+            Question question = questionService.getQuestion(q.getId());
             if (question.getCategory().getName().equals("POL")) {
-                if (questionDTO.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRight_answer().getId())) {
                     statistic.setPol(statistic.getPol() + question.getCategory().getRating());
                 }
             } else if (question.getCategory().getName().equals("UPR")) {
-                if (questionDTO.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRight_answer().getId())) {
                     statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
                 }
             } else if (question.getCategory().getName().equals("CHL")) {
-                if (questionDTO.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRight_answer().getId())) {
                     statistic.setChl(statistic.getChl() + question.getCategory().getRating());
                 }
             }
-        }*/
+        }
+        System.out.println("pol=" + statistic.getPol());
+        System.out.println("chl=" + statistic.getChl());
+        System.out.println("upr=" + statistic.getUpr());
         count = 0;
+        statisticService.saveStatistic(statistic);
         return "redirect:/result";
     }
 }
