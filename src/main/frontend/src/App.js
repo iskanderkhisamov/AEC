@@ -143,18 +143,19 @@ class App extends React.Component {
         return (
             <div className="wrapper">
                 <header className="header">
-                    <div className="container">
-                        <div className="header__title">
-                            <a href="http://localhost:8080/">Автоматизированный учебный курс</a>
-                        </div>
+                    <div className="header__body responsive-wrapper">
+                        <div className="header__name"><a href="/">Автоматизированный учебный курс</a></div>
                         <nav className="header__nav">
-                            <a href="http://localhost:8080/profile">Личный кабинет</a>
-                            <a href="http://localhost:8080/courses">Курсы</a>
+                            <a href="/profile">Личный кабинет</a>
                         </nav>
                     </div>
                 </header>
-                <main className="main gray">
-                        {this.state.name.length === 1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}/>)}
+                <main className="main">
+                    <div className="main__body responsive-wrapper">
+                        <div className="widget">
+                            {this.state.name.length === 1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}/>)}
+                        </div>
+                    </div>
                 </main>
             </div>
         );
