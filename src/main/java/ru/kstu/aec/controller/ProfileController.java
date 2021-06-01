@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.UserService;
@@ -19,6 +20,7 @@ import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 public class ProfileController {
 
     final UserService userService;
+    //final TestService testService;
 
     public ProfileController(UserService userService) {
         this.userService = userService;
@@ -31,31 +33,29 @@ public class ProfileController {
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
         return "profile";
     }
-    // делаем тож самое шо в индексе и добавляем инфу о пользователе
-    // надо будет вам сделать так шобы ещё инфа о курсах и резах тестов отображалась
 
-    @GetMapping("/profile/changeinfo")
+    @GetMapping("/profile/edit")
     public String getChangeInfo(Model model) {
         model.addAttribute("user", ((User) getAuthentication().getPrincipal()));
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
-        return "changeinfo";
+        return "edit";
     }
 
-    @PostMapping("/profile/changeinfo")
+    @PostMapping("/profile/edit")
     public String postChangeInfo(@ModelAttribute("user") User user, BindingResult result) {
-        final User olduser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userService.changeUserFirstName(olduser, user.getFirstname());
-        userService.changeUserSecondName(olduser, user.getSurname());
-        userService.changeUserEmail(olduser, user.getEmail());
-        userService.changeUserPassword(olduser, user.getPassword());
+        final User oldUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.changeUserFirstName(oldUser, user.getFirstname());
+        userService.changeUserSecondName(oldUser, user.getSurname());
+        userService.changeUserEmail(oldUser, user.getEmail());
+        userService.changeUserPassword(oldUser, user.getPassword());
         return "redirect:/profile";
     }
 
-    @GetMapping("/profile/tocreator")
-    public String getToCreator(Model model) {
-        return "tocreator";
+    @GetMapping("/profile/{id}/tests")
+    public String getUserTests(Model model, @PathVariable String id) {
+        return "tests";
     }
 
     @GetMapping("/profile/admin")
