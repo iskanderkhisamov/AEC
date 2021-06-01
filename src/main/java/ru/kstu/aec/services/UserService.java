@@ -41,8 +41,7 @@ public class UserService implements UserDetailsService {
         try {
             loadUserByUsername(user.getEmail());
             System.out.println("email уже существует");
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             saveUser(user);
         }
     }

@@ -1,6 +1,5 @@
 package ru.kstu.aec.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,7 +53,7 @@ public class TestController {
 
         questions = questionService.loadQuestions();
         answers = answerService.loadAnswers();
-        for(int i = 0; i < answers.size(); i++) {
+        for (int i = 0; i < answers.size(); i++) {
             System.out.println(answers.get(i).getText());
         }
 
@@ -73,21 +72,19 @@ public class TestController {
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(test.getId()));
         statistic.setUser(user);
-        for(int i = 0; i < test.getQuestions().size(); i++) {
+        for (int i = 0; i < test.getQuestions().size(); i++) {
             QuestionDTO questionDTO = test.getQuestions().get(i);
             Question question = questionService.getQuestion(questionDTO.getId());
-            if(question.getCategory().getName().equals("POL")) {
-                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+            if (question.getCategory().getName().equals("POL")) {
+                if (questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
                     statistic.setPol(statistic.getPol() + question.getCategory().getRating());
                 }
-            }
-            else if(question.getCategory().getName().equals("UPR")) {
-                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+            } else if (question.getCategory().getName().equals("UPR")) {
+                if (questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
                     statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
                 }
-            }
-            else if(question.getCategory().getName().equals("CHL")) {
-                if(questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
+            } else if (question.getCategory().getName().equals("CHL")) {
+                if (questionDTO.getAnswer().getId() == question.getRight_answer().getId()) {
                     statistic.setChl(statistic.getChl() + question.getCategory().getRating());
                 }
             }

@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kstu.aec.models.*;
+import ru.kstu.aec.models.Test;
+import ru.kstu.aec.models.User;
 import ru.kstu.aec.services.TestService;
 import ru.kstu.aec.services.UserService;
 
@@ -38,7 +38,7 @@ public class ProfileController {
 
     @GetMapping("/profile/edit")
     public String getChangeInfo(Model model) {
-        model.addAttribute("user", ((User) getAuthentication().getPrincipal()));
+        model.addAttribute("user", getAuthentication().getPrincipal());
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
@@ -68,10 +68,10 @@ public class ProfileController {
         List<User> users = userService.loadUsers();
         List<Integer> ids = new ArrayList<>();
 
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             //ids.add(users.get(i).getId());
             //if (user.getId() == users.get(i).getId())
-                //users.remove(user.getId());
+            //users.remove(user.getId());
         }
         model.addAttribute("users", userService.loadUsers());
         return "admin";

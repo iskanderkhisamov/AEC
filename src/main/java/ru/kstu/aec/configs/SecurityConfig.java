@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
-import ru.kstu.aec.models.User;
 import ru.kstu.aec.services.UserService;
 
 @Configuration
@@ -43,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin").hasAuthority("ADMIN")
                 .antMatchers("/profile", "/test", "/result", "/create").hasAuthority("USER")
-                .antMatchers("/", "/css/**","/static/**", "/resources/**","/.*.css","/statistics/*", "/statistics/**").permitAll()
+                .antMatchers("/", "/css/**", "/static/**", "/resources/**", "/.*.css", "/statistics/*", "/statistics/**").permitAll()
                 .antMatchers("/login", "/registration").permitAll()
                 .anyRequest()
                 .authenticated()

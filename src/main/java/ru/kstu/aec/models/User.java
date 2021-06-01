@@ -7,7 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,7 +19,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -34,7 +37,7 @@ public class User implements UserDetails, Serializable {
     private boolean admin = false;
 
     @ManyToMany
-    @JoinTable(name= "users_tests",  joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "users_tests", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "test_id"))
     private Set<Test> tests = new HashSet<>();
 

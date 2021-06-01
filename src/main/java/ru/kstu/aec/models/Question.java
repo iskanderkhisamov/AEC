@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "questions")
+@Table(name = "questions")
 public class Question {
 
     @Id
@@ -35,7 +35,7 @@ public class Question {
     private List<Test> tests = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name= "questions_answers",  joinColumns = @JoinColumn(name = "question_id"),
+    @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
     private Set<Answer> answers = new HashSet<>();
 

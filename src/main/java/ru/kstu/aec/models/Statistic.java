@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="statistics")
+@Table(name = "statistics")
 public class Statistic {
 
     @Id
@@ -19,11 +19,11 @@ public class Statistic {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="test_id")
+    @JoinColumn(name = "test_id")
     private Test test;
 
     private int upr = 0;
