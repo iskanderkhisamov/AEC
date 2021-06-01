@@ -59,8 +59,11 @@ public class StatisticsAPIController {
         }
         double pol;
         pol = (double) poly / max;
-        System.out.println("pol=" + (int) Math.ceil(pol * 100));
-        return (int) Math.ceil(pol * 100);
+        System.out.println("pol=" + (int) Math.floor(pol * 100));
+        System.out.println("pol=" + pol);
+        System.out.println("max=" + max);
+        System.out.println("poly=" + poly);
+        return (int) Math.floor(pol * 100);
     }
 
     @GetMapping("/statistics/chl")
@@ -77,8 +80,8 @@ public class StatisticsAPIController {
         }
         double chl;
         chl = (double) poly / max;
-        System.out.println("chl=" + (int) Math.ceil(chl * 100));
-        return (int) Math.ceil(chl * 100);
+        System.out.println("chl=" + (int) Math.floor(chl * 100));
+        return (int) Math.floor(chl * 100);
     }
 
     @GetMapping("/statistics/upr")
@@ -95,8 +98,8 @@ public class StatisticsAPIController {
         }
         double upr;
         upr = (double) poly / max;
-        System.out.println("upr=" + (int) Math.ceil(upr * 100));
-        return (int) Math.ceil(upr * 100);
+        System.out.println("upr=" + (int) Math.floor(upr * 100));
+        return (int) Math.floor(upr * 100);
     }
 
     @SneakyThrows

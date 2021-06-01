@@ -187,9 +187,9 @@ class App extends React.Component {
             <div className="wrapper">
                 <header className="header">
                     <div className="header__body responsive-wrapper">
-                        <div className="header__name"><a href="/">Автоматизированный учебный курс</a></div>
+                        <div className="header__name"><a href="http://localhost:8080/">Автоматизированный учебный курс</a></div>
                         <nav className="header__nav">
-                            <a href="/profile">Личный кабинет</a>
+                            <a href="http://localhost:8080/profile">Личный кабинет</a>
                         </nav>
                     </div>
                 </header>

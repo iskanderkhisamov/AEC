@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,6 +18,6 @@ public class TestDTO {
 
     private Long id;
 
-    private List<QuestionDTO> questions = new ArrayList<>();
+    private Set<QuestionDTO> questions = new HashSet<>();
 
 }
