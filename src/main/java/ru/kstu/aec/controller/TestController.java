@@ -72,8 +72,8 @@ public class TestController {
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(test.getId()));
         statistic.setUser(user);
-        for (int i = 0; i < test.getQuestions().size(); i++) {
-            QuestionDTO questionDTO = test.getQuestions().get(i);
+        for (int i = 0; i < test.getQuestions().length; i++) {
+            QuestionDTO questionDTO = test.getQuestions()[i];
             Question question = questionService.getQuestion(questionDTO.getId());
             if (question.getCategory().getName().equals("POL")) {
                 if (questionDTO.getAnswer().equals(question.getRight_answer().getId())) {

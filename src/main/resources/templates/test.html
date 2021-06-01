@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>АУК</title>
@@ -30,37 +31,19 @@
     <main class="main">
         <div class="main__body responsive-wrapper">
             <div class="widget">
-                <ul>
-                    <th:block th:each="question, state: ${questions}">
-                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} == ${id}" class="selected">Вопросы</a></li>
-                        <li><a th:utext="Вопрос + ' ' + ${state.count}" th:href="@{/test/{index}(index=${state.index})}" th:if="${state.index} != ${id}">Вопросы</a></li>
-                    </th:block>
-                </ul>
-            </div>
-            <div class="widget">
                 <form role="form" th:action="@{/test}" th:method="POST" th:object="${test}">
-                    <p th:utext="${question.text}">Вопрос</p>
-                    <ul>
-                        <li th:each="answer, state: ${answers}">
-                            <th:block th:if="1 + ${id} == ${answer.question_id}">
-                                <input type="radio" name="answer" th:field="*{questions.get(id).answer}" th:value="${answer.id}"/>
+                    <input type="text" style="visibility: hidden" th:field="*{questions}" th:value="${questions}">
+                    <th:block th:each="question: ${questions}">
+                        <p th:utext="${question.text}">Вопрос</p>
+                        <form role="form" th:action="@{/test/{id}(id=${question.id})}"
+                        <ul>
+                            <li th:each="answer, state: ${question.getAnswers()}">
+                                <input type="radio" name="answer" th:field="*{questions.answer}" th:value="${answer.id}"/>
                                 <label th:for="${answer.id}" th:text="${answer.text}"></label>
-                            </th:block>
-                        </li>
-                    </ul>
-                    <input type="hidden" name="question" th:field="*{questionId}" th:value="${id}"/>
-                    <th:block th:if="${id} == 0">
-                        <button class="main__button disabled" disabled>Предыдущий вопрос</button>
+                            </li>
+                        </ul>
                     </th:block>
-                    <th:block th:if="${id} != 0">
-                        <button class="main__button">Предыдущий вопрос</button>
-                    </th:block>
-                    <th:block th:if="1 + ${id} != ${#arrays.length(questions)}">
-                        <button class="main__button" type="submit" name="submit">Следующий вопрос</button>
-                    </th:block>
-                    <th:block th:if="1 + ${id} == ${#arrays.length(questions)}">
-                        <button class="main__button" type="submit" name="submit">Закончить тест</button>
-                    </th:block>
+                    <button class="main__button" type="submit" name="submit">Закончить тест</button>
                 </form>
             </div>
         </div>
