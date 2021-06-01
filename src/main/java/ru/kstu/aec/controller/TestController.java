@@ -12,8 +12,6 @@ import ru.kstu.aec.services.*;
 
 import java.util.List;
 
-import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
-
 @Controller
 public class TestController {
 
@@ -22,9 +20,12 @@ public class TestController {
     final TestService testService;
     final QuestionService questionService;
     final StatisticService statisticService;
+    int count;
+    Long qid;
+    int lastId;
+    Long testId;
 
     List<Question> questions;
-    List<Answer> answers;
 
     public TestController(QuestionService questionService, AnswerService answerService, UserService userService, TestService testService, StatisticService statisticService) {
         this.questionService = questionService;
@@ -34,41 +35,40 @@ public class TestController {
         this.statisticService = statisticService;
     }
 
-    @GetMapping("/test/{id}")
-    public String Test(Model model, @PathVariable String id) {
-        questions = questionService.loadQuestions();
-        answers = answerService.loadAnswers();
-
-        model.addAttribute("questions", questions);
-        model.addAttribute("question", questions.get(Integer.parseInt(id)));
-        model.addAttribute("id", Integer.parseInt(id));
-        model.addAttribute("answers", answers);
-
-        return "test";
-    }
-
-    @GetMapping("/test")
-    public String getTest(Model model) {
-        String id = "0";
-
-        questions = questionService.loadQuestions();
-        answers = answerService.loadAnswers();
-        for (int i = 0; i < answers.size(); i++) {
-            System.out.println(answers.get(i).getText());
+    @GetMapping("/test/{id}/{qid}")
+    public String Test(Model model, @PathVariable Long id, @PathVariable Long qid) throws Exception {
+        System.out.println("ТЕСТ ID: " + id);
+        System.out.println("ВОПРОС ID: " + qid);
+        questions = testService.getTest(id).getQuestions();
+        lastId = questions.size();
+        System.out.println("ПОСЛЕДНИЙ ID: " + lastId);
+        for(Question q : questions) {
+            if (q.getId() == qid) {
+                model.addAttribute("question", q);
+            }
         }
-
-        model.addAttribute("questions", questions);
-        model.addAttribute("question", questions.get(Integer.parseInt(id)));
-        model.addAttribute("id", Integer.parseInt(id));
-        model.addAttribute("answers", answers);
-
+        model.addAttribute("questionDTO", new QuestionDTO());
+        model.addAttribute("last", lastId);
+        this.qid = qid;
+        testId = id;
+        count++;
+        model.addAttribute("count", count);
+        System.out.println("Номер Массива: " + count);
         return "test";
     }
 
-    @PostMapping("/test")
-    public String postTest(@ModelAttribute TestDTO test, BindingResult result) throws Exception {
-        System.out.println("ТУТТТТТТТТТТТТТТТТТТТТТТТТТТТТТ ПОССССССССССССССССССССССССССССССССТ!!!");
-        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+    @PostMapping("/test/next")
+    public String postTestNext(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
+        System.out.println("NEXXXXXXXXXXXXXXXXXXXXXXXXT");
+        System.out.println(questionDTO.getAnswer());
+        qid = questions.get(count).getId();
+        return "redirect:/test/" + testId + "/" + qid;
+    }
+
+    @PostMapping("/test/end")
+    public String postTest(@ModelAttribute QuestionDTO test, BindingResult result) throws Exception {
+        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDD");
+        /**User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(test.getId()));
         statistic.setUser(user);
@@ -88,7 +88,8 @@ public class TestController {
                     statistic.setChl(statistic.getChl() + question.getCategory().getRating());
                 }
             }
-        }
-        return "redirect:/test";
+        }*/
+        count = 0;
+        return "redirect:/result";
     }
 }

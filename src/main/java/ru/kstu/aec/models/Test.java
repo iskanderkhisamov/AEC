@@ -31,5 +31,5 @@ public class Test {
     @ManyToMany
     @JoinTable(name = "tests_questions", joinColumns = @JoinColumn(name = "test_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
-    private Set<Question> questions = new HashSet<>();
+    private List<Question> questions = new ArrayList<>();
 }

@@ -31,20 +31,33 @@
     <main class="main">
         <div class="main__body responsive-wrapper">
             <div class="widget">
-                <form role="form" th:action="@{/test}" th:method="POST" th:object="${test}">
-                    <input type="text" style="visibility: hidden" th:field="*{questions}" th:value="${questions}">
-                    <th:block th:each="question: ${questions}">
-                        <p th:utext="${question.text}">Вопрос</p>
-                        <form role="form" th:action="@{/test/{id}(id=${question.id})}"
+
+                <th:block th:if="${count} != ${last}">
+                    <form role="form" th:action="@{/test/next}" th:method="POST" th:object="${questionDTO}">
+                        <p th:utext="${question.getText()}">Вопрос</p>
                         <ul>
-                            <li th:each="answer, state: ${question.getAnswers()}">
-                                <input type="radio" name="answer" th:field="*{questions.answer}" th:value="${answer.id}"/>
+                            <li th:each="answer: ${question.getAnswers()}">
+                                <input type="radio" name="answer" th:field="*{answer}" th:value="${answer.id}"/>
                                 <label th:for="${answer.id}" th:text="${answer.text}"></label>
                             </li>
                         </ul>
-                    </th:block>
-                    <button class="main__button" type="submit" name="submit">Закончить тест</button>
-                </form>
+                        <button class="main__button" type="submit" name="submit">Следующий вопрос</button>
+                    </form>
+                </th:block>
+
+                <th:block th:if="${count} == ${last}">
+                    <form role="form" th:action="@{/test/end}" th:method="POST" th:object="${questionDTO}">
+                        <p th:utext="${question.getText()}">Вопрос</p>
+                        <ul>
+                            <li th:each="answer: ${question.getAnswers()}">
+                                <input type="radio" name="answer" th:field="*{answer}" th:value="${answer.id}"/>
+                                <label th:for="${answer.id}" th:text="${answer.text}"></label>
+                            </li>
+                        </ul>
+                        <button class="main__button" type="submit" name="submit">Закончить тест</button>
+                    </form>
+                </th:block>
+
             </div>
         </div>
     </main>

@@ -30,7 +30,7 @@
     <main class="main">
         <div class="main__body responsive-wrapper">
             <th:block th:each="test: ${tests}">
-                <a th:href="@{/test/{testId}(testId=${test.id})}" class="widget__a">
+                <a th:href="@{/test/{testId}/{questionId}(testId=${test.id},questionId=${test.getQuestions().get(0).getId()})}" class="widget__a">
                     <div class="widget">
                         <h2 th:utext="${test.getName()}">Название теста</h2>
                         <h3>Автор теста</h3>
