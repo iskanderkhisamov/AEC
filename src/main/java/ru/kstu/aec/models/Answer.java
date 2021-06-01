@@ -3,6 +3,8 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,5 +20,8 @@ public class Answer {
     private Long id;
 
     private String text;
+
+    @ManyToMany(mappedBy = "answers")
+    private List<Question> questions = new ArrayList<>();
 
 }

@@ -8,7 +8,9 @@ import ru.kstu.aec.repositories.AnswerRepository;
 import ru.kstu.aec.repositories.QuestionRepository;
 
 import javax.transaction.Transactional;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -24,8 +26,9 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public Answer getAnswer(Long id) {
-        return answerRepository.getOne(id);
+    public Answer getAnswer(Long id) throws Exception {
+        Optional<Answer> answer = answerRepository.findById(id);
+        return answer.orElseThrow(() -> new Exception("Такого ответа нет, id = " + id));
     }
 
 }

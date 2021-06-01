@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+
     public static Authentication getAuthentication() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
