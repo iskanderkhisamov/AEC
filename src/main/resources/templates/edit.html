@@ -29,12 +29,24 @@
     </header>
     <main class="main">
         <div class="main__body responsive-wrapper">
-            <div class="widget widget__center">
-                <h2 th:text="${surname} + ' ' + ${name}">Фамилия Имя</h2>
-                <h3 th:text="${email}">Email</h3>
-                <p><a href="/profile/edit" class="default-a">Изменить информацию</a></p>
-                <p><a href="profile/tests" class="default-a">Ваши тесты</a></p>
-                <p><a href="/logout" class="default-a">Выйти</a></p>
+            <div class="widget">
+                <form role="form" th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
+                    <label for="firstname">Имя</label>
+                    <input type="text" id="firstname" name="firstname" th:field="*{firstname}" class="widget__input" th:placeholder="${name}">
+                    <br><br>
+                    <label for="surname">Фамилия</label>
+                    <input type="text" id="surname" name="surname" th:field="*{surname}" class="widget__input" th:placeholder="${surname}">
+                    <br><br>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:field="*{email}" class="widget__input" th:placeholder="${email}">
+                    <br><br>
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" th:field="*{password}" class="widget__input" >
+                    <br><br>
+                    <input type="submit" class="widget__button" value="Сохранить">
+                    <br><br>
+                    <a href="/profile" class="default-a">Отмена</a>
+                </form>
             </div>
         </div>
     </main>
