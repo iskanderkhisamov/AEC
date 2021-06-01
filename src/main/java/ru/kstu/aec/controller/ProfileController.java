@@ -59,6 +59,7 @@ public class ProfileController {
     public String getUserTests(Model model) {
         List<Test> tests = testService.loadTests();
         model.addAttribute("tests", tests);
+        model.addAttribute("create", 1);
         return "index";
     }
 
