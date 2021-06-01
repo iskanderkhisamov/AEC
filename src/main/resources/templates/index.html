@@ -29,11 +29,14 @@
     </header>
     <main class="main">
         <div class="main__body responsive-wrapper">
-            <a href="/test/{id}" class="widget__a"><div class="widget">
-                <h2>Тест</h2>
-                <h3>Автор</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet delectus eius eligendi eveniet fugit harum iure, labore laudantium magnam nam quam quidem reprehenderit tempora veritatis? Minima nesciunt nulla vitae.</p>
-            </div></a>
+            <th:block th:each="test: ${tests}">
+                <a th:href="@{/tests/{testId}(testId=${test.id})}" class="widget__a">
+                    <div class="widget">
+                        <h2 th:utext="${test.getName()}">Название теста</h2>
+                        <h3>Автор теста</h3>
+                    </div>
+                </a>
+            </th:block>
         </div>
     </main>
 </div>

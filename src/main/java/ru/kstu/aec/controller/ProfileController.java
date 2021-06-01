@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.*;
+import ru.kstu.aec.services.TestService;
 import ru.kstu.aec.services.UserService;
 
 import java.util.ArrayList;
@@ -20,10 +21,11 @@ import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 public class ProfileController {
 
     final UserService userService;
-    //final TestService testService;
+    final TestService testService;
 
-    public ProfileController(UserService userService) {
+    public ProfileController(UserService userService, TestService testService) {
         this.userService = userService;
+        this.testService = testService;
     }
 
     @GetMapping("/profile")
@@ -53,9 +55,11 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/profile/{id}/tests")
-    public String getUserTests(Model model, @PathVariable String id) {
-        return "tests";
+    @GetMapping("/profile/tests")
+    public String getUserTests(Model model) {
+        List<Test> tests = testService.loadTests();
+        model.addAttribute("tests", tests);
+        return "index";
     }
 
     @GetMapping("/profile/admin")
