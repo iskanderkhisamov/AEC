@@ -32,7 +32,7 @@ class ApexChart extends React.Component {
                     text: this.props.name,
                     align: 'center',
                     style: {
-                        color: 'white'
+                        color: 'black'
                     }
                 },
                 stroke: {
@@ -64,7 +64,7 @@ class ApexChart extends React.Component {
                     max: 100,
                     labels: {
                         style: {
-                            colors: 'white'
+                            colors: 'black'
                         }
                     }
                 }
@@ -105,7 +105,7 @@ class RGraph extends React.Component{
             }
         ];
 
-        const graphStyles = { width: "100%", height: "1080px", backgroundColor: "#474B4F"};
+        const graphStyles = { width: "100%", height: "1080px", backgroundColor: "#ffffff"};
 
         const BasicGraph = () => <ReactFlow elements={elements} style={graphStyles} nodesConnectable={false}/>;
 
@@ -195,10 +195,10 @@ class App extends React.Component {
                 </header>
                 <main className="main">
                     <div className="main__body responsive-wrapper">
-                        <div className="widget">
-                        {this.state.name.length === 1 && this.state.upr === -1 && this.state.pol === -1
-                        && this.state.chl === -1 && this.state.help === -1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}
-                        upr={this.state.upr} chl={this.state.chl} pol={this.state.pol}/>)}
+                        <div className="graphic">
+                            {this.state.name.length === 1 && this.state.upr === -1 && this.state.pol === -1
+                            && this.state.chl === -1 && this.state.help === -1 ? (<div>Loading...</div>) : (<RGraph name={this.state.name}
+                            upr={this.state.upr} chl={this.state.chl} pol={this.state.pol}/>)}
                         </div>
                     </div>
                 </main>
