@@ -34,11 +34,10 @@
                     <h2 th:utext="Изменить"></h2>
                     <h2 th:utext="${test.getName()}"></h2>
                 </div></a>
-                <form role="form" th:action="@{/profile/delete/test/}" th:method="POST">
-                    <input type="text" id="id" name="id" class="widget__input hidden" th:value="${test.getId()}">
+                <a th:href="@{/profile/delete/test/{testId}(testId=${test.getId()})}" class="widget widget__a main__button"><div>
+                    <h2 th:utext="Удалить"></h2>
                     <h2 th:utext="${test.getName()}"></h2>
-                    <button class="main__button widget__button" type="submit" name="submit">Удалить тест</button>
-                </form>
+                </div></a>
             </th:block>
         </div>
     </main>

@@ -34,10 +34,8 @@
 
         <form role="form" th:action="@{/profile/edit/test}" th:method="POST" th:object="${test}">
           <label>Название теста</label>
-          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="*{name}">
+          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="${test.getName()}">
           <br>
-          <label>Вопрос</label>
-          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="*{name}">
           <button class="main__button widget__button" type="submit" name="submit">Изменить тест</button>
         </form>
       </div>
