@@ -71,9 +71,10 @@ public class ProfileController {
         System.out.println("user");
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         System.out.println("set " + user.getEmail());
+        model.addAttribute("user", user);
         List<Test> tests = testService.findAllbyAuthor(user);
         model.addAttribute("tests", tests);
-        return "index";
+        return "tests";
     }
 
     @GetMapping("/profile/create/answer")

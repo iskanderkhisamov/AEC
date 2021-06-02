@@ -34,6 +34,12 @@
                     <h2 th:utext="${test.getName()}">Название теста</h2>
                     <h3 th:utext="${test.getAuthor().getFullName()}">Автор</h3>
                 </div></a>
+                <div class="widget widget__a main__button" th:if="${test.getAuthor() == {user}(user=${user})}">
+                    <a th:href="@{/profile/edit/{testId}(testId=${test.getId()})}"><div>
+                        <h2 th:utext="Изменить"></h2>
+                        <h2 th:utext="${test.getName()}"></h2>
+                    </div></a>
+                </div>
             </th:block>
         </div>
     </main>
