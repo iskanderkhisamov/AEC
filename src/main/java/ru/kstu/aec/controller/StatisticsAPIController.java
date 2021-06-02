@@ -79,6 +79,9 @@ public class StatisticsAPIController {
         double chl;
         chl = (double) poly / max;
         System.out.println("chl=" + (int) Math.floor(chl * 100));
+        System.out.println("chl=" + chl);
+        System.out.println("max=" + max);
+        System.out.println("poly=" + poly);
         return (int) Math.floor(chl * 100);
     }
 
@@ -96,7 +99,10 @@ public class StatisticsAPIController {
         }
         double upr;
         upr = (double) poly / max;
-        System.out.println("upr=" + (int) Math.floor(upr * 100));
+        System.out.println("upr%=" + (int) Math.floor(upr * 100));
+        System.out.println("upr=" + upr);
+        System.out.println("max=" + max);
+        System.out.println("poly=" + poly);
         return (int) Math.floor(upr * 100);
     }
 

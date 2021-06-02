@@ -10,5 +10,4 @@ public class StatisticsController {
     public String handleGet() {
         return "result";
     }
-
 }

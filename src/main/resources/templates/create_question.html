@@ -31,11 +31,10 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <h2>Создание вопросов для теста</h2>
-
         <form role="form" th:action="@{/profile/create/question}" th:method="POST" th:object="${question}">
           <label>Напишите вопрос</label>
           <input type="text" id="answer" name="text" th:field="*{text}" class="widget__input">
-          <br>
+          <br><br>
           <label>Выберите категорию</label>
           <ul>
             <li th:each="category : ${categories}">
@@ -51,9 +50,11 @@
               <label th:utext="${answer.getText()}"></label>
             </li>
           </ul>
+          <br>
           <button class="main__button widget__button" type="submit" name="submit">Сохранить вопрос</button>
         </form>
-        <a class="main__button widget__button" th:href="@{/profile/create/test}">Перейти к тесту</a>
+        <br>
+        <a class="default-a" th:href="@{/profile/create/test}">Перейти к тесту</a>
       </div>
     </div>
   </main>
