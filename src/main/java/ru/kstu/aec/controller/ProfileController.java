@@ -71,9 +71,10 @@ public class ProfileController {
         System.out.println("user");
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         System.out.println("set " + user.getEmail());
+        model.addAttribute("user", user);
         List<Test> tests = testService.findAllbyAuthor(user);
         model.addAttribute("tests", tests);
-        return "index";
+        return "tests";
     }
 
     @GetMapping("/profile/create/answer")
@@ -109,7 +110,7 @@ public class ProfileController {
     @GetMapping("/profile/edit/test/{id}")
     public String editTest(@PathVariable Long id, Model model, Test test) {
         model.addAttribute("oldTest", testService.getTest(id));
-        return "redirect:/profile";
+        return "edit_test";
     }
 
     @SneakyThrows
@@ -145,6 +146,12 @@ public class ProfileController {
     @PostMapping("/profile/edit/test")
     public String editAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
         testService.saveTest(test);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/delete/test")
+    public String deleteTest(@ModelAttribute Test test, BindingResult bindingResult) {
+        testService.deleteTest(test);
         return "redirect:/profile";
     }
 

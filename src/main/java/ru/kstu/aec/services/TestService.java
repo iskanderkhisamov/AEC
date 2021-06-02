@@ -34,4 +34,8 @@ public class TestService {
         testRepository.save(test);
     }
 
+    public void deleteTest(Test test) {
+        testRepository.delete(test);
+    }
+
 }
