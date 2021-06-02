@@ -34,8 +34,33 @@
 
         <form role="form" th:action="@{/profile/edit/test}" th:method="POST" th:object="${test}">
           <label>Название теста</label>
-          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="${test.getName()}">
+          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="${oldTest.getName()}">
           <br>
+          <label>Вопросы</label>
+          <ul>
+            <li th:each="question, itemStat : *{questions}">
+              <input type="text" th:field="*{questions[__${itemStat.index}__].text}" class="widget__input">
+              <br>
+              <label>Выберите категорию</label>
+              <ul>
+                <li th:each="category : ${categories}">
+                  <input type="radio" th:field="*{questions[__${itemStat.index}__].category}" th:value="${category.getId()}" th:checked="${oldTest.getQuestions().get(__${itemStat.index}__).getCategory()} == ${category} ? 'checked' : 'unchecked'"/>
+                  <label th:utext="${category.getName()}"></label>
+                </li>
+              </ul>
+              <label>Изменить ответы</label>
+              <ul>
+                <li th:each="answer, itemStat : *{questions[__${itemStat.index}__].getAnswers()}">
+                  <input type="text" th:field="*{questions[__${itemStat.index}__].getAnswers()[]}" class="widget__input">
+              <label>Выберите правильный ответ</label>
+              <ul>
+                <li th:each="answer : *{questions[__${itemStat.index}__].getAnswers()}">
+                  <input type="radio" th:field="*{questions[__${itemStat.index}__].rightAnswer}" th:value="${answer.getId()}" th:checked="${oldTest.getQuestions().get(__${itemStat.index}__).getRightAnswer()} == ${answer} ? 'checked' : 'unchecked'"/>
+                  <label th:utext="${answer.getText()}"></label>
+                </li>
+              </ul>
+            </li>
+          </ul>
           <button class="main__button widget__button" type="submit" name="submit">Изменить тест</button>
         </form>
       </div>

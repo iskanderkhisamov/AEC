@@ -117,7 +117,9 @@ public class ProfileController {
     @SneakyThrows
     @GetMapping("/profile/edit/test/{id}")
     public String editTest(@PathVariable Long id, Model model, Test test) {
+        model.addAttribute("test", testService.getTest(id));
         model.addAttribute("oldTest", testService.getTest(id));
+        model.addAttribute("categories", categoryService.loadCategories());
         return "edit_test";
     }
 
@@ -152,7 +154,7 @@ public class ProfileController {
 
     @SneakyThrows
     @PostMapping("/profile/edit/test")
-    public String editAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
+    public String editAnswer(@ModelAttribute("test") Test test, BindingResult bindingResult) {
         testService.saveTest(test);
         return "redirect:/profile";
     }

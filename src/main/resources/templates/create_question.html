@@ -33,7 +33,7 @@
         <h2>Создание вопросов для теста</h2>
         <form role="form" th:action="@{/profile/create/question}" th:method="POST" th:object="${question}">
           <label>Напишите вопрос</label>
-          <input type="text" id="answer" name="text" th:field="*{text}" class="widget__input">
+          <input type="text" id="question" name="text" th:field="*{text}" class="widget__input">
           <br><br>
           <label>Выберите категорию</label>
           <ul>
