@@ -4,12 +4,10 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kstu.aec.models.Question;
 import ru.kstu.aec.models.Statistic;
 import ru.kstu.aec.models.Test;
-import ru.kstu.aec.models.User;
 import ru.kstu.aec.services.QuestionService;
 import ru.kstu.aec.services.StatisticService;
 import ru.kstu.aec.services.TestService;
@@ -39,7 +37,7 @@ public class StatisticsAPIController {
         Test test = testService.getTest(statistic.getTest().getId());
         List<Question> questionList = test.getQuestions();
         List<Question> questions = new ArrayList<>();
-        for(int i = 0; i < questionList.size(); i++) {
+        for (int i = 0; i < questionList.size(); i++) {
             questions.add(questionService.getQuestion(questionList.get(i).getId()));
         }
         return questions;
@@ -52,8 +50,8 @@ public class StatisticsAPIController {
         Statistic statistic = statisticService.getStatistic();
         poly = statistic.getPol();
         List<Question> questions = helper(statistic);
-        for(Question q : questions) {
-            if(q.getCategory().getName().equals("POL")) {
+        for (Question q : questions) {
+            if (q.getCategory().getName().equals("POL")) {
                 max = max + q.getCategory().getRating();
             }
         }
@@ -73,8 +71,8 @@ public class StatisticsAPIController {
         Statistic statistic = statisticService.getStatistic();
         poly = statistic.getChl();
         List<Question> questions = helper(statistic);
-        for(Question q : questions) {
-            if(q.getCategory().getName().equals("CHL")) {
+        for (Question q : questions) {
+            if (q.getCategory().getName().equals("CHL")) {
                 max = max + q.getCategory().getRating();
             }
         }
@@ -91,8 +89,8 @@ public class StatisticsAPIController {
         Statistic statistic = statisticService.getStatistic();
         poly = statistic.getUpr();
         List<Question> questions = helper(statistic);
-        for(Question q : questions) {
-            if(q.getCategory().getName().equals("UPR")) {
+        for (Question q : questions) {
+            if (q.getCategory().getName().equals("UPR")) {
                 max = max + q.getCategory().getRating();
             }
         }

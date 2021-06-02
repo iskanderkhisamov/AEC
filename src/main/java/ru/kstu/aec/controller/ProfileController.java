@@ -104,9 +104,9 @@ public class ProfileController {
     @SneakyThrows
     @PostMapping("/profile/create/answer")
     public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
-        answers = answer.toAnswerList();
-        for(Answer ans : answer.toAnswerList()) {
+        for (Answer ans : answer.toAnswerList()) {
             answerService.createAnswer(ans);
+            answers.add(answerService.getAnswer());
         }
         return "redirect:/profile/create/question";
     }
@@ -114,12 +114,10 @@ public class ProfileController {
     @SneakyThrows
     @PostMapping("/profile/create/question")
     public String postAnswer(@ModelAttribute("question") QuestionBlank question, BindingResult bindingResult) {
-        System.out.println(question.getAnswer());
-        System.out.println(question.getText());
-        System.out.println(question.getCategory());
-        System.out.println(question.getAnswers().length);
-        questions.add(question.toQuestion());
-        questionService.createQuestion(question.toQuestion());
+        Question question1 = question.toQuestion(answerService, categoryService);
+        question1.setAnswers(answers);
+        questions.add(question1);
+        questionService.createQuestion(question1);
         return "redirect:/profile/create/answer";
     }
 
@@ -129,7 +127,7 @@ public class ProfileController {
         test.setQuestions(questions);
         test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
         testService.saveTest(test);
-        return "redirect:/profile/create/test";
+        return "redirect:/profile";
     }
 
 }

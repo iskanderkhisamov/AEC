@@ -1,11 +1,8 @@
 package ru.kstu.aec.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Arrays;
+import lombok.*;
+import ru.kstu.aec.services.AnswerService;
+import ru.kstu.aec.services.CategoryService;
 
 @Getter
 @Setter
@@ -15,19 +12,17 @@ public class QuestionBlank {
 
     private String text;
 
-    private Answer answer;
+    private Long answer;
 
-    private Category category;
+    private Long category;
 
-    private Answer[] answers = new Answer[4];
-
-    public Question toQuestion() {
+    @SneakyThrows
+    public Question toQuestion(AnswerService answerService, CategoryService categoryService) {
         System.out.println(answer);
         System.out.println(category);
         Question question = new Question();
-        question.setAnswers(Arrays.asList(answers));
-        question.setRightAnswer(answer);
-        question.setCategory(category);
+        question.setRightAnswer(answerService.getAnswer(answer));
+        question.setCategory(categoryService.getCategory(category));
         question.setText(text);
         return question;
     }

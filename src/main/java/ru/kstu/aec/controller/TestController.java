@@ -46,7 +46,7 @@ public class TestController {
         questions = testService.getTest(id).getQuestions();
         lastId = questions.size();
         System.out.println("ПОСЛЕДНИЙ ID: " + lastId);
-        for(Question q : questions) {
+        for (Question q : questions) {
             if (q.getId() == qid) {
                 model.addAttribute("question", q);
             }

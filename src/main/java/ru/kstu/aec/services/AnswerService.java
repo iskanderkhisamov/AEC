@@ -28,4 +28,13 @@ public class AnswerService {
         return answer.orElseThrow(() -> new Exception("Такого ответа нет, id = " + id));
     }
 
+    public Answer getAnswer() throws Exception {
+        List<Answer> answers = answerRepository.findAll();
+        Answer answer = null;
+        for (Answer ans : answers) {
+            answer = ans;
+        }
+        return answer;
+    }
+
 }

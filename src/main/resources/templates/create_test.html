@@ -33,7 +33,7 @@
         <h2>Создание тест</h2>
 
         <form role="form" th:action="@{/profile/create/test}" th:method="POST" th:object="${test}">
-          <label>Напишите ответ</label>
+          <label>Напишите название теста</label>
           <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input">
           <button class="main__button widget__button" type="submit" name="submit">Сохранить тест</button>
         </form>

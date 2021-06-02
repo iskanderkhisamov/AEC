@@ -39,47 +39,15 @@
           <label>Выберите категорию</label>
           <ul>
             <li th:each="category : ${categories}">
-              <input type="radio" th:field="*{category}" th:value="${category}" />
+              <input type="radio" th:field="*{category}" th:value="${category.getId}" />
               <label th:for="${#ids.prev('category')}" th:utext="${category.getName()}"></label>
-            </li>
-          </ul>
-          <br>
-          <label>Выберите ответ 1</label>
-          <ul>
-            <li th:each="answer : ${answers}">
-              <input type="radio" th:field="*{answers[0]}" th:value="${answer}" />
-              <label th:utext="${answer.getText()}"></label>
-            </li>
-          </ul>
-          <br>
-          <label>Выберите ответ 2</label>
-          <ul>
-            <li th:each="answer : ${answers}">
-              <input type="radio" th:field="*{answers[1]}" th:value="${answer}" />
-              <label th:utext="${answer.getText()}"></label>
-            </li>
-          </ul>
-          <br>
-          <label>Выберите ответ 3</label>
-          <ul>
-            <li th:each="answer : ${answers}">
-              <input type="radio" th:field="*{answers[2]}" th:value="${answer}" />
-              <label th:utext="${answer.getText()}"></label>
-            </li>
-          </ul>
-          <br>
-          <label>Выберите ответ 4</label>
-          <ul>
-            <li th:each="answer : ${answers}">
-              <input type="radio" th:field="*{answers[3]}" th:value="${answer}" />
-              <label th:utext="${answer.getText()}"></label>
             </li>
           </ul>
           <br>
           <label>Выберите правильный ответ</label>
           <ul>
             <li th:each="answer : ${answers}">
-              <input type="radio" th:field="*{answer}" th:value="${answer}" />
+              <input type="radio" th:field="*{answer}" th:value="${answer.getId()}" />
               <label th:utext="${answer.getText()}"></label>
             </li>
           </ul>
