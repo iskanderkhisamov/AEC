@@ -30,16 +30,15 @@
     <main class="main">
         <div class="main__body responsive-wrapper">
             <th:block th:each="test: ${tests}">
-                <a th:href="@{/test/{testId}/0(testId=${test.getId()})}" class="widget widget__a"><div>
-                    <h2 th:utext="${test.getName()}">Название теста</h2>
-                    <h3 th:utext="${test.getAuthor().getFullName()}">Автор</h3>
+                <a th:href="@{/profile/edit/test/{testId}(testId=${test.getId()})}" class="widget widget__a main__button"><div>
+                    <h2 th:utext="Изменить"></h2>
+                    <h2 th:utext="${test.getName()}"></h2>
                 </div></a>
-                <div class="widget widget__a main__button">
-                    <a th:href="@{/profile/edit/{testId}(testId=${test.getId()})}"><div>
-                        <h2 th:utext="Изменить"></h2>
-                        <h2 th:utext="${test.getName()}"></h2>
-                    </div></a>
-                </div>
+                <form role="form" th:action="@{/profile/delete/test/}" th:method="POST">
+                    <input type="text" id="id" name="id" class="widget__input hidden" th:value="${test.getId()}">
+                    <h2 th:utext="${test.getName()}"></h2>
+                    <button class="main__button widget__button" type="submit" name="submit">Удалить тест</button>
+                </form>
             </th:block>
         </div>
     </main>

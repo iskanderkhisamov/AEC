@@ -267,4 +267,7 @@ body {
 .default-a:hover {
     color: gray;
 }
+.hidden {
+    visibility: hidden;
+}
 

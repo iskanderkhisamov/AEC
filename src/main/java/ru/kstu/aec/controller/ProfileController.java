@@ -149,4 +149,10 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
+    @PostMapping("/profile/delete/test")
+    public String deleteTest(@ModelAttribute Test test, BindingResult bindingResult) {
+        testService.deleteTest(test);
+        return "redirect:/profile";
+    }
+
 }
