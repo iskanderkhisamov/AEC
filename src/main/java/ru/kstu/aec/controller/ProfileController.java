@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
@@ -105,6 +106,13 @@ public class ProfileController {
     }
 
     @SneakyThrows
+    @GetMapping("/profile/edit/test/{id}")
+    public String editTest(@PathVariable Long id, Model model, Test test) {
+        model.addAttribute("oldTest", testService.getTest(id));
+        return "redirect:/profile";
+    }
+
+    @SneakyThrows
     @PostMapping("/profile/create/answer")
     public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
         for (Answer ans : answer.toAnswerList()) {
@@ -129,6 +137,13 @@ public class ProfileController {
     public String postAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
         test.setQuestions(questions);
         test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
+        testService.saveTest(test);
+        return "redirect:/profile";
+    }
+
+    @SneakyThrows
+    @PostMapping("/profile/edit/test")
+    public String editAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
         testService.saveTest(test);
         return "redirect:/profile";
     }
