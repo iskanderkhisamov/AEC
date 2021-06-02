@@ -30,12 +30,15 @@
   <main class="main">
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
-        <h2>Создание тест</h2>
+        <h2>Изменение теста</h2>
 
         <form role="form" th:action="@{/profile/edit/test}" th:method="POST" th:object="${test}">
           <label>Название теста</label>
           <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="*{name}">
-          <button class="main__button widget__button" type="submit" name="submit">Сохранить тест</button>
+          <br>
+          <label>Вопрос</label>
+          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="*{name}">
+          <button class="main__button widget__button" type="submit" name="submit">Изменить тест</button>
         </form>
       </div>
     </div>

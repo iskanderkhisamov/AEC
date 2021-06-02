@@ -110,7 +110,7 @@ public class ProfileController {
     @GetMapping("/profile/edit/test/{id}")
     public String editTest(@PathVariable Long id, Model model, Test test) {
         model.addAttribute("oldTest", testService.getTest(id));
-        return "redirect:/profile";
+        return "edit_test";
     }
 
     @SneakyThrows
