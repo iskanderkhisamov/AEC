@@ -3,12 +3,12 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"category","tests","rightAnswer","answers"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -30,11 +30,11 @@ public class Question {
     private Answer rightAnswer;
 
     @ManyToMany(mappedBy = "questions")
-    private List<Test> tests = new ArrayList<>();
+    private Set<Test> tests = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
-    private List<Answer> answers = new ArrayList<>(4);
+    private Set<Answer> answers = new HashSet<>(4);
 
 }

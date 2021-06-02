@@ -43,7 +43,7 @@ public class TestController {
     public String Test(Model model, @PathVariable Long id, @PathVariable Long qid) throws Exception {
         System.out.println("ТЕСТ ID: " + id);
         System.out.println("ВОПРОС ID: " + qid);
-        questions = testService.getTest(id).getQuestions();
+        questions = (List<Question>) testService.getTest(id).getQuestions();
         lastId = questions.size();
         System.out.println("ПОСЛЕДНИЙ ID: " + lastId);
         for (Question q : questions) {

@@ -35,7 +35,7 @@ public class StatisticsAPIController {
 
     private List<Question> helper(Statistic statistic) throws Exception {
         Test test = testService.getTest(statistic.getTest().getId());
-        List<Question> questionList = test.getQuestions();
+        List<Question> questionList = (List<Question>) test.getQuestions();
         List<Question> questions = new ArrayList<>();
         for (int i = 0; i < questionList.size(); i++) {
             questions.add(questionService.getQuestion(questionList.get(i).getId()));

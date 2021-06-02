@@ -14,8 +14,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude={"tests","statistics","userTests"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,9 +35,7 @@ public class User implements UserDetails, Serializable {
 
     private boolean admin = false;
 
-    @ManyToMany
-    @JoinTable(name = "users_tests", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "test_id"))
+    @OneToMany(mappedBy = "author")
     private Set<Test> tests = new HashSet<>();
 
     @OneToMany(mappedBy = "author")

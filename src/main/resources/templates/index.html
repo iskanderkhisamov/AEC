@@ -32,7 +32,7 @@
             <th:block th:each="test: ${tests}">
                 <a th:href="@{/test/{testId}/{questionId}(testId=${test.id},questionId=${test.getQuestions().get(0).getId()})}" class="widget widget__a"><div>
                     <h2 th:utext="${test.getName()}">Название теста</h2>
-                    <h3>Автор теста</h3>
+                    <h3 th:utext="${test.getAuthor().getFirstname()}">Автор</h3>
                 </div></a>
             </th:block>
         </div>

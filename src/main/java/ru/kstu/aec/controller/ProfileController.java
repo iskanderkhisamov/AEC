@@ -1,7 +1,6 @@
 package ru.kstu.aec.controller;
 
 import lombok.SneakyThrows;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +11,7 @@ import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,8 +26,8 @@ public class ProfileController {
     final AnswerService answerService;
     final CategoryService categoryService;
 
-    List<Answer> answers = new ArrayList<>();
-    List<Question> questions = new ArrayList<>();
+    Set<Answer> answers = new HashSet<>();
+    List<Question> questions =  new ArrayList<>();
 
     public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService) {
         this.userService = userService;
@@ -56,7 +56,7 @@ public class ProfileController {
 
     @PostMapping("/profile/edit")
     public String postChangeInfo(@ModelAttribute("user") User user, BindingResult result) {
-        final User oldUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final User oldUser = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         userService.changeUserFirstName(oldUser, user.getFirstname());
         userService.changeUserSecondName(oldUser, user.getSurname());
         userService.changeUserEmail(oldUser, user.getEmail());
@@ -64,10 +64,13 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
+    @SneakyThrows
     @GetMapping("/profile/tests")
     public String getUserTests(Model model) {
+        System.out.println("user");
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
-        Set<Test> tests = user.getUserTests();
+        System.out.println("set " + user.getEmail());
+        List<Test> tests = testService.findAllbyAuthor(user);
         model.addAttribute("tests", tests);
         return "index";
     }

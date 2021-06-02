@@ -2,6 +2,7 @@ package ru.kstu.aec.services;
 
 import org.springframework.stereotype.Service;
 import ru.kstu.aec.models.Test;
+import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.TestRepository;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class TestService {
 
     public List<Test> loadTests() {
         return testRepository.findAll();
+    }
+
+    public List<Test> findAllbyAuthor(User user) {
+        return testRepository.findAllByAuthor(user);
     }
 
     public void saveTest(Test test) {

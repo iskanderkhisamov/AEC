@@ -6,11 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@EqualsAndHashCode
+
+@EqualsAndHashCode(exclude={"author","statistics","questions"})
 @Getter
 @Setter
 @Entity
@@ -23,15 +22,12 @@ public class Test {
 
     private String name;
 
-    @ManyToMany(mappedBy = "tests")
-    private List<User> users = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
 
     @OneToMany(mappedBy = "test")
-    private Set<Statistic> statistics = new HashSet<>();
+    private List<Statistic> statistics = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "tests_questions", joinColumns = @JoinColumn(name = "test_id"),

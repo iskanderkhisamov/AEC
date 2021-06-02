@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"user","test"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
