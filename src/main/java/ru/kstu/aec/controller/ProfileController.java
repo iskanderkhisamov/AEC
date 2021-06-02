@@ -1,5 +1,6 @@
 package ru.kstu.aec.controller;
 
+import lombok.SneakyThrows;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,10 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kstu.aec.models.Test;
-import ru.kstu.aec.models.User;
-import ru.kstu.aec.services.TestService;
-import ru.kstu.aec.services.UserService;
+import ru.kstu.aec.models.*;
+import ru.kstu.aec.services.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +22,19 @@ public class ProfileController {
 
     final UserService userService;
     final TestService testService;
+    final QuestionService questionService;
+    final AnswerService answerService;
+    final CategoryService categoryService;
 
-    public ProfileController(UserService userService, TestService testService) {
+    List<Answer> answers = new ArrayList<>();
+    List<Question> questions = new ArrayList<>();
+
+    public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService) {
         this.userService = userService;
         this.testService = testService;
+        this.questionService = questionService;
+        this.answerService = answerService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/profile")
@@ -64,17 +72,64 @@ public class ProfileController {
         return "index";
     }
 
-    @GetMapping("/profile/create")
-    public String getUserCreateTest(Model model) {
-        return "create";
+    @GetMapping("/profile/create/answer")
+    public String getUserCreateTest(Model model, AnswerBlank answers) {
+        model.addAttribute("answers", answers);
+        return "create_answer";
+    }
+
+    @GetMapping("/profile/create/question")
+    public String getUserCreateTest(Model model, QuestionBlank question) {
+        model.addAttribute("question", question);
+        model.addAttribute("answers", answers);
+        model.addAttribute("categories", categoryService.loadCategories());
+        return "create_question";
+    }
+
+    @GetMapping("/profile/create/test")
+    public String getUserCreateTest(Model model, Test test) {
+        model.addAttribute("test", test);
+        return "create_test";
     }
 
     @GetMapping("/profile/admin")
     public String getProfileAdmin(Model model) {
-        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         List<User> users = userService.loadUsers();
         List<Integer> ids = new ArrayList<>();
         model.addAttribute("users", userService.loadUsers());
         return "admin";
     }
+
+    @SneakyThrows
+    @PostMapping("/profile/create/answer")
+    public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
+        answers = answer.toAnswerList();
+        for(Answer ans : answer.toAnswerList()) {
+            answerService.createAnswer(ans);
+        }
+        return "redirect:/profile/create/question";
+    }
+
+    @SneakyThrows
+    @PostMapping("/profile/create/question")
+    public String postAnswer(@ModelAttribute("question") QuestionBlank question, BindingResult bindingResult) {
+        System.out.println(question.getAnswer());
+        System.out.println(question.getText());
+        System.out.println(question.getCategory());
+        System.out.println(question.getAnswers().length);
+        questions.add(question.toQuestion());
+        questionService.createQuestion(question.toQuestion());
+        return "redirect:/profile/create/answer";
+    }
+
+    @SneakyThrows
+    @PostMapping("/profile/create/test")
+    public String postAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
+        test.setQuestions(questions);
+        test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
+        testService.saveTest(test);
+        return "redirect:/profile/create/test";
+    }
+
 }

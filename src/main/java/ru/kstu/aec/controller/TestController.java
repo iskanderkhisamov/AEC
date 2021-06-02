@@ -84,15 +84,15 @@ public class TestController {
         for (QuestionDTO q : testDTO.getQuestions()) {
             Question question = questionService.getQuestion(q.getId());
             if (question.getCategory().getName().equals("POL")) {
-                if (q.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
                     statistic.setPol(statistic.getPol() + question.getCategory().getRating());
                 }
             } else if (question.getCategory().getName().equals("UPR")) {
-                if (q.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
                     statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
                 }
             } else if (question.getCategory().getName().equals("CHL")) {
-                if (q.getAnswer().equals(question.getRight_answer().getId())) {
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
                     statistic.setChl(statistic.getChl() + question.getCategory().getRating());
                 }
             }

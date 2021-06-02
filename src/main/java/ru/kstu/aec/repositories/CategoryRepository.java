@@ -2,13 +2,13 @@ package ru.kstu.aec.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.kstu.aec.models.User;
+import ru.kstu.aec.models.Category;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Optional<User> findByEmail(String email);
+    Optional<Category> findByName(String name);
 
 }

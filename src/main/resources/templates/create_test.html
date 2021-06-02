@@ -31,6 +31,12 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <h2>Создание тест</h2>
+
+        <form role="form" th:action="@{/profile/create/test}" th:method="POST" th:object="${test}">
+          <label>Напишите ответ</label>
+          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input">
+          <button class="main__button widget__button" type="submit" name="submit">Сохранить тест</button>
+        </form>
       </div>
     </div>
   </main>

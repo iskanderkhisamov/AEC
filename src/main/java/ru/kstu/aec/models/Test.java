@@ -17,6 +17,7 @@ import java.util.Set;
 @Table(name = "tests")
 public class Test {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -25,8 +26,9 @@ public class Test {
     @ManyToMany(mappedBy = "tests")
     private List<User> users = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "userTests")
-    private List<User> authors = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="author_id")
+    private User author;
 
     @OneToMany(mappedBy = "test")
     private Set<Statistic> statistics = new HashSet<>();

@@ -29,7 +29,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "right_answer_id")
-    private Answer right_answer;
+    private Answer rightAnswer;
 
     @ManyToMany(mappedBy = "questions")
     private List<Test> tests = new ArrayList<>();
@@ -37,6 +37,6 @@ public class Question {
     @ManyToMany
     @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
-    private Set<Answer> answers = new HashSet<>();
+    private List<Answer> answers = new ArrayList<>(4);
 
 }
