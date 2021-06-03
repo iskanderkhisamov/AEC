@@ -29,8 +29,6 @@ public class Test {
     @OneToMany(mappedBy = "test")
     private List<Statistic> statistics = new ArrayList<>();
 
-    @ManyToMany()
-    @JoinTable(name = "tests_questions", joinColumns = @JoinColumn(name = "test_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id"))
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "test")
     private List<Question> questions = new ArrayList<>();
 }

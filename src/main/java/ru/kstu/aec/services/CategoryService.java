@@ -1,6 +1,7 @@
 package ru.kstu.aec.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Category;
 import ru.kstu.aec.repositories.CategoryRepository;
 
@@ -30,6 +31,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    @Transactional
     public void saveCategory(Category category) {
         categoryRepository.save(category);
     }

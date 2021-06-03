@@ -1,6 +1,7 @@
 package ru.kstu.aec.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Test;
 import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.TestRepository;
@@ -30,10 +31,12 @@ public class TestService {
         return testRepository.findAllByAuthor(user);
     }
 
+    @Transactional
     public void saveTest(Test test) {
         testRepository.save(test);
     }
 
+    @Transactional
     public void deleteTest(Test test) {
         testRepository.delete(test);
     }

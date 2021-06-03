@@ -12,9 +12,8 @@ import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
@@ -155,6 +154,7 @@ public class ProfileController {
         Question question1 = question.toQuestion(answerService, categoryService);
         question1.setAnswers(answers);
         questions.add(question1);
+        question1.setTests(Collections.singletonList(current));
         questionService.createQuestion(question1);
         return "redirect:/profile/create/answer";
     }
@@ -162,6 +162,7 @@ public class ProfileController {
     @SneakyThrows
     @PostMapping("/profile/create/test")
     public String postAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
+
         test.setQuestions(questions);
         test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
         testService.saveTest(test);
@@ -175,17 +176,20 @@ public class ProfileController {
         t.setId(current.getId());
         t.setAuthor(current.getAuthor());
         t.setStatistics(current.getStatistics());
-        for(int i = 0; i < test.getQuestions().size(); i++) {
-            t.getQuestions().get(i).setId(current.getQuestions().get(i).getId());
-            for(int j = 0; j < test.getQuestions().get(i).getAnswers().size(); j++) {
-                t.getQuestions().get(i).getAnswers().get(j).setId(current.getQuestions().get(i).getAnswers().get(j).getId());
-            }
-        }
         t.setName(test.getName());
         List<Question> questions = new ArrayList<>();
-        for(QuestionEdit q : test.getQuestions()) {
-            Question question = new Question();
-
+        for(int i = 0; i < test.getQuestions().size(); i++) {
+            QuestionEdit q = test.getQuestions().get(i);
+            Question question = current.getQuestions().get(i);
+            for(int j = 0; j < q.getAnswers().size(); j++) {
+                Answer answer = current.getQuestions().get(i).getAnswers().get(j);
+                answer.setText(test.getQuestions().get(i).getAnswers().get(j).getText());
+                question.getAnswers().add(answer);
+            }
+            question.setCategory(categoryService.getCategory(q.getCategory()));
+            question.setText(q.getText());
+            question.setRightAnswer(answerService.getAnswer(q.getRightAnswer()));
+            questions.add(question);
         }
         t.setQuestions(questions);
         System.out.println(t.getId());
