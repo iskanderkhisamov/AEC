@@ -11,6 +11,7 @@
     <groupId>ru.kstu</groupId>
     <artifactId>aec</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>aec</name>
     <description>Demo project for Spring Boot</description>
     <properties>
