@@ -3,7 +3,9 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -30,11 +32,11 @@ public class Question {
     private Answer rightAnswer;
 
     @ManyToMany(mappedBy = "questions")
-    private Set<Test> tests = new HashSet<>();
+    private List<Test> tests = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
-    private Set<Answer> answers = new HashSet<>(4);
+    private List<Answer> answers = new ArrayList<>(4);
 
 }

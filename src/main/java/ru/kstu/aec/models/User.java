@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -36,13 +33,13 @@ public class User implements UserDetails, Serializable {
     private boolean admin = false;
 
     @OneToMany(mappedBy = "author")
-    private Set<Test> tests = new HashSet<>();
+    private List<Test> tests = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
-    private Set<Test> userTests = new HashSet<>();
+    private List<Test> userTests = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Statistic> statistics = new HashSet<>();
+    private List<Statistic> statistics = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

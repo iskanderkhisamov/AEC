@@ -27,7 +27,7 @@ public class ProfileController {
     final AnswerService answerService;
     final CategoryService categoryService;
 
-    Set<Answer> answers = new HashSet<>();
+    List<Answer> answers = new ArrayList<>();
     List<Question> questions =  new ArrayList<>();
 
     public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService) {
@@ -120,6 +120,11 @@ public class ProfileController {
         model.addAttribute("test", testService.getTest(id));
         model.addAttribute("oldTest", testService.getTest(id));
         model.addAttribute("categories", categoryService.loadCategories());
+        List<Answer> right = new ArrayList<>();
+        for(Question q : testService.getTest(id).getQuestions()) {
+            right.add(q.getRightAnswer());
+        }
+        model.addAttribute("right", right);
         return "edit_test";
     }
 
