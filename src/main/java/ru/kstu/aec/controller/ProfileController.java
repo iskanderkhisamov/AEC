@@ -154,7 +154,7 @@ public class ProfileController {
         Question question1 = question.toQuestion(answerService, categoryService);
         question1.setAnswers(answers);
         questions.add(question1);
-        question1.setTests(Collections.singletonList(current));
+        question1.setTest(current);
         questionService.createQuestion(question1);
         return "redirect:/profile/create/answer";
     }

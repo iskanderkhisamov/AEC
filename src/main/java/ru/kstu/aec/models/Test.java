@@ -26,7 +26,7 @@ public class Test {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "test")
     private List<Statistic> statistics = new ArrayList<>();
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "test")
