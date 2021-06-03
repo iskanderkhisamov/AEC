@@ -27,6 +27,7 @@ public class ProfileController {
     final AnswerService answerService;
     final CategoryService categoryService;
 
+    Test current = null;
     List<Answer> answers = new ArrayList<>();
     List<Question> questions =  new ArrayList<>();
 
@@ -75,16 +76,6 @@ public class ProfileController {
         return "tests";
     }
 
-    @SneakyThrows
-    @GetMapping("/profile/delete/test/{id}")
-    public String getUserTests(@PathVariable Long id, Model model) {
-        testService.deleteTest(testService.getTest(id));
-        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
-        List<Test> tests = testService.findAllbyAuthor(user);
-        model.addAttribute("tests", tests);
-        return "redirect:/profile/tests";
-    }
-
     @GetMapping("/profile/create/answer")
     public String getUserCreateTest(Model model, AnswerBlank answers) {
         model.addAttribute("answers", answers);
@@ -116,8 +107,8 @@ public class ProfileController {
 
     @SneakyThrows
     @GetMapping("/profile/edit/test/{id}")
-    public String editTest(@PathVariable Long id, Model model, Test test) {
-        model.addAttribute("test", testService.getTest(id));
+    public String editTest(@PathVariable Long id, Model model) {
+        model.addAttribute("test", new TestEdit(testService.getTest(id)));
         model.addAttribute("oldTest", testService.getTest(id));
         model.addAttribute("categories", categoryService.loadCategories());
         List<Answer> right = new ArrayList<>();
@@ -125,7 +116,18 @@ public class ProfileController {
             right.add(q.getRightAnswer());
         }
         model.addAttribute("right", right);
+        current = testService.getTest(id);
         return "edit_test";
+    }
+
+    @SneakyThrows
+    @GetMapping("/profile/delete/test/{id}")
+    public String getUserTests(@PathVariable Long id, Model model) {
+        testService.deleteTest(testService.getTest(id));
+        User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        List<Test> tests = testService.findAllbyAuthor(user);
+        model.addAttribute("tests", tests);
+        return "redirect:/profile/tests";
     }
 
     @SneakyThrows
@@ -159,8 +161,31 @@ public class ProfileController {
 
     @SneakyThrows
     @PostMapping("/profile/edit/test")
-    public String editAnswer(@ModelAttribute("test") Test test, BindingResult bindingResult) {
-        testService.saveTest(test);
+    public String editAnswer(@ModelAttribute("test") TestEdit test, BindingResult bindingResult) {
+        Test t = new Test();
+        t.setId(current.getId());
+        t.setAuthor(current.getAuthor());
+        t.setStatistics(current.getStatistics());
+        for(int i = 0; i < test.getQuestions().size(); i++) {
+            t.getQuestions().get(i).setId(current.getQuestions().get(i).getId());
+            for(int j = 0; j < test.getQuestions().get(i).getAnswers().size(); j++) {
+                t.getQuestions().get(i).getAnswers().get(j).setId(current.getQuestions().get(i).getAnswers().get(j).getId());
+            }
+        }
+        t.setName(test.getName());
+        List<Question> questions = new ArrayList<>();
+        for(QuestionEdit q : test.getQuestions()) {
+            Question question = new Question();
+
+        }
+        t.setQuestions(questions);
+        System.out.println(t.getId());
+        System.out.println(t.getName());
+        System.out.println(t.getAuthor().getUsername());
+        System.out.println(t.getQuestions().get(0).getId());
+        System.out.println(t.getQuestions().get(0).getRightAnswer().getId());
+        System.out.println(t.getQuestions().get(0).getCategory().getId());
+        testService.saveTest(t);
         return "redirect:/profile";
     }
 

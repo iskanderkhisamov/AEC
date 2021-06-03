@@ -23,18 +23,18 @@ public class Question {
 
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "right_answer_id")
     private Answer rightAnswer;
 
     @ManyToMany(mappedBy = "questions")
     private List<Test> tests = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
     private List<Answer> answers = new ArrayList<>(4);
