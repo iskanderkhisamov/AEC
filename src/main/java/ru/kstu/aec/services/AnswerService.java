@@ -30,9 +30,9 @@ public class AnswerService {
 
     public Answer getAnswer() throws Exception {
         List<Answer> answers = answerRepository.findAll();
-        Answer answer = null;
+        Answer answer = answers.get(0);
         for (Answer ans : answers) {
-            answer = ans;
+            answer = ans.getId() > answer.getId() ? ans : answer;
         }
         return answer;
     }

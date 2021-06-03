@@ -29,15 +29,11 @@
   </header>
   <main class="main">
     <div class="main__body responsive-wrapper">
-      <div class="widget widget__center">
-        <h2>Создание тест</h2>
-        <form role="form" th:action="@{/profile/create/test}" th:method="POST" th:object="${test}">
-          <label>Напишите название теста</label>
-          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input">
-          <br><br>
-          <button class="widget__button" type="submit" name="submit">Сохранить тест</button>
-        </form>
-      </div>
+      <th:block th:each="test: ${tests}">
+        <a th:href="@{/test/{testId}/0(testId=${test.getId()})}" class="widget widget__a"><div>
+          <h2 th:utext="${test.getName()}">Название теста</h2>
+        </div></a>
+      </th:block>
     </div>
   </main>
 </div>

@@ -85,6 +85,9 @@ public class ProfileController {
     @GetMapping("/profile/create/question")
     public String getUserCreateTest(Model model, QuestionBlank question) {
         model.addAttribute("question", question);
+        for (Answer a : answers) {
+            System.out.println(a.getText());
+        }
         model.addAttribute("answers", answers);
         model.addAttribute("categories", categoryService.loadCategories());
         return "create_question";
@@ -123,10 +126,15 @@ public class ProfileController {
     @SneakyThrows
     @GetMapping("/profile/delete/test/{id}")
     public String getUserTests(@PathVariable Long id, Model model) {
+        System.out.println(id);
         testService.deleteTest(testService.getTest(id));
+        System.out.println(id);
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        System.out.println(id);
         List<Test> tests = testService.findAllbyAuthor(user);
+        System.out.println(id);
         model.addAttribute("tests", tests);
+        System.out.println(id);
         return "redirect:/profile/tests";
     }
 
@@ -135,6 +143,7 @@ public class ProfileController {
     public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
         for (Answer ans : answer.toAnswerList()) {
             answerService.createAnswer(ans);
+            System.out.println(ans.getText());
             answers.add(answerService.getAnswer());
         }
         return "redirect:/profile/create/question";

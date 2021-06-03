@@ -31,57 +31,71 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <h2>Изменение теста</h2>
-
         <form role="form" th:action="@{/profile/edit/test}" th:method="POST" th:object="${test}">
-          <label>Название теста</label>
-          <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="${oldTest.getName()}">
+          <div class="widget widget__center">
+            <label>Название теста</label>
+            <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input" th:value="${oldTest.getName()}">
+          </div>
+
+          <h3>Вопросы</h3>
           <br>
-          <label>Вопросы</label>
           <ul>
             <li th:each="question, itemStat : *{questions}">
-              <br>
-              <label>Текст вопроса</label>
-              <input type="text" th:field="*{questions[__${itemStat.index}__].text}" class="widget__input">
-              <br>
-              <label>Выберите категорию</label>
-              <ul>
-                <li th:each="category : ${categories}">
-                  <input type="radio" th:field="*{questions[__${itemStat.index}__].category}" th:value="${category.getId()}" th:checked="${oldTest.getQuestions().get(__${itemStat.index}__).getCategory()} == ${category} ? 'checked' : 'unchecked'"/>
-                  <label th:utext="${category.getName()}"></label>
-                </li>
-              </ul>
-              <br>
-              <label>Изменить ответы</label>
-              <br>
-              <label>Текст ответа</label>
-              <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers0'}" th:name="${'questions[' + __${itemStat.index}__ + '].answers[0]'}" th:value="${oldTest.questions[__${itemStat.index}__].answers[0].text}" class="widget__input">
-              <label>Текст ответа</label>
-              <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers1'}" th:name="${'questions[' + __${itemStat.index}__ + '].answers[1]'}" th:value="${oldTest.questions[__${itemStat.index}__].answers[1].text}" class="widget__input">
-              <label>Текст ответа</label>
-              <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers2'}" th:name="${'questions[' + __${itemStat.index}__ + '].answers[2]'}" th:value="${oldTest.questions[__${itemStat.index}__].answers[2].text}" class="widget__input">
-              <label>Текст ответа</label>
-              <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers3'}" th:name="${'questions[' + __${itemStat.index}__ + '].answers[3]'}" th:value="${oldTest.questions[__${itemStat.index}__].answers[3].text}" class="widget__input">
-              <label>Выберите правильный ответ</label>
-              <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer1'}"
-                     th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
-                     th:value="${oldTest.questions[__${itemStat.index}__].answers[0].getId()}"
-                     th:checked="${oldTest.questions[__${itemStat.index}__].answers[0]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
-              <label>1</label>
-              <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer2'}"
-                     th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
-                     th:value="${oldTest.questions[__${itemStat.index}__].answers[1].getId()}"
-                     th:checked="${oldTest.questions[__${itemStat.index}__].answers[1]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
-              <label>2</label>
-              <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer3'}"
-                     th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
-                     th:value="${oldTest.questions[__${itemStat.index}__].answers[2].getId()}"
-                     th:checked="${oldTest.questions[__${itemStat.index}__].answers[2]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
-              <label>3</label>
-              <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer4'}"
-                     th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
-                     th:value="${oldTest.questions[__${itemStat.index}__].answers[3].getId()}"
-                     th:checked="${oldTest.questions[__${itemStat.index}__].answers[3]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
-              <label>4</label>
+              <div class="widget widget__center">
+                <label>Текст вопроса</label>
+                <input type="text" th:field="*{questions[__${itemStat.index}__].text}" class="widget__input margin0">
+                <br><br>
+                <label>Выберите категорию</label>
+                <ul class="margin0">
+                  <li th:each="category : ${categories}">
+                    <input type="radio" th:field="*{questions[__${itemStat.index}__].category}" th:value="${category.getId()}" th:checked="${oldTest.getQuestions().get(__${itemStat.index}__).getCategory()} == ${category} ? 'checked' : 'unchecked'"/>
+                    <label th:utext="${category.getName()}"></label>
+                  </li>
+                </ul>
+                <br>
+                <label>Текст ответа</label>
+                <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers0'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].answers[0]'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[0].text}"
+                       class="widget__input margin0">
+                <label>Текст ответа</label>
+                <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers1'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].answers[1]'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[1].text}"
+                       class="widget__input margin0">
+                <label>Текст ответа</label>
+                <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers2'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].answers[2]'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[2].text}"
+                       class="widget__input margin0">
+                <label>Текст ответа</label>
+                <input type="text" th:id="${'questions' + __${itemStat.index}__ + '.answers3'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].answers[3]'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[3].text}"
+                       class="widget__input margin0">
+                <br>
+                <label>Выберите правильный ответ</label>
+                <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer1'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[0].getId()}"
+                       th:checked="${oldTest.questions[__${itemStat.index}__].answers[0]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
+                <label>1</label>
+                <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer2'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[1].getId()}"
+                       th:checked="${oldTest.questions[__${itemStat.index}__].answers[1]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
+                <label>2</label>
+                <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer3'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[2].getId()}"
+                       th:checked="${oldTest.questions[__${itemStat.index}__].answers[2]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
+                <label>3</label>
+                <input type="radio"  th:id="${'questions' + __${itemStat.index}__ + '.rightAnswer4'}"
+                       th:name="${'questions[' + __${itemStat.index}__ + '].rightAnswer'}"
+                       th:value="${oldTest.questions[__${itemStat.index}__].answers[3].getId()}"
+                       th:checked="${oldTest.questions[__${itemStat.index}__].answers[3]} == ${right[__${itemStat.index}__]} ? 'checked' : 'unchecked'"/>
+                <label>4</label>
+              </div>
             </li>
           </ul>
           <button class="main__button widget__button" type="submit" name="submit">Изменить тест</button>

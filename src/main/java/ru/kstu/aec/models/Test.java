@@ -22,14 +22,14 @@ public class Test {
 
     private String name;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "author_id")
     private User author;
 
     @OneToMany(mappedBy = "test")
     private List<Statistic> statistics = new ArrayList<>();
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "tests_questions", joinColumns = @JoinColumn(name = "test_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions = new ArrayList<>();
