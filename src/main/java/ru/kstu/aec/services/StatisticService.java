@@ -1,6 +1,7 @@
 package ru.kstu.aec.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Statistic;
 import ru.kstu.aec.repositories.StatisticRepository;
 
@@ -21,6 +22,7 @@ public class StatisticService {
         return last;
     }
 
+    @Transactional
     public void saveStatistic(Statistic statistic) {
         statisticRepository.save(statistic);
     }

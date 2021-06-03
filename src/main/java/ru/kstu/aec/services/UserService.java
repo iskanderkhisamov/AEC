@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.UserRepository;
 
@@ -35,6 +36,7 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email)));
     }
 
+    @Transactional
     public void signUpUser(User user) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -46,26 +48,31 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
+    @Transactional
     public void changeUserPassword(User user, String password) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(password);
         user.setPassword(encryptedPassword);
         saveUser(user);
     }
 
+    @Transactional
     public void changeUserFirstName(User user, String firstName) {
         user.setFirstname(firstName);
         saveUser(user);
     }
 
+    @Transactional
     public void changeUserSecondName(User user, String secondName) {
         user.setSurname(secondName);
         saveUser(user);
     }
 
+    @Transactional
     public void changeUserEmail(User user, String email) {
         user.setEmail(email);
         saveUser(user);

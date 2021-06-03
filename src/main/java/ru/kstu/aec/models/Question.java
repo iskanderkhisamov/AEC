@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"category","tests","rightAnswer","answers"})
+@EqualsAndHashCode(exclude = {"category","test","rightAnswer","answers"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -31,8 +31,9 @@ public class Question {
     @JoinColumn(name = "right_answer_id")
     private Answer rightAnswer;
 
-    @ManyToMany(mappedBy = "questions")
-    private List<Test> tests = new ArrayList<>();
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "test_id")
+    private Test test;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
