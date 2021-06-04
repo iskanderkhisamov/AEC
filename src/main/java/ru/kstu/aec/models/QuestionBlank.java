@@ -12,16 +12,11 @@ public class QuestionBlank {
 
     private String text;
 
-    private Long answer;
-
     private Long category;
 
     @SneakyThrows
-    public Question toQuestion(AnswerService answerService, CategoryService categoryService) {
-        System.out.println(answer);
-        System.out.println(category);
+    public Question toQuestion(CategoryService categoryService) {
         Question question = new Question();
-        question.setRightAnswer(answerService.getAnswer(answer));
         question.setCategory(categoryService.getCategory(category));
         question.setText(text);
         return question;

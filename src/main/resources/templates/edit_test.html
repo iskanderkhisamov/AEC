@@ -24,6 +24,7 @@
       <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
       <nav class="header__nav">
         <a href="/profile">Личный кабинет</a>
+        <a th:href="@{/create/test/__${test.getId()}__/question/}">Создание вопроса</a>
       </nav>
     </div>
   </header>
@@ -31,11 +32,18 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <th:block th:each="question : ${test.getQuestions()}">
-          <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a"><div>
-            <h2 th:utext="${question.getText()}">Текст вопроса</h2>
-          </div></a>
+          <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a">
+            <div class="widget">
+              <h2 th:utext="${question.getText()}">Текст вопроса</h2>
+              <h3 th:utext="${question.getRightAnswer() == null ? 'пока нет' : question.getRightAnswer().getText()}">Правильный ответ</h3>
+              <h3 th:utext="${question.getCategory().getName()}">Категория вопроса</h3>
+              <p>
+                <a th:href="@{/profile/edit/question/{questionId}(questionId=${question.getId()})}" th:utext="Изменить" class="button__a"></a>
+                <a th:href="@{/profile/delete/question/{questionId}(questionId=${question.getId()})}" th:utext="Удалить" class="button__a"></a>
+              </p>
+            </div>
+          </a>
         </th:block>
-        <a th:href="@{/create/test/__${test.getId()}__/question/}" class="widget widget__a">Создание вопроса</a>
       </div>
     </div>
   </main>
