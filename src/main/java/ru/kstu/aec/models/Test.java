@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@EqualsAndHashCode(exclude={"author","statistics","questions"})
+@EqualsAndHashCode(exclude={"chapter","statistics","questions"})
 @Getter
 @Setter
 @Entity
@@ -23,8 +23,8 @@ public class Test {
     private String name;
 
     @ManyToOne()
-    @JoinColumn(name = "author_id")
-    private User author;
+    @JoinColumn(name = "chapter_id")
+    private Chapter chapter;
 
     @OneToMany(cascade=CascadeType.ALL,mappedBy = "test")
     private List<Statistic> statistics = new ArrayList<>();

@@ -33,10 +33,7 @@ public class User implements UserDetails, Serializable {
     private boolean admin = false;
 
     @OneToMany(mappedBy = "author")
-    private List<Test> tests = new ArrayList<>();
-
-    @OneToMany(mappedBy = "author")
-    private List<Test> userTests = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Statistic> statistics = new ArrayList<>();

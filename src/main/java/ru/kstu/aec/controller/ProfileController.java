@@ -12,7 +12,6 @@ import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
@@ -162,7 +161,6 @@ public class ProfileController {
     @SneakyThrows
     @PostMapping("/profile/create/test")
     public String postAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
-
         test.setQuestions(questions);
         test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
         testService.saveTest(test);
