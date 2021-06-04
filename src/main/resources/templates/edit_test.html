@@ -33,16 +33,14 @@
       <div class="widget widget__center">
         <th:block th:each="question : ${test.getQuestions()}">
           <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a">
-            <div>
-              <div class="widget">
-                <h2 th:utext="${question.getText()}">Текст вопроса</h2>
-                <h3 th:utext="${question.getRightAnswer() == null ? 'пока нет' : question.getRightAnswer().getText()}">Правильный ответ</h3>
-                <h3 th:utext="${question.getCategory().getName()}">Категория вопроса</h3>
-                <p>
-                  <a th:href="@{/profile/edit/question/{questionId}(questionId=${question.getId()})}" th:utext="Изменить" class="button__a"></a>
-                  <a th:href="@{/profile/delete/question/{questionId}(questionId=${question.getId()})}" th:utext="Удалить" class="button__a"></a>
-                </p>
-              </div>
+            <div class="widget">
+              <h2 th:utext="${question.getText()}">Текст вопроса</h2>
+              <h3 th:utext="${question.getRightAnswer() == null ? 'пока нет' : question.getRightAnswer().getText()}">Правильный ответ</h3>
+              <h3 th:utext="${question.getCategory().getName()}">Категория вопроса</h3>
+              <p>
+                <a th:href="@{/profile/edit/question/{questionId}(questionId=${question.getId()})}" th:utext="Изменить" class="button__a"></a>
+                <a th:href="@{/profile/delete/question/{questionId}(questionId=${question.getId()})}" th:utext="Удалить" class="button__a"></a>
+              </p>
             </div>
           </a>
         </th:block>

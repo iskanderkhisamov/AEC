@@ -33,14 +33,12 @@
       <div class="widget widget__center">
         <th:block th:each="answer : ${question.getAnswers()}">
           <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}/answer/{answerId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()},answerId=${answer.getId()})}" class="widget widget__a">
-            <div>
-              <div class="widget">
-                <h2 th:utext="${answer.getText()}">Текст ответа</h2>
-                <p>
-                  <a th:href="@{/profile/edit/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Изменить" class="button__a"></a>
-                  <a th:href="@{/profile/delete/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Удалить" class="button__a"></a>
-                </p>
-              </div>
+            <div class="widget">
+              <h2 th:utext="${answer.getText()}">Текст ответа</h2>
+              <p>
+                <a th:href="@{/profile/edit/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Изменить" class="button__a"></a>
+                <a th:href="@{/profile/delete/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Удалить" class="button__a"></a>
+              </p>
             </div>
           </a>
         </th:block>
