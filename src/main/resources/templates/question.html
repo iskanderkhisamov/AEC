@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>АУК</title>
@@ -29,15 +30,15 @@
     </header>
     <main class="main">
         <div class="main__body responsive-wrapper">
-            <th:block th:each="test: ${tests}">
-                <div class="widget">
-                    <h2><a th:href="@{/test/{testId}/0(testId=${test.getId()})}" th:utext="${test.getName()}" class="default-a"></a></h2>
-                    <p>
-                        <a th:href="@{/profile/edit/test/{testId}(testId=${test.getId()})}" th:utext="Изменить" class="button__a"></a>
-                        <a th:href="@{/profile/delete/test/{testId}(testId=${test.getId()})}" th:utext="Удалить" class="button__a"></a>
-                    </p>
-                </div>
-            </th:block>
+            <div class="widget">
+                <th:block th:each="answer : ${ans}">
+                    <a th:href="@{/course/{courseId}/chapter/{chapterId}/test/{testId}/question/{questionId}(courseId=${course.getId()},chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a">
+                        <div>
+                            <h2 th:utext="${question.getText()}">Вопрос</h2>
+                        </div>
+                    </a>
+                </th:block>
+            </div>
         </div>
     </main>
 </div>

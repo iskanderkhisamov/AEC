@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Chapter;
+import ru.kstu.aec.models.Test;
 import ru.kstu.aec.repositories.ChapterRepository;
 
 import java.util.List;
@@ -31,5 +32,10 @@ public class ChapterService {
     @Transactional
     public void saveChapter(Chapter chapter) {
         chapterRepository.save(chapter);
+    }
+
+    @Transactional
+    public void deleteChapter(Chapter chapter) {
+        chapterRepository.delete(chapter);
     }
 }

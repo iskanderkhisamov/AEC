@@ -38,8 +38,8 @@
               <h3 th:utext="${question.getRightAnswer() == null ? 'пока нет' : question.getRightAnswer().getText()}">Правильный ответ</h3>
               <h3 th:utext="${question.getCategory().getName()}">Категория вопроса</h3>
               <p>
-                <a th:href="@{/profile/edit/question/{questionId}(questionId=${question.getId()})}" th:utext="Изменить" class="button__a"></a>
-                <a th:href="@{/profile/delete/question/{questionId}(questionId=${question.getId()})}" th:utext="Удалить" class="button__a"></a>
+                <a th:href="@{/edit/question/{questionId}(questionId=${question.getId()})}" th:utext="Изменить" class="button__a"></a>
+                <a th:href="@{/delete/question/{questionId}(questionId=${question.getId()})}" th:utext="Удалить" class="button__a"></a>
               </p>
             </div>
           </a>

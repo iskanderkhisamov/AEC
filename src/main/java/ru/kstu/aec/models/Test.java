@@ -22,7 +22,7 @@ public class Test {
 
     private String name;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;
 

@@ -1,7 +1,9 @@
 package ru.kstu.aec.services;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import ru.kstu.aec.models.Course;
 import ru.kstu.aec.models.Question;
 import ru.kstu.aec.repositories.QuestionRepository;
 
@@ -18,7 +20,8 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public Question getQuestion(Long id) throws Exception {
+    @SneakyThrows
+    public Question getQuestion(Long id) {
         Optional<Question> question = questionRepository.findById(id);
         return question.orElseThrow(() -> new Exception("Такого вопроса нет, id = " + id));
     }
@@ -26,5 +29,10 @@ public class QuestionService {
     @Transactional
     public void saveQuestion(Question question) {
         questionRepository.save(question);
+    }
+
+    @Transactional
+    public void deleteQuestion(Question question) {
+        questionRepository.delete(question);
     }
 }

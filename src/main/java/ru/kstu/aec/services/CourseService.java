@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Course;
+import ru.kstu.aec.models.Test;
 import ru.kstu.aec.models.User;
 import ru.kstu.aec.repositories.CourseRepository;
 
@@ -36,5 +37,10 @@ public class CourseService {
 
     public List<Course> getCoursesByUser(User user) {
         return courseRepository.findCoursesByUser(user);
+    }
+
+    @Transactional
+    public void deleteCourse(Course course) {
+        courseRepository.delete(course);
     }
 }

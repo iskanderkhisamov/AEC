@@ -35,8 +35,8 @@
           <div class="widget">
             <h2 th:utext="${test.getName()}">Название теста</h2>
             <p>
-              <a th:href="@{/profile/edit/test/{testId}(testId=${test.getId()})}" th:utext="Изменить" class="button__a"></a>
-              <a th:href="@{/profile/delete/test/{testId}(testId=${test.getId()})}" th:utext="Удалить" class="button__a"></a>
+              <a th:href="@{/edit/test/{testId}(testId=${test.getId()})}" th:utext="Изменить" class="button__a"></a>
+              <a th:href="@{/delete/test/{testId}(testId=${test.getId()})}" th:utext="Удалить" class="button__a"></a>
             </p>
           </div>
         </a>

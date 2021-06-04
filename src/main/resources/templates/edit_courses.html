@@ -38,8 +38,8 @@
             <br>
             <p th:utext="${course.getDescription}">Описание курса</p>
             <p>
-              <a th:href="@{/profile/edit/course/{courseId}(courseId=${course.getId()})}" th:utext="Изменить" class="button__a"></a>
-              <a th:href="@{/profile/delete/course/{courseId}(courseId=${course.getId()})}" th:utext="Удалить" class="button__a"></a>
+              <a th:href="@{/edit/course/{courseId}(courseId=${course.getId()})}" th:utext="Изменить" class="button__a"></a>
+              <a th:href="@{/delete/course/{courseId}(courseId=${course.getId()})}" th:utext="Удалить" class="button__a"></a>
             </p>
           </div>
         </a>

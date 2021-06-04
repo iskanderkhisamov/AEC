@@ -32,10 +32,10 @@ public class User implements UserDetails, Serializable {
 
     private boolean admin = false;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Course> courses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Statistic> statistics = new ArrayList<>();
 
     @Override

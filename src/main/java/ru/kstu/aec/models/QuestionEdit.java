@@ -1,12 +1,8 @@
 package ru.kstu.aec.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.*;
+import ru.kstu.aec.services.AnswerService;
+import ru.kstu.aec.services.CategoryService;
 
 @Getter
 @Setter
@@ -20,12 +16,16 @@ public class QuestionEdit {
 
     private Long rightAnswer;
 
-    private List<Answer> answers = new ArrayList<>(4);
-
-    public QuestionEdit(Question question) {
-        text = question.getText();
-        category = question.getId();
-        rightAnswer = question.getRightAnswer().getId();
-        answers = question.getAnswers();
+    @SneakyThrows
+    public Question toQuestion(AnswerService answerService, CategoryService categoryService) {
+        Question question = new Question();
+        if(category != null) {
+            question.setCategory(categoryService.getCategory(category));
+        }
+        if(category != null) {
+            question.setRightAnswer(answerService.getAnswer(rightAnswer));
+        }
+        question.setText(text);
+        return question;
     }
 }
