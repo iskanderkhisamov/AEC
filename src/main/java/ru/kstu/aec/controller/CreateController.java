@@ -71,7 +71,12 @@ public class CreateController {
         return "create_question";
     }
 
-
+    @GetMapping("/question/{id}/answer")
+    public String getChapter(@PathVariable Long id, Model model, Answer answer) {
+        model.addAttribute("answer", answer);
+        questionId = id;
+        return "create_answer";
+    }
 
     @SneakyThrows
     @PostMapping("/course")
