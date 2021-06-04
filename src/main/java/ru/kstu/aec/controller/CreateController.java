@@ -25,11 +25,11 @@ public class CreateController {
     private final CourseService courseService;
     private final ChapterService chapterService;
 
+    Long questionId = null;
+    Long testId = null;
     Long courseId = null;
     Long chapterId = null;
     Test current = null;
-    List<Answer> answers = new ArrayList<>();
-    List<Question> questions =  new ArrayList<>();
 
     public CreateController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService, CourseService courseService, ChapterService chapterService) {
         this.userService = userService;
@@ -41,29 +41,7 @@ public class CreateController {
         this.chapterService = chapterService;
     }
 
-    @GetMapping("/answer")
-    public String getUserCreateTest(Model model, AnswerBlank answers) {
-        model.addAttribute("answers", answers);
-        return "create_answer";
-    }
 
-    @GetMapping("/question")
-    public String getUserCreateTest(Model model, QuestionBlank question) {
-        model.addAttribute("question", question);
-        for (Answer a : answers) {
-            System.out.println(a.getText());
-        }
-        model.addAttribute("answers", answers);
-        model.addAttribute("categories", categoryService.loadCategories());
-        return "create_question";
-    }
-
-    @GetMapping("/chapter/{id}/test")
-    public String getTest(@PathVariable Long id, Model model, Test test) {
-        model.addAttribute("test", test);
-        chapterId = id;
-        return "create_test";
-    }
 
     @GetMapping("/course")
     public String getCourse(Model model, Course course) {
@@ -78,36 +56,22 @@ public class CreateController {
         return "create_chapter";
     }
 
-    @SneakyThrows
-    @PostMapping("/answer")
-    public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
-        for (Answer ans : answer.toAnswerList()) {
-            answerService.createAnswer(ans);
-            System.out.println(ans.getText());
-            answers.add(answerService.getAnswer());
-        }
-        return "redirect:/profile/create/question";
+    @GetMapping("/chapter/{id}/test")
+    public String getTest(@PathVariable Long id, Model model, Test test) {
+        model.addAttribute("test", test);
+        chapterId = id;
+        return "create_test";
     }
 
-    @SneakyThrows
-    @PostMapping("/question")
-    public String postQuestion(@ModelAttribute("question") QuestionBlank question, BindingResult bindingResult) {
-        Question question1 = question.toQuestion(answerService, categoryService);
-        question1.setAnswers(answers);
-        questions.add(question1);
-        question1.setTest(current);
-        questionService.createQuestion(question1);
-        return "redirect:/profile/create/answer";
+    @GetMapping("/test/{id}/question")
+    public String getChapter(@PathVariable Long id, Model model, Question question) {
+        model.addAttribute("categories", categoryService.loadCategories());
+        model.addAttribute("question", question);
+        testId = id;
+        return "create_question";
     }
 
-    @SneakyThrows
-    @PostMapping("/test")
-    public String postTest(@ModelAttribute Test test, BindingResult bindingResult) {
-//        test.setQuestions(questions);
-        test.setChapter(chapterService.getChapter(chapterId));
-        testService.saveTest(test);
-        return "redirect:/profile";
-    }
+
 
     @SneakyThrows
     @PostMapping("/course")
@@ -123,6 +87,30 @@ public class CreateController {
     public String postChapter(@ModelAttribute("chapter") Chapter chapter, BindingResult bindingResult) {
         chapter.setCourse(courseService.getCourse(courseId));
         chapterService.saveChapter(chapter);
+        return "redirect:/profile/courses";
+    }
+
+    @SneakyThrows
+    @PostMapping("/test")
+    public String postTest(@ModelAttribute Test test, BindingResult bindingResult) {
+        test.setChapter(chapterService.getChapter(chapterId));
+        testService.saveTest(test);
+        return "redirect:/profile/courses";
+    }
+
+    @SneakyThrows
+    @PostMapping("/question")
+    public String postQuestion(@ModelAttribute("question") Question question, BindingResult bindingResult) {
+        question.setTest(testService.getTest(testId));
+        questionService.saveQuestion(question);
+        return "redirect:/profile/courses";
+    }
+
+    @SneakyThrows
+    @PostMapping("/answer")
+    public String postAnswer(@ModelAttribute("answer") Answer answer, BindingResult bindingResult) {
+        answer.setQuestion(questionService.getQuestion(questionId));
+        answerService.saveAnswer(answer);
         return "redirect:/profile/courses";
     }
 

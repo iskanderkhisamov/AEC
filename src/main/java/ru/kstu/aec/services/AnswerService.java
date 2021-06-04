@@ -19,22 +19,13 @@ public class AnswerService {
     }
 
     @Transactional
-    public void createAnswer(Answer answer) {
+    public void saveAnswer(Answer answer) {
         answerRepository.save(answer);
     }
 
     public Answer getAnswer(Long id) throws Exception {
         Optional<Answer> answer = answerRepository.findById(id);
         return answer.orElseThrow(() -> new Exception("Такого ответа нет, id = " + id));
-    }
-
-    public Answer getAnswer() throws Exception {
-        List<Answer> answers = answerRepository.findAll();
-        Answer answer = answers.get(0);
-        for (Answer ans : answers) {
-            answer = ans.getId() > answer.getId() ? ans : answer;
-        }
-        return answer;
     }
 
 }
