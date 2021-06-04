@@ -30,24 +30,13 @@
   <main class="main">
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
-        <h2>Создание ответов для вопроса</h2>
-        <form role="form" th:action="@{/profile/create/answer}" th:method="POST" th:object="${answers}">
+        <h2>Создание ответа для вопроса</h2>
+        <form role="form" th:action="@{/create/answer}" th:method="POST" th:object="${answer}">
           <label>Напишите ответ</label>
-          <input type="text" name="text" th:field="*{text1}" class="widget__input">
-          <br>
-          <label>Напишите ответ</label>
-          <input type="text" name="text" th:field="*{text2}" class="widget__input">
-          <br>
-          <label>Напишите ответ</label>
-          <input type="text" name="text" th:field="*{text3}" class="widget__input">
-          <br>
-          <label>Напишите ответ</label>
-          <input type="text" name="text" th:field="*{text4}" class="widget__input">
+          <input type="text" name="text" th:field="*{text}" class="widget__input">
           <br><br>
-          <button class="main__button widget__button" type="submit" name="submit">Сохранить ответы</button>
+          <button class="main__button widget__button" type="submit" name="submit">Сохранить ответ</button>
         </form>
-        <br>
-        <a class="default-a" th:href="@{/profile/create/test}">Перейти к тесту</a>
       </div>
     </div>
   </main>
