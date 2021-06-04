@@ -3,8 +3,10 @@ package ru.kstu.aec.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.kstu.aec.models.Course;
 import ru.kstu.aec.models.Test;
 import ru.kstu.aec.models.User;
+import ru.kstu.aec.services.CourseService;
 import ru.kstu.aec.services.TestService;
 import ru.kstu.aec.services.UserService;
 
@@ -15,18 +17,16 @@ import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 @Controller
 public class IndexController {
 
-    private final TestService testService;
-    private final UserService userService;
+    private final CourseService courseService;
 
-    public IndexController(TestService testService, UserService userService) {
-        this.testService = testService;
-        this.userService = userService;
+    public IndexController(CourseService courseService) {
+        this.courseService = courseService;
     }
 
     @GetMapping
     public String index(Model model) {
-        List<Test> tests = testService.loadTests();
-        model.addAttribute("tests", tests);
+        List<Course> courses = courseService.getCourses();
+        model.addAttribute("courses", courses);
         return "index";
     }
 }
