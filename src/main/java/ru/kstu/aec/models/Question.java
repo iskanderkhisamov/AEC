@@ -35,9 +35,7 @@ public class Question {
     @JoinColumn(name = "test_id")
     private Test test;
 
-    @ManyToMany()
-    @JoinTable(name = "questions_answers", joinColumns = @JoinColumn(name = "question_id"),
-            inverseJoinColumns = @JoinColumn(name = "answer_id"))
+    @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>(4);
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"user"})
+@EqualsAndHashCode(exclude = {"user", "chapters"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

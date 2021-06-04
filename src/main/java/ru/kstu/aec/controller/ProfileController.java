@@ -91,6 +91,27 @@ public class ProfileController {
         return "edit_chapter";
     }
 
+    @SneakyThrows
+    @GetMapping("/course/{id}/chapter/{cid}/test/{tid}")
+    public String getChapter(@PathVariable Long id,@PathVariable Long cid, @PathVariable Long tid, Model model) {
+        model.addAttribute("chapter", chapterService.getChapter(cid));
+        model.addAttribute("course", courseService.getCourse(id));
+        model.addAttribute("test", testService.getTest(tid));
+        return "edit_test";
+    }
+
+    @SneakyThrows
+    @GetMapping("/course/{id}/chapter/{cid}/test/{tid}/question/{qid}")
+    public String getChapter(@PathVariable Long id, @PathVariable Long cid,
+                             @PathVariable Long tid, @PathVariable Long qid,
+                             Model model) {
+        model.addAttribute("chapter", chapterService.getChapter(cid));
+        model.addAttribute("course", courseService.getCourse(id));
+        model.addAttribute("test", testService.getTest(tid));
+        model.addAttribute("question", questionService.getQuestion(qid));
+        return "edit_question";
+    }
+
     @GetMapping("/admin")
     public String getProfileAdmin(Model model) {
         final User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
@@ -101,58 +122,11 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/edit/test/{id}")
-    public String editTest(@PathVariable Long id, Model model) {
-        model.addAttribute("test", new TestEdit(testService.getTest(id)));
-        model.addAttribute("oldTest", testService.getTest(id));
-        model.addAttribute("categories", categoryService.loadCategories());
-        List<Answer> right = new ArrayList<>();
-        for(Question q : testService.getTest(id).getQuestions()) {
-            right.add(q.getRightAnswer());
-        }
-        model.addAttribute("right", right);
-        current = testService.getTest(id);
-        return "edit_test";
-    }
-
-    @SneakyThrows
     @GetMapping("/delete/test/{id}")
     public String getUserTests(@PathVariable Long id, Model model) {
         testService.deleteTest(testService.getTest(id));
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         return "redirect:/profile/tests";
-    }
-
-
-    @SneakyThrows
-    @PostMapping("/edit/test")
-    public String editAnswer(@ModelAttribute("test") TestEdit test, BindingResult bindingResult) {
-        Test t = new Test();
-        t.setId(current.getId());
-        t.setStatistics(current.getStatistics());
-        t.setName(test.getName());
-        List<Question> questions = new ArrayList<>();
-        for(int i = 0; i < test.getQuestions().size(); i++) {
-            QuestionEdit q = test.getQuestions().get(i);
-            Question question = current.getQuestions().get(i);
-            for(int j = 0; j < q.getAnswers().size(); j++) {
-                Answer answer = current.getQuestions().get(i).getAnswers().get(j);
-                answer.setText(test.getQuestions().get(i).getAnswers().get(j).getText());
-                question.getAnswers().add(answer);
-            }
-            question.setCategory(categoryService.getCategory(q.getCategory()));
-            question.setText(q.getText());
-            question.setRightAnswer(answerService.getAnswer(q.getRightAnswer()));
-            questions.add(question);
-        }
-        t.setQuestions(questions);
-        System.out.println(t.getId());
-        System.out.println(t.getName());
-        System.out.println(t.getQuestions().get(0).getId());
-        System.out.println(t.getQuestions().get(0).getRightAnswer().getId());
-        System.out.println(t.getQuestions().get(0).getCategory().getId());
-        testService.saveTest(t);
-        return "redirect:/profile";
     }
 
 }

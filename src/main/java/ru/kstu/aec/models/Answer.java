@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "questions")
+@EqualsAndHashCode(exclude = "question")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,7 +23,8 @@ public class Answer {
 
     private String text;
 
-    @ManyToMany(mappedBy = "answers")
-    private List<Question> questions = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
 
 }

@@ -30,15 +30,12 @@
   <main class="main">
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
-        <h2>Создание вопроса</h2>
-        <form role="form" th:action="@{/create/question}" th:method="POST" th:object="${question}">
-          <label>Напишите вопрос</label>
-          <input type="text" th:field="*{text}" class="widget__input">
-          <br>
-          <label>Выберите категорию вопроса</label>
-          <input type="radio" th:field="*{category}" value class="widget__input">
-          <button class="widget__button" type="submit" name="submit">Сохранить вопрос</button>
-        </form>
+        <th:block th:each="answer : ${question.getAnswers()}">
+          <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a"><div>
+            <h2 th:utext="${question.getText()}">Текст вопроса</h2>
+          </div></a>
+        </th:block>
+        <a th:href="@{/create/test/__${test.getId()}__/question/}" class="widget widget__a">Создание вопроса</a>
       </div>
     </div>
   </main>
