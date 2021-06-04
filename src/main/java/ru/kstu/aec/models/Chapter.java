@@ -24,4 +24,8 @@ public class Chapter {
     @OneToMany(mappedBy = "chapter")
     private List<Test> tests = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
 }

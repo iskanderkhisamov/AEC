@@ -29,8 +29,8 @@
   </header>
   <main class="main">
     <div class="main__body responsive-wrapper">
-      <th:block th:each="chapter: ${chapters}">
-        <a th:href="@{/chapter/{chapterId}/0(chapterId=${chapter.getId()})}" class="widget widget__a"><div>
+      <th:block th:each="chapter: ${course.chapters}">
+        <a th:href="@{profile/chapter/{chapterId}/0(chapterId=${chapter.getId()})}" class="widget widget__a"><div>
           <h2 th:utext="${chapter.getName()}">Название раздела</h2>
         </div></a>
       </th:block>

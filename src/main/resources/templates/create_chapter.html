@@ -30,15 +30,12 @@
   <main class="main">
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
-        <h2>Создание курса</h2>
-        <form role="form" th:action="@{/create/course}" th:method="POST" th:object="${course}">
-          <label>Напишите название курса</label>
+        <h2>Создание раздела</h2>
+        <form role="form" th:action="@{/create/chapter}" th:method="POST" th:object="${chapter}">
+          <label>Напишите название раздела</label>
           <input type="text" id="answer" name="text" th:field="*{name}" class="widget__input">
           <br><br>
-          <label>Напишите описание курса</label>
-          <textarea th:field="*{description}" class="widget__input"></textarea>
-          <br><br>
-          <button class="widget__button" type="submit" name="submit">Сохранить курс</button>
+          <button class="widget__button" type="submit" name="submit">Сохранить раздел</button>
         </form>
       </div>
     </div>

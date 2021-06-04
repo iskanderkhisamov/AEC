@@ -3,6 +3,8 @@ package ru.kstu.aec.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +26,8 @@ public class Course {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "course")
+    private List<Chapter> chapters = new ArrayList<>();
 
 }

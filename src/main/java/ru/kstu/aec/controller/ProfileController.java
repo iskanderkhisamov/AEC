@@ -4,10 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
@@ -17,6 +14,7 @@ import java.util.List;
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
 @Controller
+@RequestMapping("/profile")
 public class ProfileController {
 
     private final UserService userService;
@@ -41,7 +39,7 @@ public class ProfileController {
         this.chapterService = chapterService;
     }
 
-    @GetMapping("/profile")
+    @GetMapping("")
     public String getProfile(Model model) {
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
@@ -49,7 +47,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @GetMapping("/profile/edit")
+    @GetMapping("/edit")
     public String getChangeInfo(Model model) {
         model.addAttribute("user", getAuthentication().getPrincipal());
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
@@ -58,7 +56,7 @@ public class ProfileController {
         return "edit";
     }
 
-    @PostMapping("/profile/edit")
+    @PostMapping("/edit")
     public String postChangeInfo(@ModelAttribute("user") User user, BindingResult result) {
         final User oldUser = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         userService.changeUserFirstName(oldUser, user.getFirstname());
@@ -69,16 +67,31 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/profile/courses")
-    public String getUserTests(Model model) {
+    @GetMapping("/courses")
+    public String getCourses(Model model) {
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         List<Course> courses = courseService.getCoursesByUser(user);
         model.addAttribute("courses", courses);
-        return "courses";
+        return "edit_courses";
     }
 
+    @SneakyThrows
+    @GetMapping("/course/{id}")
+    public String getCourse(@PathVariable Long id, Model model) {
+        model.addAttribute("course", courseService.getCourse(id));
+        return "edit_course";
+    }
 
-    @GetMapping("/profile/admin")
+    @SneakyThrows
+    @GetMapping("/course/{id}/chapter/{cid}")
+    public String getChapter(@PathVariable Long id,@PathVariable Long cid, Model model) {
+        model.addAttribute("chapter", chapterService.getChapter(cid));
+        model.addAttribute("course", courseService.getCourse(id));
+        model.addAttribute("tests", chapterService.getChapter(cid).getTests());
+        return "edit_chapter";
+    }
+
+    @GetMapping("/admin")
     public String getProfileAdmin(Model model) {
         final User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         List<User> users = userService.loadUsers();
@@ -88,7 +101,7 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/profile/edit/test/{id}")
+    @GetMapping("/edit/test/{id}")
     public String editTest(@PathVariable Long id, Model model) {
         model.addAttribute("test", new TestEdit(testService.getTest(id)));
         model.addAttribute("oldTest", testService.getTest(id));
@@ -103,7 +116,7 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/profile/delete/test/{id}")
+    @GetMapping("/delete/test/{id}")
     public String getUserTests(@PathVariable Long id, Model model) {
         testService.deleteTest(testService.getTest(id));
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
@@ -112,7 +125,7 @@ public class ProfileController {
 
 
     @SneakyThrows
-    @PostMapping("/profile/edit/test")
+    @PostMapping("/edit/test")
     public String editAnswer(@ModelAttribute("test") TestEdit test, BindingResult bindingResult) {
         Test t = new Test();
         t.setId(current.getId());

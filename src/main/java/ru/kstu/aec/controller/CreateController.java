@@ -4,10 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
@@ -17,7 +14,7 @@ import java.util.List;
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
 @Controller
-@RequestMapping("/profile/create")
+@RequestMapping("/create")
 public class CreateController {
 
     private final UserService userService;
@@ -28,6 +25,8 @@ public class CreateController {
     private final CourseService courseService;
     private final ChapterService chapterService;
 
+    Long courseId = null;
+    Long chapterId = null;
     Test current = null;
     List<Answer> answers = new ArrayList<>();
     List<Question> questions =  new ArrayList<>();
@@ -59,16 +58,24 @@ public class CreateController {
         return "create_question";
     }
 
-    @GetMapping("/test")
-    public String getUserCreateTest(Model model, Test test) {
+    @GetMapping("/chapter/{id}/test")
+    public String getTest(@PathVariable Long id, Model model, Test test) {
         model.addAttribute("test", test);
+        chapterId = id;
         return "create_test";
     }
 
     @GetMapping("/course")
-    public String getUserCreateTest(Model model, Course course) {
+    public String getCourse(Model model, Course course) {
         model.addAttribute("course", course);
         return "create_course";
+    }
+
+    @GetMapping("/course/{id}/chapter")
+    public String getChapter(@PathVariable Long id, Model model, Chapter chapter) {
+        model.addAttribute("chapter", chapter);
+        courseId = id;
+        return "create_chapter";
     }
 
     @SneakyThrows
@@ -96,7 +103,8 @@ public class CreateController {
     @SneakyThrows
     @PostMapping("/test")
     public String postTest(@ModelAttribute Test test, BindingResult bindingResult) {
-        test.setQuestions(questions);
+//        test.setQuestions(questions);
+        test.setChapter(chapterService.getChapter(chapterId));
         testService.saveTest(test);
         return "redirect:/profile";
     }
@@ -107,7 +115,15 @@ public class CreateController {
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         course.setUser(user);
         courseService.saveCourse(course);
-        return "redirect:/profile";
+        return "redirect:/profile/courses";
+    }
+
+    @SneakyThrows
+    @PostMapping("/chapter")
+    public String postChapter(@ModelAttribute("chapter") Chapter chapter, BindingResult bindingResult) {
+        chapter.setCourse(courseService.getCourse(courseId));
+        chapterService.saveChapter(chapter);
+        return "redirect:/profile/courses";
     }
 
 }
