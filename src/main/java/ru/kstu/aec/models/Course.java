@@ -19,6 +19,8 @@ public class Course {
 
     private String name;
 
+    private String description;
+
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;

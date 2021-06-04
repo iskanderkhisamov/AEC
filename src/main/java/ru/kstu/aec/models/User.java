@@ -11,7 +11,7 @@ import java.util.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude={"tests","statistics","userTests"})
+@EqualsAndHashCode(exclude={"courses","statistics"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,7 +32,7 @@ public class User implements UserDetails, Serializable {
 
     private boolean admin = false;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "user")
     private List<Course> courses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

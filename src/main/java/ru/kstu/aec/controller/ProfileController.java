@@ -19,22 +19,26 @@ import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 @Controller
 public class ProfileController {
 
-    final UserService userService;
-    final TestService testService;
-    final QuestionService questionService;
-    final AnswerService answerService;
-    final CategoryService categoryService;
+    private final UserService userService;
+    private final TestService testService;
+    private final QuestionService questionService;
+    private final AnswerService answerService;
+    private final CategoryService categoryService;
+    private final CourseService courseService;
+    private final ChapterService chapterService;
 
     Test current = null;
     List<Answer> answers = new ArrayList<>();
     List<Question> questions =  new ArrayList<>();
 
-    public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService) {
+    public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService, CourseService courseService, ChapterService chapterService) {
         this.userService = userService;
         this.testService = testService;
         this.questionService = questionService;
         this.answerService = answerService;
         this.categoryService = categoryService;
+        this.courseService = courseService;
+        this.chapterService = chapterService;
     }
 
     @GetMapping("/profile")
@@ -65,37 +69,14 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/profile/tests")
-    public String getUserTests(Model model, Test test) {
+    @GetMapping("/profile/courses")
+    public String getUserTests(Model model) {
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
-        List<Test> tests = testService.findAllbyAuthor(user);
-        model.addAttribute("tests", tests);
-        model.addAttribute("test", test);
-        return "tests";
+        List<Course> courses = courseService.getCoursesByUser(user);
+        model.addAttribute("courses", courses);
+        return "courses";
     }
 
-    @GetMapping("/profile/create/answer")
-    public String getUserCreateTest(Model model, AnswerBlank answers) {
-        model.addAttribute("answers", answers);
-        return "create_answer";
-    }
-
-    @GetMapping("/profile/create/question")
-    public String getUserCreateTest(Model model, QuestionBlank question) {
-        model.addAttribute("question", question);
-        for (Answer a : answers) {
-            System.out.println(a.getText());
-        }
-        model.addAttribute("answers", answers);
-        model.addAttribute("categories", categoryService.loadCategories());
-        return "create_question";
-    }
-
-    @GetMapping("/profile/create/test")
-    public String getUserCreateTest(Model model, Test test) {
-        model.addAttribute("test", test);
-        return "create_test";
-    }
 
     @GetMapping("/profile/admin")
     public String getProfileAdmin(Model model) {
@@ -124,55 +105,17 @@ public class ProfileController {
     @SneakyThrows
     @GetMapping("/profile/delete/test/{id}")
     public String getUserTests(@PathVariable Long id, Model model) {
-        System.out.println(id);
         testService.deleteTest(testService.getTest(id));
-        System.out.println(id);
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
-        System.out.println(id);
-        List<Test> tests = testService.findAllbyAuthor(user);
-        System.out.println(id);
-        model.addAttribute("tests", tests);
-        System.out.println(id);
         return "redirect:/profile/tests";
     }
 
-    @SneakyThrows
-    @PostMapping("/profile/create/answer")
-    public String postAnswer(@ModelAttribute AnswerBlank answer, BindingResult bindingResult) {
-        for (Answer ans : answer.toAnswerList()) {
-            answerService.createAnswer(ans);
-            System.out.println(ans.getText());
-            answers.add(answerService.getAnswer());
-        }
-        return "redirect:/profile/create/question";
-    }
-
-    @SneakyThrows
-    @PostMapping("/profile/create/question")
-    public String postAnswer(@ModelAttribute("question") QuestionBlank question, BindingResult bindingResult) {
-        Question question1 = question.toQuestion(answerService, categoryService);
-        question1.setAnswers(answers);
-        questions.add(question1);
-        question1.setTest(current);
-        questionService.createQuestion(question1);
-        return "redirect:/profile/create/answer";
-    }
-
-    @SneakyThrows
-    @PostMapping("/profile/create/test")
-    public String postAnswer(@ModelAttribute Test test, BindingResult bindingResult) {
-        test.setQuestions(questions);
-        test.setAuthor(userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail()));
-        testService.saveTest(test);
-        return "redirect:/profile";
-    }
 
     @SneakyThrows
     @PostMapping("/profile/edit/test")
     public String editAnswer(@ModelAttribute("test") TestEdit test, BindingResult bindingResult) {
         Test t = new Test();
         t.setId(current.getId());
-        t.setAuthor(current.getAuthor());
         t.setStatistics(current.getStatistics());
         t.setName(test.getName());
         List<Question> questions = new ArrayList<>();
@@ -192,7 +135,6 @@ public class ProfileController {
         t.setQuestions(questions);
         System.out.println(t.getId());
         System.out.println(t.getName());
-        System.out.println(t.getAuthor().getUsername());
         System.out.println(t.getQuestions().get(0).getId());
         System.out.println(t.getQuestions().get(0).getRightAnswer().getId());
         System.out.println(t.getQuestions().get(0).getCategory().getId());
