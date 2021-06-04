@@ -64,7 +64,7 @@ public class CreateController {
     }
 
     @GetMapping("/test/{id}/question")
-    public String getChapter(@PathVariable Long id, Model model, Question question) {
+    public String getChapter(@PathVariable Long id, Model model, QuestionBlank question) {
         model.addAttribute("categories", categoryService.loadCategories());
         model.addAttribute("question", question);
         testId = id;
@@ -100,9 +100,10 @@ public class CreateController {
 
     @SneakyThrows
     @PostMapping("/question")
-    public String postQuestion(@ModelAttribute("question") Question question, BindingResult bindingResult) {
-        question.setTest(testService.getTest(testId));
-        questionService.saveQuestion(question);
+    public String postQuestion(@ModelAttribute("question") QuestionBlank question, BindingResult bindingResult) {
+        Question q = question.toQuestion(categoryService);
+        q.setTest(testService.getTest(testId));
+        questionService.saveQuestion(q);
         return "redirect:/profile/courses";
     }
 

@@ -36,7 +36,12 @@
           <input type="text" th:field="*{text}" class="widget__input">
           <br>
           <label>Выберите категорию вопроса</label>
-          <input type="radio" th:field="*{category}" value class="widget__input">
+          <ul>
+            <li th:each="category : ${categories}">
+              <input type="radio" th:field="*{category}" th:value="${category.getId()}">
+              <label th:utext="${category.getName()}"></label>
+            </li>
+          </ul>
           <button class="widget__button" type="submit" name="submit">Сохранить вопрос</button>
         </form>
       </div>

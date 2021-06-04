@@ -24,6 +24,7 @@
       <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
       <nav class="header__nav">
         <a href="/profile">Личный кабинет</a>
+        <a th:href="@{/create/question/__${question.getId()}__/answer/}">Создание ответа</a>
       </nav>
     </div>
   </header>
@@ -31,11 +32,18 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <th:block th:each="answer : ${question.getAnswers()}">
-          <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a"><div>
-            <h2 th:utext="${question.getText()}">Текст вопроса</h2>
-          </div></a>
+          <a th:href="@{/profile/course/__${course.getId()}__/chapter/{chapterId}/test/{testId}/question/{questionId}/answer/{answerId}(chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()},answerId=${answer.getId()})}" class="widget widget__a">
+            <div>
+              <div class="widget">
+                <h2 th:utext="${answer.getText()}">Текст ответа</h2>
+                <p>
+                  <a th:href="@{/profile/edit/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Изменить" class="button__a"></a>
+                  <a th:href="@{/profile/delete/answer/{answerId}(answerId=${answer.getId()})}" th:utext="Удалить" class="button__a"></a>
+                </p>
+              </div>
+            </div>
+          </a>
         </th:block>
-        <a th:href="@{/create/test/__${test.getId()}__/question/}" class="widget widget__a">Создание вопроса</a>
       </div>
     </div>
   </main>
