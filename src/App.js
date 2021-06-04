@@ -124,7 +124,7 @@ class App extends React.Component {
 
     getUser = () => {
         axios
-            .get("http://localhost:8080/statistics/user")
+            .get("https://kstu-aec.herokuapp.com/statistics/user")
             .then(data => this.setState({ name: data.data }))
             .catch(err => {
                 console.log(err);
@@ -134,7 +134,7 @@ class App extends React.Component {
 
     getUpr = () => {
         axios
-            .get("http://localhost:8080/statistics/upr")
+            .get("https://kstu-aec.herokuapp.com/statistics/upr")
             .then(data => this.setState({ upr: data.data }))
             .catch(err => {
                 console.log(err);
@@ -144,7 +144,7 @@ class App extends React.Component {
 
     getPol = () => {
         axios
-            .get("http://localhost:8080/statistics/pol")
+            .get("https://kstu-aec.herokuapp.com/statistics/pol")
             .then(data => this.setState({ pol: data.data }))
             .catch(err => {
                 console.log(err);
@@ -154,7 +154,7 @@ class App extends React.Component {
 
     getChl = () => {
         axios
-            .get("http://localhost:8080/statistics/chl")
+            .get("https://kstu-aec.herokuapp.com/statistics/chl")
             .then(data => this.setState({ chl: data.data }))
             .catch(err => {
                 console.log(err);
@@ -164,7 +164,7 @@ class App extends React.Component {
 
     help = () => {
         axios
-            .get("http://localhost:8080/statistics/help")
+            .get("https://kstu-aec.herokuapp.com/statistics/help")
             .then(data => this.setState({ help: data.data }))
             .catch(err => {
                 console.log(err);
@@ -187,7 +187,7 @@ class App extends React.Component {
             <div className="wrapper">
                 <header className="header">
                     <div className="header__body responsive-wrapper">
-                        <div className="header__name"><a href="http://localhost:8080/">Автоматизированный учебный курс</a></div>
+                        <div className="header__name"><a href="https://kstu-aec.herokuapp.com/">Автоматизированный учебный курс</a></div>
                         <nav className="header__nav">
                             <a href="http://localhost:8080/profile">Личный кабинет</a>
                         </nav>

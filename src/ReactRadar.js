@@ -9,7 +9,7 @@ export default class ReactRadar extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/statistics/tupak').then(res => {
+        axios.get('https://kstu-aec.herokuapp.com/statistics/tupak').then(res => {
                 const person = res.data.name;
                 console.log(person);
                 this.setState({ person });
