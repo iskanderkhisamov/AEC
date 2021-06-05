@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.models.DTO.ChapterAPI;
@@ -203,10 +204,10 @@ public class StatisticsAPIController {
         return 1;
     }
 
-    @GetMapping("/statistics/user")
-    public UserAPI statisticsUser() {
+    @GetMapping("/statistics/user/{id}")
+    public UserAPI statisticsUser(@PathVariable Long id) {
         try {
-            user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+            user = userService.getUser(id);
         }
         catch(Exception e) {
             e.printStackTrace();
