@@ -29,13 +29,12 @@ public class StatisticsAPIController {
     User user;
 
     @Autowired
-    public StatisticsAPIController(StatisticService statisticService, UserService userService, TestService testService, ChapterService chapterService, CourseService courseService, QuestionService questionService) {
+    public StatisticsAPIController(UserService userService, TestService testService, ChapterService chapterService, CourseService courseService, QuestionService questionService) {
         this.userService = userService;
         this.testService = testService;
         this.chapterService = chapterService;
         this.courseService = courseService;
         this.questionService = questionService;
-        user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
     }
 
     private List<Question> helper(Statistic statistic) throws Exception {
@@ -206,6 +205,7 @@ public class StatisticsAPIController {
 
     @GetMapping("/statistics/user")
     public UserAPI statisticsUser() throws Exception {
+        user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         UserAPI userAPI = new UserAPI();
         userAPI.setFullname(user.getFullName());
         List<TestAPI> testApis = new ArrayList<>();
