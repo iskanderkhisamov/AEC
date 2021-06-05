@@ -20,21 +20,13 @@ public class ProfileController {
     private final UserService userService;
     private final TestService testService;
     private final QuestionService questionService;
-    private final AnswerService answerService;
-    private final CategoryService categoryService;
     private final CourseService courseService;
     private final ChapterService chapterService;
 
-    Test current = null;
-    List<Answer> answers = new ArrayList<>();
-    List<Question> questions =  new ArrayList<>();
-
-    public ProfileController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService, CourseService courseService, ChapterService chapterService) {
+    public ProfileController(UserService userService, TestService testService, QuestionService questionService, CourseService courseService, ChapterService chapterService) {
         this.userService = userService;
         this.testService = testService;
         this.questionService = questionService;
-        this.answerService = answerService;
-        this.categoryService = categoryService;
         this.courseService = courseService;
         this.chapterService = chapterService;
     }
@@ -44,6 +36,7 @@ public class ProfileController {
         model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
         model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
         model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
+        model.addAttribute("id", ((User) getAuthentication().getPrincipal()).getId());
         return "profile";
     }
 

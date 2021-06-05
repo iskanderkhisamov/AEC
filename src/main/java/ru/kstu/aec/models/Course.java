@@ -27,7 +27,7 @@ public class Course {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Chapter> chapters = new ArrayList<>();
 
 }

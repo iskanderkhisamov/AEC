@@ -1,5 +1,6 @@
 package ru.kstu.aec.services;
 
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kstu.aec.models.Test;
@@ -17,7 +18,8 @@ public class TestService {
         this.testRepository = testRepository;
     }
 
-    public Test getTest(Long id) throws Exception {
+    @SneakyThrows
+    public Test getTest(Long id) {
         Optional<Test> test = testRepository.findById(id);
         return test.orElseThrow(() -> new Exception("Такого теста нет, id = " + id));
     }

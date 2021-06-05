@@ -29,7 +29,6 @@ public class CreateController {
     Long testId = null;
     Long courseId = null;
     Long chapterId = null;
-    Test current = null;
 
     public CreateController(UserService userService, TestService testService, QuestionService questionService, AnswerService answerService, CategoryService categoryService, CourseService courseService, ChapterService chapterService) {
         this.userService = userService;
@@ -40,8 +39,6 @@ public class CreateController {
         this.courseService = courseService;
         this.chapterService = chapterService;
     }
-
-
 
     @GetMapping("/course")
     public String getCourse(Model model, Course course) {

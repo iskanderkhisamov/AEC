@@ -24,23 +24,34 @@
       <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
       <nav class="header__nav">
         <a href="/profile">Личный кабинет</a>
-        <a th:href="@{/create/course/__${course.id}__/chapter}">Создание раздела</a>
       </nav>
     </div>
   </header>
   <main class="main">
     <div class="main__body responsive-wrapper">
-      <th:block th:each="chapter: ${course.chapters}">
-        <a th:href="@{/profile/course/__${course.id}__/chapter/{chapterId}(chapterId=${chapter.getId()})}" class="widget__a">
-          <div class="widget">
-            <h2 th:utext="${chapter.getName()}">Название раздела</h2>
-            <p>
-              <a th:href="@{/edit/chapter/{chapterId}(chapterId=${chapter.getId()})}" th:utext="Изменить" class="button__a"></a>
-              <a th:href="@{/delete/chapter/{chapterId}(chapterId=${chapter.getId()})}" th:utext="Удалить" class="button__a"></a>
-            </p>
-          </div>
-        </a>
-      </th:block>
+      <div class="widget">
+        <form role="form" th:action="@{/edit/question}" th:method="POST" th:object="${question}">
+          <label>Изменение вопроса</label>
+          <input type="text" th:field="*{text}" class="widget__input">
+          <br>
+          <label>Изменение категории</label>
+          <ul>
+            <li th:each="category, itemStat : ${categories}">
+              <input type="radio" th:id="category+${itemStat.index}" name="category" th:value="${category.getId()}">
+              <label th:utext="${category.getName()}"></label>
+            </li>
+          </ul>
+          <label>Изменение правильного ответа</label>
+          <ul>
+            <li th:each="answer, itemStat : ${answers}">
+              <input type="radio" th:id="rightAnswer+${itemStat.index}" name="rightAnswer" th:value="${answer.getId()}">
+              <label th:utext="${answer.getText()}"></label>
+            </li>
+          </ul>
+          <br>
+          <button class="widget__button" type="submit" name="submit">Изменить вопрос</button>
+        </form>
+      </div>
     </div>
   </main>
 </div>

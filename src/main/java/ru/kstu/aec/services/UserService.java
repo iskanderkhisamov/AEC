@@ -1,5 +1,6 @@
 package ru.kstu.aec.services;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,6 +38,13 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email)));
     }
 
+    @SneakyThrows
+    public User getUser(Long id) throws UsernameNotFoundException {
+        final Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElseThrow(() ->
+                new UsernameNotFoundException(MessageFormat.format("User with id {0} cannot be found.", id)));
+    }
+
     @Transactional
     public void signUpUser(User user) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
@@ -52,6 +60,11 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 
     @Transactional

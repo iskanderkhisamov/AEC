@@ -21,7 +21,7 @@ public class Chapter {
 
     private String name;
 
-    @OneToMany(mappedBy = "chapter")
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     private List<Test> tests = new ArrayList<>();
 
     @ManyToOne
