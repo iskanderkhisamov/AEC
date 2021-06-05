@@ -32,7 +32,7 @@
     <div class="main__body responsive-wrapper">
       <div class="widget widget__center">
         <th:block th:each="answer : ${question.getAnswers()}">
-          <a th:href="@{/edit/answer/{answerId}(answerId=${answer.getId()})}" class="widget widget__a">
+          <a th:href="@{/edit/answer/{answerId}(answerId=${answer.getId()})}" class="widget__a">
             <div class="widget">
               <h2 th:utext="${answer.getText()}">Текст ответа</h2>
               <p>
