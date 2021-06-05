@@ -207,6 +207,7 @@ public class StatisticsAPIController {
     public UserAPI statisticsUser() throws Exception {
         user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         UserAPI userAPI = new UserAPI();
+        userAPI.setId(user.getId());
         userAPI.setFullname(user.getFullName());
         List<TestAPI> testApis = new ArrayList<>();
         for(int i = 0; i < user.getStatistics().size(); i++) {
