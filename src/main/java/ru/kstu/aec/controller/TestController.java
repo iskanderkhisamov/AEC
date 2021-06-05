@@ -127,6 +127,11 @@ public class TestController {
         questionDtos.add(questionDTO);
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(test.getId()));
+        for(int i = 0; i < user.getStatistics().size(); i++) {
+            if(user.getStatistics().get(i).getTest().getId().equals(statistic.getTest().getId())) {
+                statisticService.deleteStatistic(user.getStatistics().get(i));
+            }
+        }
         statistic.setUser(user);
         for (QuestionDTO q : questionDtos) {
             Question question = questionService.getQuestion(q.getId());
