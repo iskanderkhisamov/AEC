@@ -23,9 +23,12 @@ public class TestController {
     private final ChapterService chapterService;
     private int qid;
     private int lastId;
-    private Long testId;
 
     List<Question> questions;
+    Course course;
+    Chapter chapter;
+    Test test;
+    Question question;
 
     public TestController(QuestionService questionService, AnswerService answerService, UserService userService, TestService testService, StatisticService statisticService, CourseService courseService, ChapterService chapterService) {
         this.questionService = questionService;
@@ -63,7 +66,8 @@ public class TestController {
         model.addAttribute("course", courseService.getCourse(id));
         model.addAttribute("chapter", chapterService.getChapter(cid));
         model.addAttribute("test", testService.getTest(tid));
-        model.addAttribute("questions", testService.getTest(tid).getQuestions());
+        List<Question> questions = testService.getTest(tid).getQuestions();
+        model.addAttribute("questions", questions);
         return "test";
     }
 
@@ -71,47 +75,77 @@ public class TestController {
     public String getCourses(@PathVariable Long id, @PathVariable Long cid,
                              @PathVariable Long tid, @PathVariable Long qid,
                              Model model) {
-        model.addAttribute("course", courseService.getCourse(id));
-        model.addAttribute("chapter", chapterService.getChapter(cid));
-        model.addAttribute("test", testService.getTest(tid));
-        model.addAttribute("question", questionService.getQuestion(qid));
+        course = courseService.getCourse(id);
+        chapter = chapterService.getChapter(cid);
+        test = testService.getTest(tid);
+        question = questionService.getQuestion(qid);
+        model.addAttribute("course", course);
+        model.addAttribute("chapter", chapter);
+        model.addAttribute("test", test);
+        model.addAttribute("question", question);
         model.addAttribute("answers", questionService.getQuestion(qid).getAnswers());
         return "test";
     }
 
-    @PostMapping("/test")
+    @GetMapping("/test/{id}/{qid}")
+    public String Test(Model model, @PathVariable Long id, @PathVariable int qid) throws Exception {
+        System.out.println("ТЕСТ ID: " + id);
+        System.out.println("ВОПРОС ID: " + qid);
+        questions = testService.getTest(id).getQuestions();
+        lastId = questions.size() - 1;
+        System.out.println("ПОСЛЕДНИЙ ID: " + lastId);
+        model.addAttribute("question", questions.get(qid));
+        model.addAttribute("questionDTO", new QuestionDTO());
+        model.addAttribute("last", lastId);
+        this.qid = qid;
+        testId = id;
+        model.addAttribute("count", qid);
+        System.out.println("Номер Массива: " + qid);
+        testDTO.setId(testId);
+        return "test";
+    }
+
+    @PostMapping("/test/next")
+    public String postTestNext(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
+        questionDTO.setId(questions.get(qid).getId());
+        testDTO.getQuestions().add(questionDTO);
+        qid += 1;
+        return "redirect:/course/"+testId+"/chapter/"+cid+"/test/"+tid+"/question/"+qid};
+    }
+
+    @PostMapping("/test/end")
     public String postTest(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
         System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDD");
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
-//        questionDTO.setId(questions.get(qid).getId());
-//        testDTO.getQuestions().add(questionDTO);
+        questionDTO.setId(questions.get(qid).getId());
+        testDTO.getQuestions().add(questionDTO);
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(testId));
         statistic.setUser(user);
-//        for (QuestionDTO q : testDTO.getQuestions()) {
-//            Question question = questionService.getQuestion(q.getId());
-//            if (question.getCategory().getName().equals("POL")) {
-//                System.out.println("pol чекаем");
-//                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
-//                    System.out.println("pol правильный");
-//                    statistic.setPol(statistic.getPol() + question.getCategory().getRating());
-//                }
-//            }
-//            else if (question.getCategory().getName().equals("UPR")) {
-//                System.out.println("upr чекаем");
-//                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
-//                    System.out.println("upr правильный");
-//                    statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
-//                }
-//            }
-//            else if (question.getCategory().getName().equals("CHL")) {
-//                System.out.println("chl чекаем");
-//                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
-//                    System.out.println("chl правильный");
-//                    statistic.setChl(statistic.getChl() + question.getCategory().getRating());
-//                }
-//            }
-//        }
+        for (QuestionDTO q : testDTO.getQuestions()) {
+            Question question = questionService.getQuestion(q.getId());
+            if (question.getCategory().getName().equals("POL")) {
+                System.out.println("pol чекаем");
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
+                    System.out.println("pol правильный");
+                    statistic.setPol(statistic.getPol() + question.getCategory().getRating());
+                }
+            }
+            else if (question.getCategory().getName().equals("UPR")) {
+                System.out.println("upr чекаем");
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
+                    System.out.println("upr правильный");
+                    statistic.setUpr(statistic.getUpr() + question.getCategory().getRating());
+                }
+            }
+            else if (question.getCategory().getName().equals("CHL")) {
+                System.out.println("chl чекаем");
+                if (q.getAnswer().equals(question.getRightAnswer().getId())) {
+                    System.out.println("chl правильный");
+                    statistic.setChl(statistic.getChl() + question.getCategory().getRating());
+                }
+            }
+        }
         System.out.println("pol=" + statistic.getPol());
         System.out.println("chl=" + statistic.getChl());
         System.out.println("upr=" + statistic.getUpr());
