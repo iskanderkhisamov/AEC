@@ -35,7 +35,7 @@ public class Question {
     @JoinColumn(name = "test_id")
     private Test test;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answers = new ArrayList<>(4);
 
 }

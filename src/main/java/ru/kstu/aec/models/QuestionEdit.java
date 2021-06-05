@@ -22,7 +22,7 @@ public class QuestionEdit {
         if(category != null) {
             question.setCategory(categoryService.getCategory(category));
         }
-        if(category != null) {
+        if(rightAnswer != null) {
             question.setRightAnswer(answerService.getAnswer(rightAnswer));
         }
         question.setText(text);

@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class QuestionDTO {
 
+    Long id;
 
+    Long answer;
 
 }

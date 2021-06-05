@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.services.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 
@@ -22,9 +25,11 @@ public class TestController {
     private final CourseService courseService;
     private final ChapterService chapterService;
     private int qid;
-    private int lastId;
+    private int last;
+    private int first;
 
-    List<Question> questions;
+    List<Question> questions = new ArrayList<>();
+    Set<QuestionDTO> questionDtos = new HashSet<>();
     Course course;
     Chapter chapter;
     Test test;
@@ -47,82 +52,85 @@ public class TestController {
     }
 
     @GetMapping("/course/{id}")
-    public String getCourses(@PathVariable Long id, Model model) {
+    public String getCourse(@PathVariable Long id, Model model) {
         model.addAttribute("course", courseService.getCourse(id));
         model.addAttribute("chapters", chapterService.getChapters());
+        course = courseService.getCourse(id);
         return "course";
     }
 
     @GetMapping("/course/{id}/chapter/{cid}")
-    public String getCourses(@PathVariable Long id, @PathVariable Long cid, Model model) {
+    public String getChapter(@PathVariable Long id, @PathVariable Long cid, Model model) {
         model.addAttribute("course", courseService.getCourse(id));
         model.addAttribute("chapter", chapterService.getChapter(cid));
         model.addAttribute("tests", chapterService.getChapter(cid).getTests());
+        chapter = chapterService.getChapter(cid);
         return "chapter";
     }
 
     @GetMapping("/course/{id}/chapter/{cid}/test/{tid}")
-    public String getCourses(@PathVariable Long id, @PathVariable Long cid, @PathVariable Long tid, Model model) {
+    public String getTest(@PathVariable Long id, @PathVariable Long cid, @PathVariable Long tid, Model model, QuestionDTO questionDTO) {
         model.addAttribute("course", courseService.getCourse(id));
         model.addAttribute("chapter", chapterService.getChapter(cid));
         model.addAttribute("test", testService.getTest(tid));
-        List<Question> questions = testService.getTest(tid).getQuestions();
-        model.addAttribute("questions", questions);
-        return "test";
+        model.addAttribute("questionDTO", questionDTO);
+        questions = testService.getTest(tid).getQuestions();
+        last = questions.size() - 1;
+        first = 0;
+        qid = 0;
+        model.addAttribute("count", qid);
+        test = testService.getTest(tid);
+        return "redirect:/course/"+course.getId()+"/chapter/"+chapter.getId()+"/test/"+test.getId()+"/question/0";
     }
 
     @GetMapping("/course/{id}/chapter/{cid}/test/{tid}/question/{qid}")
-    public String getCourses(@PathVariable Long id, @PathVariable Long cid,
-                             @PathVariable Long tid, @PathVariable Long qid,
-                             Model model) {
-        course = courseService.getCourse(id);
-        chapter = chapterService.getChapter(cid);
-        test = testService.getTest(tid);
-        question = questionService.getQuestion(qid);
+    public String getQuestion(@PathVariable int qid, Model model, QuestionDTO questionDTO) {
+        question = questionService.getQuestion(questions.get(qid).getId());
+        model.addAttribute("questionDTO", questionDTO);
+        model.addAttribute("count", qid);
+        model.addAttribute("first", first);
+        model.addAttribute("last", last);
         model.addAttribute("course", course);
         model.addAttribute("chapter", chapter);
         model.addAttribute("test", test);
         model.addAttribute("question", question);
-        model.addAttribute("answers", questionService.getQuestion(qid).getAnswers());
+        model.addAttribute("answers", question.getAnswers());
+        model.addAttribute("count", qid);
         return "test";
     }
 
-    @GetMapping("/test/{id}/{qid}")
-    public String Test(Model model, @PathVariable Long id, @PathVariable int qid) throws Exception {
-        System.out.println("ТЕСТ ID: " + id);
-        System.out.println("ВОПРОС ID: " + qid);
-        questions = testService.getTest(id).getQuestions();
-        lastId = questions.size() - 1;
-        System.out.println("ПОСЛЕДНИЙ ID: " + lastId);
-        model.addAttribute("question", questions.get(qid));
-        model.addAttribute("questionDTO", new QuestionDTO());
-        model.addAttribute("last", lastId);
-        this.qid = qid;
-        testId = id;
-        model.addAttribute("count", qid);
-        System.out.println("Номер Массива: " + qid);
-        testDTO.setId(testId);
-        return "test";
+    @PostMapping("/test/previous")
+    public String postTestPrevious(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
+        questionDTO.setId(questions.get(qid).getId());
+        if(questionDTO.getAnswer() == null) {
+            Long id = null;
+            for(int i = 0; question.getRightAnswer() != question.getAnswers().get(i) && i < question.getAnswers().size(); i++) {
+                questionDTO.setAnswer(question.getAnswers().get(i).getId());
+            }
+        }
+        questionDtos.add(questionDTO);
+        qid -= 1;
+        return "redirect:/course/"+course.getId()+"/chapter/"+chapter.getId()+"/test/"+test.getId()+"/question/"+qid;
     }
 
     @PostMapping("/test/next")
     public String postTestNext(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
         questionDTO.setId(questions.get(qid).getId());
-        testDTO.getQuestions().add(questionDTO);
+        questionDtos.add(questionDTO);
         qid += 1;
-        return "redirect:/course/"+testId+"/chapter/"+cid+"/test/"+tid+"/question/"+qid};
+        return "redirect:/course/"+course.getId()+"/chapter/"+chapter.getId()+"/test/"+test.getId()+"/question/"+qid;
     }
 
     @PostMapping("/test/end")
     public String postTest(@ModelAttribute QuestionDTO questionDTO, BindingResult result) throws Exception {
-        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDD");
         User user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
         questionDTO.setId(questions.get(qid).getId());
-        testDTO.getQuestions().add(questionDTO);
+        questionDtos.add(questionDTO);
         Statistic statistic = new Statistic();
-        statistic.setTest(testService.getTest(testId));
+        statistic.setTest(testService.getTest(test.getId()));
         statistic.setUser(user);
-        for (QuestionDTO q : testDTO.getQuestions()) {
+        for (QuestionDTO q : questionDtos) {
+            System.out.println(q.getId());
             Question question = questionService.getQuestion(q.getId());
             if (question.getCategory().getName().equals("POL")) {
                 System.out.println("pol чекаем");

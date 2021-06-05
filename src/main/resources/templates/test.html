@@ -30,14 +30,19 @@
     <main class="main">
         <div class="main__body responsive-wrapper">
             <div class="widget">
-                <th:block th:each="question : ${questions}">
-                    <a th:href="@{/course/{courseId}/chapter/{chapterId}/test/{testId}/question/{questionId}(courseId=${course.getId()},chapterId=${chapter.getId()},testId=${test.getId()},questionId=${question.getId()})}" class="widget widget__a">
-                        <div>
-                            <h2 th:utext="${question.getText()}">Вопрос</h2>
-                        </div>
-                    </a>
-                </th:block>
-
+                <form role="form" th:action="@{/test/next}" th:method="POST" th:object="${questionDTO}">
+                    <p th:utext="${question.getText()}">Вопрос</p>
+                    <ul>
+                        <li th:each="answer: ${question.getAnswers()}">
+                            <input type="radio" name="answer" th:field="*{answer}" th:value="${answer.id}"/>
+                            <label th:for="${answer.id}" th:text="${answer.text}"></label>
+                        </li>
+                    </ul>
+                    <br>
+                    <button th:if="${count} != ${first}" class="widget__button" type="submit" name="submit" th:formaction="@{/test/previous}">Предыдущий вопрос</button>
+                    <button th:if="${count} != ${last}" class="widget__button" type="submit" name="submit">Следующий вопрос</button>
+                    <button th:if="${count} == ${last}" class="main__button widget__button" type="submit" name="submit" th:formaction="@{/test/end}">Закончить тест</button>
+                </form>
             </div>
         </div>
     </main>
