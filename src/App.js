@@ -181,7 +181,6 @@ class App extends React.Component {
     }
 
     render() {
-        let styleConfig = { color: "#86C232"}
         console.log('pol = ', this.state.pol,' chl = ', this.state.chl,' upr = ', this.state.upr,' help = ', this.state.help);
         return (
             <div className="wrapper">

@@ -8,6 +8,6 @@ public class StatisticsController {
 
     @GetMapping("/result")
     public String handleGet() {
-        return "result";
+        return "react";
     }
 }
