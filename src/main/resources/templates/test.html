@@ -32,6 +32,7 @@
             <div class="widget">
                 <form role="form" th:action="@{/test/next}" th:method="POST" th:object="${questionDTO}">
                     <p th:utext="${question.getText()}">Вопрос</p>
+                    <image th:if="${question.getImage()} != null" th:src="${question.getImage()}"></image>
                     <ul>
                         <li th:each="answer: ${question.getAnswers()}">
                             <input type="radio" name="answer" th:field="*{answer}" th:value="${answer.id}"/>

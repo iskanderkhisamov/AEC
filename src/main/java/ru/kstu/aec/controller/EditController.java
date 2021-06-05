@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.*;
+import ru.kstu.aec.models.DTO.QuestionEdit;
 import ru.kstu.aec.services.*;
 
 @Controller
@@ -125,6 +126,9 @@ public class EditController {
         q.setTest(this.question.getTest());
         if(q.getText() == null) {
             q.setText(this.question.getText());
+        }
+        if(q.getImage() == null) {
+            q.setImage(this.question.getImage());
         }
         if(q.getCategory() == null) {
             q.setCategory(this.question.getCategory());

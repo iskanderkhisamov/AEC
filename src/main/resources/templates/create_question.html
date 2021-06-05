@@ -35,6 +35,9 @@
           <label>Напишите вопрос</label>
           <input type="text" th:field="*{text}" class="widget__input">
           <br>
+          <label>Ссылка на картинку</label>
+          <input type="text" th:field="*{image}" class="widget__input">
+          <br>
           <label>Выберите категорию вопроса</label>
           <ul>
             <li th:each="category : ${categories}">

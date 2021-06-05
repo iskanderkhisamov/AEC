@@ -1,4 +1,4 @@
-package ru.kstu.aec.models;
+package ru.kstu.aec.models.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -34,6 +34,9 @@
           <label>Изменение вопроса</label>
           <input type="text" th:field="*{text}" class="widget__input">
           <br>
+          <label>Ссылка на картинку</label>
+          <input type="text" th:field="*{image}" class="widget__input">
+          <br>
           <label>Изменение категории</label>
           <ul>
             <li th:each="category, itemStat : ${categories}">

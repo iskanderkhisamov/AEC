@@ -115,47 +115,13 @@ class RGraph extends React.Component{
 
 class App extends React.Component {
     state = {
-        name: "b",
-        upr: -1,
-        chl: -1,
-        pol: -1,
-        help: -1
+        user
     }
 
     getUser = () => {
         axios
             .get("http://localhost:8080/statistics/user")
-            .then(data => this.setState({ name: data.data }))
-            .catch(err => {
-                console.log(err);
-                return null;
-            });
-    };
-
-    getUpr = () => {
-        axios
-            .get("http://localhost:8080/statistics/upr")
-            .then(data => this.setState({ upr: data.data }))
-            .catch(err => {
-                console.log(err);
-                return null;
-            });
-    };
-
-    getPol = () => {
-        axios
-            .get("http://localhost:8080/statistics/pol")
-            .then(data => this.setState({ pol: data.data }))
-            .catch(err => {
-                console.log(err);
-                return null;
-            });
-    };
-
-    getChl = () => {
-        axios
-            .get("http://localhost:8080/statistics/chl")
-            .then(data => this.setState({ chl: data.data }))
+            .then(data => this.setState({ user: data.data }))
             .catch(err => {
                 console.log(err);
                 return null;
@@ -174,15 +140,12 @@ class App extends React.Component {
 
     componentDidMount() {
         this.getUser();
-        this.getUpr();
-        this.getChl();
-        this.getPol();
         this.help();
     }
 
     render() {
         let styleConfig = { color: "#86C232"}
-        console.log('pol = ', this.state.pol,' chl = ', this.state.chl,' upr = ', this.state.upr,' help = ', this.state.help);
+        console.log('name = ', this.state.user.fullname,'pol = ', this.state.user.pol,' chl = ', this.state.user.chl,' upr = ', this.state.user.upr,' help = ', this.state.help);
         return (
             <div className="wrapper">
                 <header className="header">

@@ -4,9 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +20,8 @@ public class Question {
     private Long id;
 
     private String text;
+
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

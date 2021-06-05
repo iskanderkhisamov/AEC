@@ -1,6 +1,7 @@
-package ru.kstu.aec.models;
+package ru.kstu.aec.models.DTO;
 
 import lombok.*;
+import ru.kstu.aec.models.Question;
 import ru.kstu.aec.services.AnswerService;
 import ru.kstu.aec.services.CategoryService;
 
@@ -11,6 +12,8 @@ import ru.kstu.aec.services.CategoryService;
 public class QuestionEdit {
 
     private String text;
+
+    private String image;
 
     private Long category;
 
@@ -25,6 +28,7 @@ public class QuestionEdit {
         if(rightAnswer != null) {
             question.setRightAnswer(answerService.getAnswer(rightAnswer));
         }
+        question.setImage(image);
         question.setText(text);
         return question;
     }

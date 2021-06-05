@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kstu.aec.models.*;
+import ru.kstu.aec.models.DTO.QuestionDTO;
 import ru.kstu.aec.services.*;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
 @Controller
 public class TestController {
 
-    private final AnswerService answerService;
     private final UserService userService;
     private final TestService testService;
     private final QuestionService questionService;
@@ -35,9 +35,8 @@ public class TestController {
     Test test;
     Question question;
 
-    public TestController(QuestionService questionService, AnswerService answerService, UserService userService, TestService testService, StatisticService statisticService, CourseService courseService, ChapterService chapterService) {
+    public TestController(QuestionService questionService, UserService userService, TestService testService, StatisticService statisticService, CourseService courseService, ChapterService chapterService) {
         this.questionService = questionService;
-        this.answerService = answerService;
         this.userService = userService;
         this.testService = testService;
         this.statisticService = statisticService;
@@ -130,7 +129,6 @@ public class TestController {
         statistic.setTest(testService.getTest(test.getId()));
         statistic.setUser(user);
         for (QuestionDTO q : questionDtos) {
-            System.out.println(q.getId());
             Question question = questionService.getQuestion(q.getId());
             if (question.getCategory().getName().equals("POL")) {
                 System.out.println("pol чекаем");
