@@ -204,29 +204,39 @@ public class StatisticsAPIController {
     }
 
     @GetMapping("/statistics/user")
-    public UserAPI statisticsUser() throws Exception {
-        user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+    public UserAPI statisticsUser() {
+        try {
+            user = userService.loadUserByUsername(((User) getAuthentication().getPrincipal()).getEmail());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
         UserAPI userAPI = new UserAPI();
-        userAPI.setId(user.getId());
-        userAPI.setFullname(user.getFullName());
-        List<TestAPI> testApis = new ArrayList<>();
-        for(int i = 0; i < user.getStatistics().size(); i++) {
-            testApis.add(test(i));
+        try {
+            userAPI.setId(user.getId());
+            userAPI.setFullname(user.getFullName());
+            List<TestAPI> testApis = new ArrayList<>();
+            for (int i = 0; i < user.getStatistics().size(); i++) {
+                testApis.add(test(i));
+            }
+            List<ChapterAPI> chapterApis = chapter(testApis);
+            List<CourseAPI> courseApis = course(chapterApis);
+            userAPI.setCourses(courseApis);
+            int chl = 0;
+            int upr = 0;
+            int pol = 0;
+            for (CourseAPI courseAPI : userAPI.getCourses()) {
+                chl += courseAPI.getChl();
+                upr += courseAPI.getUpr();
+                pol += courseAPI.getPol();
+            }
+            userAPI.setChl(chl / userAPI.getCourses().size());
+            userAPI.setUpr(upr / userAPI.getCourses().size());
+            userAPI.setPol(pol / userAPI.getCourses().size());
         }
-        List<ChapterAPI> chapterApis = chapter(testApis);
-        List<CourseAPI> courseApis = course(chapterApis);
-        userAPI.setCourses(courseApis);
-        int chl = 0;
-        int upr = 0;
-        int pol = 0;
-        for(CourseAPI courseAPI : userAPI.getCourses()) {
-            chl += courseAPI.getChl();
-            upr += courseAPI.getUpr();
-            pol += courseAPI.getPol();
+        catch(Exception e) {
+            e.printStackTrace();
         }
-        userAPI.setChl(chl / userAPI.getCourses().size());
-        userAPI.setUpr(upr / userAPI.getCourses().size());
-        userAPI.setPol(pol / userAPI.getCourses().size());
         return userAPI;
     }
 }
