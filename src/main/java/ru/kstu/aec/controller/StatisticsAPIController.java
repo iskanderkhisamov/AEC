@@ -19,7 +19,7 @@ import ru.kstu.aec.services.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin
 @RestController
 public class StatisticsAPIController {
 
