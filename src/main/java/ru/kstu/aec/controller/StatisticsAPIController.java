@@ -2,10 +2,13 @@ package ru.kstu.aec.controller;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 import ru.kstu.aec.models.*;
 import ru.kstu.aec.models.DTO.ChapterAPI;
 import ru.kstu.aec.models.DTO.CourseAPI;
@@ -16,9 +19,7 @@ import ru.kstu.aec.services.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.kstu.aec.configs.SecurityConfig.getAuthentication;
-
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:8080"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 public class StatisticsAPIController {
 
@@ -27,15 +28,20 @@ public class StatisticsAPIController {
     private final ChapterService chapterService;
     private final CourseService courseService;
     private final QuestionService questionService;
+    private final ContextComponent contextComponent;
+
     User user;
 
     @Autowired
-    public StatisticsAPIController(UserService userService, TestService testService, ChapterService chapterService, CourseService courseService, QuestionService questionService) {
+    public StatisticsAPIController(UserService userService, TestService testService,
+                                   ChapterService chapterService, CourseService courseService,
+                                   QuestionService questionService, ContextComponent contextComponent) {
         this.userService = userService;
         this.testService = testService;
         this.chapterService = chapterService;
         this.courseService = courseService;
         this.questionService = questionService;
+        this.contextComponent = contextComponent;
     }
 
     private List<Question> helper(Statistic statistic) throws Exception {

@@ -22,21 +22,26 @@ public class ProfileController {
     private final QuestionService questionService;
     private final CourseService courseService;
     private final ChapterService chapterService;
+    private final ContextComponent contextComponent;
 
-    public ProfileController(UserService userService, TestService testService, QuestionService questionService, CourseService courseService, ChapterService chapterService) {
+    User user;
+
+    public ProfileController(UserService userService, TestService testService, QuestionService questionService, CourseService courseService, ChapterService chapterService, ContextComponent contextComponent) {
         this.userService = userService;
         this.testService = testService;
         this.questionService = questionService;
         this.courseService = courseService;
         this.chapterService = chapterService;
+        this.contextComponent = contextComponent;
     }
 
     @GetMapping("")
     public String getProfile(Model model) {
-        model.addAttribute("name", ((User) getAuthentication().getPrincipal()).getFirstname());
-        model.addAttribute("surname", ((User) getAuthentication().getPrincipal()).getSurname());
-        model.addAttribute("email", ((User) getAuthentication().getPrincipal()).getEmail());
-        model.addAttribute("id", ((User) getAuthentication().getPrincipal()).getId());
+        user = userService.getUser(contextComponent.getUser().getId());
+        model.addAttribute("name", user.getFirstname());
+        model.addAttribute("surname", user.getSurname());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("id", user.getId());
         return "profile";
     }
 
