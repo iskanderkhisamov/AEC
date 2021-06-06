@@ -34,26 +34,36 @@ public class DeleteController {
 
     @GetMapping("/chapter/{id}")
     public String deleteChapter(@PathVariable Long id, Model model) {
+        Long cid = chapterService.getChapter(id).getCourse().getId();
         chapterService.deleteChapter(chapterService.getChapter(id));
-        return "redirect:/profile/courses";
+        return "redirect:/profile/course/" + cid;
     }
 
     @GetMapping("/test/{id}")
     public String deleteTest(@PathVariable Long id, Model model) {
+        Long chid = testService.getTest(id).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
         testService.deleteTest(testService.getTest(id));
-        return "redirect:/profile/courses";
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid;
     }
 
     @GetMapping("/question/{id}")
     public String deleteQuestion(@PathVariable Long id, Model model) {
+        Long tid = questionService.getQuestion(id).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
         questionService.deleteQuestion(questionService.getQuestion(id));
-        return "redirect:/profile/courses";
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid + "/test/" + tid;
     }
 
     @GetMapping("/answer/{id}")
     public String deleteAnswer(@PathVariable Long id, Model model) {
+        Long qid = answerService.getAnswer(id).getQuestion().getId();
+        Long tid = questionService.getQuestion(qid).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
         answerService.deleteAnswer(answerService.getAnswer(id));
-        return "redirect:/profile/courses";
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid + "/test/" + tid + "/question/" + qid;
     }
 
     @GetMapping("/user/{id}")

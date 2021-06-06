@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>АУК</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Автоматизированный учебный курс">
+    <meta name="author" content="khisamov.studio">
+    <link th:href="@{/css/normalize.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if !IE 7]>
+    <style type="text/css">
+        #wrap {display:table;height:100%}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__body responsive-wrapper">
+            <div class="header__name"><a href="/">Автоматизированный учебный курс</a></div>
+            <nav class="header__nav">
+                <a href="/profile">Личный кабинет</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__body responsive-wrapper">
+            <div class="widget">
+                  <h1>500 - Not Found</h1>
+                  <div th:inline="text">
+                      Здравствуйте, [[${#httpServletRequest.remoteUser}]],
+                      возможно, теста, раздела или курса не существует и поэтому вы получили эту ошибку.
+                  </div>
+            </div>
+        </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -87,8 +87,7 @@ public class CreateController {
     public String postChapter(@ModelAttribute("chapter") Chapter chapter, BindingResult bindingResult) {
         chapter.setCourse(courseService.getCourse(courseId));
         chapterService.saveChapter(chapter);
-        Long tid = questionService.getQuestion(questionId).getTest().getId();
-        Long chid = testService.getTest(tid).getChapter().getId();
+        Long chid = chapter.getId();
         Long cid = chapterService.getChapter(chid).getCourse().getId();
         return "redirect:/profile/course/" + cid;
     }
@@ -98,7 +97,7 @@ public class CreateController {
     public String postTest(@ModelAttribute Test test, BindingResult bindingResult) {
         test.setChapter(chapterService.getChapter(chapterId));
         testService.saveTest(test);
-        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long tid = test.getId();
         Long chid = testService.getTest(tid).getChapter().getId();
         Long cid = chapterService.getChapter(chid).getCourse().getId();
         return "redirect:/profile/course/" + cid + "/chapter/" + chid;
@@ -110,7 +109,7 @@ public class CreateController {
         Question q = question.toQuestion(categoryService);
         q.setTest(testService.getTest(testId));
         questionService.saveQuestion(q);
-        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long tid = q.getTest().getId();
         Long chid = testService.getTest(tid).getChapter().getId();
         Long cid = chapterService.getChapter(chid).getCourse().getId();
         return "redirect:/profile/course/" + cid + "/chapter/" + chid + "/test/" + tid;
