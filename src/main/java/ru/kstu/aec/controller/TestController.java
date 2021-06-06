@@ -161,6 +161,23 @@ public class TestController {
         System.out.println("chl=" + statistic.getChl());
         System.out.println("upr=" + statistic.getUpr());
         statisticService.saveStatistic(statistic);
-        return "redirect:/result";
+
+        int plus = statistic.getPol()/5 + statistic.getChl()/15 + statistic.getUpr()/30;
+        int all = questionDtos.size();
+        int pol = statistic.getPol()/5;
+        int chl = statistic.getChl()/15;
+        int upr = statistic.getUpr()/30;
+        return "redirect:/test_result/" + plus + "/" + all + "/" + pol + "/" + chl + "/" + upr + "/" + user.getId();
+    }
+
+    @GetMapping("/test_result/{plus}/{all}/{pol}/{chl}/{upr}/{id}")
+    public String getTestResult(Model model, @PathVariable int plus, @PathVariable int all, @PathVariable int pol, @PathVariable int chl, @PathVariable int upr, @PathVariable Long id) {
+        model.addAttribute("plus", plus);
+        model.addAttribute("all", all);
+        model.addAttribute("pol", pol);
+        model.addAttribute("chl", chl);
+        model.addAttribute("upr", upr);
+        model.addAttribute("id", id);
+        return "test_result";
     }
 }

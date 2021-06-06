@@ -87,7 +87,10 @@ public class CreateController {
     public String postChapter(@ModelAttribute("chapter") Chapter chapter, BindingResult bindingResult) {
         chapter.setCourse(courseService.getCourse(courseId));
         chapterService.saveChapter(chapter);
-        return "redirect:/profile/courses";
+        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
+        return "redirect:/profile/course/" + cid;
     }
 
     @SneakyThrows
@@ -95,7 +98,10 @@ public class CreateController {
     public String postTest(@ModelAttribute Test test, BindingResult bindingResult) {
         test.setChapter(chapterService.getChapter(chapterId));
         testService.saveTest(test);
-        return "redirect:/profile/courses";
+        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid;
     }
 
     @SneakyThrows
@@ -104,7 +110,10 @@ public class CreateController {
         Question q = question.toQuestion(categoryService);
         q.setTest(testService.getTest(testId));
         questionService.saveQuestion(q);
-        return "redirect:/profile/courses";
+        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid + "/test/" + tid;
     }
 
     @SneakyThrows
@@ -112,7 +121,11 @@ public class CreateController {
     public String postAnswer(@ModelAttribute("answer") Answer answer, BindingResult bindingResult) {
         answer.setQuestion(questionService.getQuestion(questionId));
         answerService.saveAnswer(answer);
-        return "redirect:/profile/courses";
+        Long qid = questionService.getQuestion(questionId).getId();
+        Long tid = questionService.getQuestion(questionId).getTest().getId();
+        Long chid = testService.getTest(tid).getChapter().getId();
+        Long cid = chapterService.getChapter(chid).getCourse().getId();
+        return "redirect:/profile/course/" + cid + "/chapter/" + chid + "/test/" + tid + "/question/" + qid;
     }
 
 }
