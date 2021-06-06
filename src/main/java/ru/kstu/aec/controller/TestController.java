@@ -127,11 +127,6 @@ public class TestController {
         questionDtos.add(questionDTO);
         Statistic statistic = new Statistic();
         statistic.setTest(testService.getTest(test.getId()));
-        for(int i = 0; i < user.getStatistics().size(); i++) {
-            if(user.getStatistics().get(i).getTest().getId().equals(statistic.getTest().getId())) {
-                statisticService.deleteStatistic(user.getStatistics().get(i));
-            }
-        }
         statistic.setUser(user);
         for (QuestionDTO q : questionDtos) {
             Question question = questionService.getQuestion(q.getId());
@@ -160,8 +155,18 @@ public class TestController {
         System.out.println("pol=" + statistic.getPol());
         System.out.println("chl=" + statistic.getChl());
         System.out.println("upr=" + statistic.getUpr());
-        statisticService.saveStatistic(statistic);
-
+        boolean bol = true;
+        for(int i = 0; i < user.getStatistics().size(); i++) {
+            if(user.getStatistics().get(i).getTest().getId().equals(statistic.getTest().getId())) {
+                bol = false;
+                statistic.setId(user.getStatistics().get(i).getId());
+                statisticService.updateStatistic(statistic);
+                break;
+            }
+        }
+        if(bol) {
+            statisticService.saveStatistic(statistic);
+        }
         int plus = statistic.getPol()/5 + statistic.getChl()/15 + statistic.getUpr()/30;
         int all = questionDtos.size();
         int pol = statistic.getPol()/5;

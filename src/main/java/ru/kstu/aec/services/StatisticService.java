@@ -15,12 +15,8 @@ public class StatisticService {
         this.statisticRepository = statisticRepository;
     }
 
-    public Statistic getStatistic() throws Exception {
-        Statistic last = null;
-        for (Statistic st : statisticRepository.findAll()) {
-            last = st;
-        }
-        return last;
+    public Statistic getStatistic(Long id) throws Exception {
+        return statisticRepository.findById(id).orElseThrow();
     }
 
     @Transactional
@@ -29,7 +25,12 @@ public class StatisticService {
     }
 
     @Transactional
-    public void deleteStatistic(Statistic statistic) {
-        statisticRepository.delete(statistic);
+    public void updateStatistic(Statistic statistic) {
+        statisticRepository.save(statistic);
+    }
+
+    @Transactional
+    public void deleteStatistic(Long id) {
+        statisticRepository.deleteById(id);
     }
 }
