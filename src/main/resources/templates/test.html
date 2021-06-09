@@ -32,7 +32,9 @@
             <div class="widget">
                 <form role="form" th:action="@{/test/next}" th:method="POST" th:object="${questionDTO}">
                     <p th:utext="${question.getText()}">Вопрос</p>
+                    <br>
                     <image th:if="${question.getImage()} != null" th:src="${question.getImage()}" class="widget__image"></image>
+                    <br>
                     <ul>
                         <li th:each="answer: ${question.getAnswers()}">
                             <input type="radio" name="answer" th:field="*{answer}" th:value="${answer.id}"/>
@@ -41,7 +43,9 @@
                     </ul>
                     <br>
                     <button th:if="${count} != ${first}" class="widget__button" type="submit" name="submit" th:formaction="@{/test/previous}">Предыдущий вопрос</button>
+                    <br>
                     <button th:if="${count} != ${last}" class="widget__button" type="submit" name="submit">Следующий вопрос</button>
+                    <br>
                     <button th:if="${count} == ${last}" class="main__button widget__button" type="submit" name="submit" th:formaction="@{/test/end}">Закончить тест</button>
                 </form>
             </div>

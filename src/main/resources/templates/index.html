@@ -33,6 +33,7 @@
                 <a th:href="@{/course/{courseId}(courseId=${course.getId()})}" class="widget widget__a"><div>
                     <h2 th:utext="${course.getName()}">Название курса</h2>
                     <h3 th:utext="${course.getUser().getFullName()}">Автор курса</h3>
+                    <br>
                     <p th:utext="${course.getDescription}">Описание курса</p>
                 </div></a>
             </th:block>
