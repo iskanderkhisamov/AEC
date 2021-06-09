@@ -79,6 +79,7 @@ public class TestController {
         qid = 0;
         model.addAttribute("count", qid);
         test = testService.getTest(tid);
+        questionDtos = new HashSet<QuestionDTO>();
         return "redirect:/course/"+course.getId()+"/chapter/"+chapter.getId()+"/test/"+test.getId()+"/question/0";
     }
 
